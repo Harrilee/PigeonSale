@@ -4,11 +4,11 @@ Software engineering course project. Secondhand trading system.
 ## Documentation
 * [API doumenatation](./documentation/API_documentation.md): list of APIs
 * Contribution log: working record of each group member
-  * [Cycle 1](.documentation/contribution_log/cycle_1.md)
-  * [Cycle 2](.documentation/contribution_log/cycle_2.md)
-  * [Cycle 3](.documentation/contribution_log/cycle_3.md)
-  * [Cycle 4](.documentation/contribution_log/cycle_4.md)
-  * [Post Cycle 4](.documentation/contribution_log/cycle_5.md)
+  * [Cycle 1](./documentation/contribution_log/cycle_1.md)
+  * [Cycle 2](./documentation/contribution_log/cycle_2.md)
+  * [Cycle 3](./documentation/contribution_log/cycle_3.md)
+  * [Cycle 4](./documentation/contribution_log/cycle_4.md)
+  * [Post Cycle 4](./documentation/contribution_log/cycle_5.md)
 
 ## Release History
 None
