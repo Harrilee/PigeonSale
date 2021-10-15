@@ -23,8 +23,9 @@ Oct 17 to Oct 30.
 * Harry has added this
 * 爸爸快传家宝数控机床芭思蔻是近八十块VB就萨克是看VB阿拉斯加
 * Harry's change 2
-* Mary has a little lamb
+* Mary had a little lamb
 * Rage, rage against the dying of light
+* 
 
 ### Cycle 2
 Oct 31 to Nov 13.
