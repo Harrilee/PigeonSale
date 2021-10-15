@@ -20,6 +20,7 @@ Oct 17 to Oct 30.
 * Establishing backend code base
 * Establishing frontend code base
 * Create database and sample data in the database
+* Harry has added this
 * 爸爸快传家宝数控机床芭思蔻是近八十块VB就萨克是看VB阿拉斯加
 
 ### Cycle 2
