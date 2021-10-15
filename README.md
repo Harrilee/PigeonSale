@@ -21,6 +21,7 @@ Oct 17 to Oct 30.
 * Establishing frontend code base
 * Create database and sample data in the database
 * 爸爸快传家宝数控机床芭思蔻是近八十块VB就萨克是看VB阿拉斯加
+* Mary has a little lamb
 
 ### Cycle 2
 Oct 31 to Nov 13.
