@@ -17,22 +17,48 @@ None
 
 ### Cycle 1
 Oct 17 to Oct 30.
-* Establishing backend code base
-* Establishing frontend code base
-* Create database and sample data in the database
-* Harry has added this
-* 爸爸快传家宝数控机床芭思蔻是近八十块VB就萨克是看VB阿拉斯加
-* Harry's change 2
-* Mary has a little lamb
-* Rage, rage against the dying of light
+* Base code
+  * Establishing backend code base
+  * Establishing frontend code base
+  * Create database and sample data in the database
+* Authentication class
+  * Login page
+  * Password reset page
+  * Backend support
+* User class
+  * User bio page
+    * My orders
+      * Bought
+      * Sell
+  * Backend support
 
 ### Cycle 2
 Oct 31 to Nov 13.
+* Post class
+    * Show all the posts
+    * Show single post
+    * Query page for posts
+* Address
+  * Add address page 
 
 ### Cycle 3
 Nov 14 to Nov 27.
-
+* Deal
+  * Deal confirmation page
+* Image class
+  * Modify the original text editor to support image
+* Staff
+  * Modify the original user pages to support staff actions
 ### Cycle 4
 Nov 28 to Dec 11.
-
+* Chat
+  * Establish web socket
+  * Start chat at
+    * Post
+    * Search user
+    * ...
+* Rate
+  * Page for rate after deal
+* Admin
+  * Page to manage staffs
 
