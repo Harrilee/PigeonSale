@@ -28,9 +28,6 @@ Oct 17 to Oct 30.
   * Backend support
 * User class
   * User bio page
-    * My orders
-      * Bought
-      * Sell
   * Backend support
 
 ### Cycle 2
@@ -50,6 +47,10 @@ Nov 14 to Nov 27.
   * Modify the original text editor to support image
 * Staff
   * Modify the original user pages to support staff actions
+* User order page
+    * My orders
+    * Bought
+    * Sell
 ### Cycle 4
 Nov 28 to Dec 11.
 * Chat
