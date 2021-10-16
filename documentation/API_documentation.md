@@ -1,27 +1,56 @@
 # API documentation
 
-## ./auth
-* `./auth/login`
-  * Request: `POST`
+## Response definition
+
+### Response for valid request
   ```json
   {
-     "email": "the email of the user",
-     "password": "user's password"
+     "status": 1,
+     "data": "<requested data>"
   }
   ```
-  * Response
-    * Case: success
-    ```json
-       {
-          "status": 1,
-          "username": "the username",
-          "avatar": "an url of user's profile photo"
-       }
-    ```
-    * Case: fail
-    ```json
-       {
-          "status": 0,
-          "msg": "the reason why failed to login"
-       }
-    ```
+### Response for invalid request
+  ```json
+  {
+     "status": 0,
+     "code": "<error code",
+     "msg": "<reason for invalid request>"
+  }
+  ```
+## API list
+
+### ./hello
+For test purpose
+* `./hello`
+  * Method  `GET`
+    * Request
+      * `prefix`: String, the people who say 'Hello world!'
+    * Response
+      * `data`: String, the message to display
+    * Error code
+      * `000`: Missing arguments
+  * Method `POST`
+    * Request
+      * `name`: String, username
+      * `email`: String: email
+    * Response
+      * `data`: String, the message to display
+    * Error code
+      * `000`: Missing arguments
+
+### ./auth
+* `./auth/user/login`
+  * Method `POST`
+    * Request
+      * `email`: String, the email user used to register
+      * `password`: String, user's password
+    * Response
+      * `data`
+        * `username`: String, username to display
+        * `avatar`: String, url of the user's profile photo
+    * Error code
+      * `000`: Missing arguments
+      * `001`: Incorrect password
+      * `002`: Email not registered
+
+

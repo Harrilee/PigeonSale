@@ -3,6 +3,7 @@ Software engineering course project. Secondhand trading system.
 
 ## Documentation
 * [API doumenatation](./documentation/API_documentation.md): list of APIs
+  * [Backend documentation](./backend/README.md): notes on how to establish backend server
 * Contribution log: working record of each group member
   * [Cycle 1](./documentation/contribution_log/cycle_1.md)
   * [Cycle 2](./documentation/contribution_log/cycle_2.md)
