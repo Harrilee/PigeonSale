@@ -6,15 +6,16 @@
 """
 import os
 
-from flask import Flask
+from flask import Flask, g
 from flask_cors import CORS
+from . import config
 
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     CORS(app, resources=r'/*', supports_credentials=True)
     app.config.from_mapping(
-        SECRET_KEY='dev',
+        SECRET_KEY=config.SECRET_KEY,
     )
 
     if test_config is None:
@@ -28,7 +29,7 @@ def create_app(test_config=None):
         pass
 
     import routes, models
-    # db.init_app(app)
+    g.db = models.database
     routes.init_app(app)
 
     return app

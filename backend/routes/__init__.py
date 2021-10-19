@@ -4,8 +4,10 @@
 @Author  : Harry Lee
 @Email   : harrylee@nyu.edu
 """
+from models import sql
 import routes.hello
 
 
 def init_app(app):
+
     app.register_blueprint(hello.bp)

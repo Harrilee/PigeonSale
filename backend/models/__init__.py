@@ -6,6 +6,10 @@
 """
 
 from flask import json, request
+import hashlib
+
+import config
+import authentication, database, user
 
 
 def post_data():
@@ -48,3 +52,17 @@ def api_fail(code, msg):
         "code": code,
         "msg": msg
     })
+
+
+def encrypt_password(password):
+    """
+    encrypt user's password in MD5 with salt
+    :param password: the original password user sent
+    :return:
+    """
+    password = password + config.PWD_SALT
+    return hashlib.md5(bytes(password, encoding='utf-8')).hexdigest()
+
+
+if __name__ == '__main__':
+    print(encrypt_password('dd010607'))
