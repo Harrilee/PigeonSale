@@ -5,11 +5,14 @@
 @Email   : harrylee@nyu.edu
 """
 
-from flask import json, request
 import hashlib
 
+from flask import json, request
+
+import models.authentication
 import config
-import authentication, database, user
+import models.database
+import models.user
 
 
 def post_data():

@@ -8,7 +8,7 @@ import os
 
 from flask import Flask, g
 from flask_cors import CORS
-from . import config
+import config
 
 
 def create_app(test_config=None):
@@ -29,7 +29,7 @@ def create_app(test_config=None):
         pass
 
     import routes, models
-    g.db = models.database
-    routes.init_app(app)
-
+    with app.app_context():
+        g.db = models.database.Database()
+        routes.init_app(app)
     return app
