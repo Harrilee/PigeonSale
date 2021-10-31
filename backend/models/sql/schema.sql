@@ -1,102 +1,110 @@
-create table User
-	(user_id		numeric(15,0),
-	 username		varchar(20),
-	 bio		varchar(15),
-     password varchar(15),
-	 primary key (user_id),
-	 index (username)
-	);
+CREATE TABLE User
+(
+    user_id  INT AUTO_INCREMENT,
+    username VARCHAR(20),
+    bio      VARCHAR(100),
+    password VARCHAR(50),
+    avatar   VARCHAR(50),
+    PRIMARY KEY (user_id),
+    INDEX (username)
+);
 
-create table Post
-	(post_id		numeric(15,0),
-	 post_content	varchar(100),
-	 post_author_id		numeric(15,0),
-     post_author_username		varchar(20),
-     post_status		numeric(1,0),
-     	check (post_status in (0, 1, 2)),
-     post_product_price		numeric(15,0),
-     post_product_status		numeric(1,0),
-     	check (post_product_status in (0, 1)),
-	 primary key (post_id),
-	 foreign key (post_author_id) references User(user_id)
-		on delete cascade,
-     foreign key (post_author_username) references User(username)
-		on delete cascade
-	);
+CREATE TABLE Post
+(
+    post_id              INT AUTO_INCREMENT,
+    post_content         VARCHAR(100),
+    post_author_id       INT,
+    post_author_username VARCHAR(20),
+    post_status          NUMERIC(1, 0),
+    CHECK (post_status in (0, 1, 2)),
+    post_product_price   NUMERIC(15, 0),
+    post_product_status  NUMERIC(1, 0),
+    CHECK (post_product_status in (0, 1)),
+    PRIMARY KEY (post_id),
+    FOREIGN KEY (post_author_id) REFERENCES User (user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (post_author_username) REFERENCES User (username)
+        ON DELETE CASCADE
+);
 
-create table Image
-	(image_owner_id		numeric(15,0),
-	 image_url		varchar(100),
-	 image_alt_text		varchar(100),
-     post_id		numeric(15,0),
-	 primary key (image_owner_id,image_url),
-     foreign key (image_owner_id) references User(user_id)
-		on delete cascade,
-     foreign key (post_id) references Post(post_id)
-		on delete cascade
-	);
+CREATE TABLE Image
+(
+    image_owner_id INT,
+    image_url      VARCHAR(100),
+    image_alt_text VARCHAR(100),
+    post_id        INT,
+    PRIMARY KEY (image_owner_id, image_url),
+    FOREIGN KEY (image_owner_id) REFERENCES User (user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES Post (post_id)
+        ON DELETE CASCADE
+);
 
-create table Message
-	(sender_id		numeric(15,0),
-	 receiver_id	numeric(15,0),
-	 post_id		numeric(15,0),
-     send_time		timestamp,
-	 msg		varchar(100),
-	 primary key (sender_id,receiver_id,send_time,msg),
-	 foreign key (post_id) references Post(post_id)
-		on delete cascade,
-     foreign key (sender_id) references User(user_id)
-		on delete cascade,
-     foreign key (receiver_id) references User(user_id)
-		on delete cascade
-	);
+CREATE TABLE Message
+(
+    sender_id   INT,
+    receiver_id INT,
+    post_id     INT,
+    send_time   TIMESTAMP,
+    msg         VARCHAR(256),
+    PRIMARY KEY (sender_id, receiver_id, send_time, msg),
+    FOREIGN KEY (post_id) REFERENCES Post (post_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES User (user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES User (user_id)
+        ON DELETE CASCADE
+);
 
-create table Address
-	(name		varchar(15),
-	 phone		numeric(15,0),
-	 address		varchar(50),
-     uid		numeric(15,0),
-	 user_id		numeric(15,0),
-	 primary key (address,user_id),
-     foreign key (user_id) references User(user_id)
-		on delete cascade
-	);
+CREATE TABLE Address
+(
+    name    VARCHAR(15),
+    phone   NUMERIC(15, 0),
+    address VARCHAR(50),
+    user_id INT,
+    PRIMARY KEY (address, user_id),
+    FOREIGN KEY (user_id) REFERENCES User (user_id)
+        ON DELETE CASCADE
+);
 
-create table Deal
-	(deal_id		numeric(15,0),
-	 post_id		numeric(15,0),
-	 seller_id		numeric(15,0),
-     buyer_id		numeric(15,0),
-     price		numeric(15,0),
-	 sender_address		varchar(50),
-     buyer_address		varchar(50),
-     payment_status		numeric(1,0),
-     	check (payment_status in (0, 1)),
-     package_status		numeric(1,0),
-     	check (package_status in (0, 1)),
-	 primary key (deal_id),
-     foreign key (seller_id) references Address(user_id)
-		on delete cascade,
-     foreign key (buyer_id) references Address(user_id)
-		on delete cascade,
-     foreign key (buyer_address) references Address(address)
-		on delete cascade,
-     foreign key (sender_address) references Address(address)
-		on delete cascade
-	);
+CREATE TABLE Deal
+(
+    deal_id        INT AUTO_INCREMENT,
+    post_id        INT,
+    seller_id      INT,
+    buyer_id       INT,
+    price          NUMERIC(15, 0),
+    sender_address VARCHAR(50),
+    buyer_address  VARCHAR(50),
+    payment_status NUMERIC(1, 0),
+    CHECK (payment_status in (0, 1)),
+    package_status NUMERIC(1, 0),
+    CHECK (package_status in (0, 1)),
+    PRIMARY KEY (deal_id),
+    FOREIGN KEY (seller_id) REFERENCES Address (user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (buyer_id) REFERENCES Address (user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (buyer_address) REFERENCES Address (address)
+        ON DELETE CASCADE,
+    FOREIGN KEY (sender_address) REFERENCES Address (address)
+        ON DELETE CASCADE
+);
 
-create table Rate
-	(deal_id		numeric(15,0),
-	 rate		numeric(3,0),
-	 comment		varchar(100),
-	 primary key (deal_id,rate,comment),
-     foreign key (deal_id) references Deal(deal_id)
-		on delete cascade
-	);
+CREATE TABLE Rate
+(
+    deal_id INT AUTO_INCREMENT,
+    rate    NUMERIC(5, 0),
+    comment VARCHAR(100),
+    PRIMARY KEY (deal_id, rate, comment),
+    FOREIGN KEY (deal_id) REFERENCES Deal (deal_id)
+        ON DELETE CASCADE
+);
 
-create table Staff
-	(staff_id		numeric(15,0),
-	 staff_name		varchar(20),
-	 password		varchar(15),
-	 primary key (staff_id)
-	);
+CREATE TABLE Staff
+(
+    staff_id   INT AUTO_INCREMENT,
+    staff_name VARCHAR(20),
+    password   VARCHAR(15),
+    PRIMARY KEY (staff_id)
+);
