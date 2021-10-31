@@ -20,7 +20,7 @@ create table Post
 	 foreign key (post_author_id) references User(user_id)
 		on delete cascade,
      foreign key (post_author_username) references User(username)
-		on delete cascade,
+		on delete cascade
 	);
 
 create table Image
@@ -32,7 +32,7 @@ create table Image
      foreign key (image_owner_id) references User(user_id)
 		on delete cascade,
      foreign key (post_id) references Post(post_id)
-		on delete cascade,
+		on delete cascade
 	);
 
 create table Message
@@ -47,7 +47,7 @@ create table Message
      foreign key (sender_id) references User(user_id)
 		on delete cascade,
      foreign key (receiver_id) references User(user_id)
-		on delete cascade,
+		on delete cascade
 	);
 
 create table Address
@@ -58,7 +58,7 @@ create table Address
 	 user_id		numeric(15,0),
 	 primary key (address,user_id),
      foreign key (user_id) references User(user_id)
-		on delete cascade,
+		on delete cascade
 	);
 
 create table Deal
@@ -81,7 +81,7 @@ create table Deal
      foreign key (buyer_address) references Address(address)
 		on delete cascade,
      foreign key (sender_address) references Address(address)
-		on delete cascade,
+		on delete cascade
 	);
 
 create table Rate
@@ -90,12 +90,12 @@ create table Rate
 	 comment		varchar(100),
 	 primary key (deal_id,rate,comment),
      foreign key (deal_id) references Deal(deal_id)
-		on delete cascade,
+		on delete cascade
 	);
 
 create table Staff
 	(staff_id		numeric(15,0),
 	 staff_name		varchar(20),
 	 password		varchar(15),
-	 primary key (staff_id),
+	 primary key (staff_id)
 	);
