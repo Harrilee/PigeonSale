@@ -3,7 +3,8 @@ create table User
 	 username		varchar(20),
 	 bio		varchar(15),
      password varchar(15),
-	 primary key (user_id)
+	 primary key (user_id),
+	 index (username)
 	);
 
 create table Post
