@@ -93,7 +93,7 @@ CREATE TABLE Deal
 
 CREATE TABLE Rate
 (
-    deal_id INT AUTO_INCREMENT,
+    deal_id INT,
     rate    NUMERIC(5, 0),
     comment VARCHAR(100),
     PRIMARY KEY (deal_id, rate, comment),
