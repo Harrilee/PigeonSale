@@ -13,7 +13,7 @@
   ```json
   {
      "status": 0,
-     "code": "<error code",
+     "code": "<error code>",
      "msg": "<reason for invalid request>"
   }
   ```
