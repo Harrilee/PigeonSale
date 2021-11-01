@@ -5,7 +5,7 @@
 @Email   : harrylee@nyu.edu
 """
 import hashlib
-from backend import config
+from .. import config
 from flask import json, request
 
 def post_data():
