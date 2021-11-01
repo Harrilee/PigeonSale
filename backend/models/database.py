@@ -46,11 +46,8 @@ class Database:
             cursor.execute("CREATE DATABASE IF NOT EXISTS {}".format(config.DB_NAME))
             cursor.execute("USE {}".format(config.DB_NAME))
             with open(config.DB_SCHEMA) as f:
-                sql = f.readlines()
-                for line in sql:
-                    if line == "":
-                        continue
-                    cursor.execute(line)
+                sql = f.read()
+                cursor.execute(sql)
             cursor.commit()
         print("Database initialized")
 
