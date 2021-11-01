@@ -7,6 +7,7 @@
 import pymysql.cursors
 import config
 
+
 class Database:
     def __init__(self):
         self.db = pymysql.connect(
@@ -47,6 +48,8 @@ class Database:
             with open(config.DB_SCHEMA) as f:
                 sql = f.readlines()
                 for line in sql:
+                    if line == "":
+                        continue
                     cursor.execute(line)
             cursor.commit()
         print("Database initialized")
