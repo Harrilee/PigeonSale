@@ -5,7 +5,9 @@
 @Email   : harrylee@nyu.edu
 """
 import hashlib
-from .. import config
+import sys
+sys.path.append("..")
+import config
 from flask import json, request
 
 def post_data():
