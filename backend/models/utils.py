@@ -58,3 +58,9 @@ def encrypt_password(password):
     """
     password = password + config.PWD_SALT
     return hashlib.md5(bytes(password, encoding='utf-8')).hexdigest()
+
+if __name__ == '__main__':
+    print(encrypt_password('001'))
+    print(encrypt_password('002'))
+    print(encrypt_password('003'))
+    print(encrypt_password('004'))

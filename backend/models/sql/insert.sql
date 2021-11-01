@@ -12,10 +12,10 @@ ALTER TABLE Post AUTO_INCREMENT = 101;
 ALTER TABLE Deal AUTO_INCREMENT = 201;
 ALTER TABLE Staff AUTO_INCREMENT = 301;
 
-Insert into User values(NULL,"Tom",NULL,"tomcat",NULL);
-Insert into User values(NULL,"Jerry",NULL,"jerrymouse",NULL);
-Insert into User values(NULL,"Pigeon",NULL,"bird",NULL);
-Insert into User values(NULL,"John",NULL,"johnsmith",NULL);
+Insert into User values(NULL,"Tom","I'm Tom","e27ef5ef5ff1d3d09225887f5e2a0b07","hl3794+tom@nyu.edu",""); -- pwd 001
+Insert into User values(NULL,"Jerry","I'm Jerry","b2a69d348c40484aa9663bbcf2e07a3d","hl3794+jerrymouse@nyu.edu","");-- pwd 002
+Insert into User values(NULL,"Pigeon","I'm Pigeon","58aa87d89b40374f7292dd92f344f699","hl3794+bird@nyu.edu","");-- pwd 003
+Insert into User values(NULL,"John","I'm John","8f2edca886227b39431b3b3ff662935f","hl3794+johnsmith@nyu.edu","");-- pwd 004
 
 Insert into Post values(NULL,"I am a cat, and I highly recommend this catfood brand", 1, "Tom", 1, 50, 1);
 Insert into Post values(NULL,"I am a mouse, and I highly recommend this cheese brand", 2, "Jerry", 1, 25, 1);
