@@ -11,8 +11,8 @@ DB_PORT = 3306
 DB_PASSWORD = ''
 DB_USER = 'root'
 DB_NAME = 'pigeon_sale'
-DB_SCHEMA = ''
-DB_INSERT = ''
+DB_SCHEMA = './models/sql/schema.sql'
+DB_INSERT = './models/sql/insert.sql'
 
 # Flask configuration
 SECRET_KEY = '20210818SZ'

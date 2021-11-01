@@ -1,9 +1,14 @@
+DROP DATABASE pigeon_sale;
+CREATE DATABASE pigeon_sale;
+use pigeon_sale;
+
 CREATE TABLE User
 (
     user_id  INT AUTO_INCREMENT,
     username VARCHAR(20),
     bio      VARCHAR(100),
     password VARCHAR(50),
+    email    VARCHAR(50) UNIQUE,
     avatar   VARCHAR(50),
     PRIMARY KEY (user_id),
     INDEX (username)

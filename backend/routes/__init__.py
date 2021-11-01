@@ -4,10 +4,9 @@
 @Author  : Harry Lee
 @Email   : harrylee@nyu.edu
 """
-from models import sql
 import routes.hello
-
+import routes.auth
 
 def init_app(app):
-
     app.register_blueprint(hello.bp)
+    app.register_blueprint(auth.bp)

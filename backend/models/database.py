@@ -5,9 +5,7 @@
 @Email   : harrylee@nyu.edu
 """
 import pymysql.cursors
-
 import config
-
 
 class Database:
     def __init__(self):
@@ -27,6 +25,14 @@ class Database:
                 pass
             else:
                 print("Database {} found in mysql.".format(config.DB_NAME))
+            self.db = pymysql.connect(
+                host=config.DB_HOST,
+                port=config.DB_PORT,
+                user=config.DB_USER,
+                database=config.DB_NAME,
+                password=config.DB_PASSWORD,
+                cursorclass=pymysql.cursors.DictCursor
+            )
 
     def reset_database(self):
         """
@@ -35,15 +41,14 @@ class Database:
         """
         print("Creating sql...")
         with self.db.cursor() as cursor:
-            cursor.execute("""
-            DROP DATABASE IF EXISTS {};
-            CREATE DATABASE IF NOT EXISTS {};
-            USE {};
-            """.format(config.DB_NAME, config.DB_NAME, config.DB_NAME))
-            with open("sql/schema.sql") as f:
-                sql = f.read()
-                print(f)
-
+            cursor.execute("DROP DATABASE IF EXISTS {};".format(config.DB_NAME))
+            cursor.execute("CREATE DATABASE IF NOT EXISTS {}".format(config.DB_NAME))
+            cursor.execute("USE {}".format(config.DB_NAME))
+            with open(config.DB_SCHEMA) as f:
+                sql = f.readlines()
+                for line in sql:
+                    cursor.execute(line)
+            cursor.commit()
         print("Database initialized")
 
 

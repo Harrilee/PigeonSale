@@ -30,6 +30,8 @@ def create_app(test_config=None):
 
     import routes, models
     with app.app_context():
-        g.db = models.database.Database()
         routes.init_app(app)
     return app
+
+if __name__ == '__main__':
+    create_app().run(debug=True)

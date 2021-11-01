@@ -23,5 +23,5 @@ def hello_world():
         print(req)
         if 'name' in req and 'email' in req:
             return api_success("The email address of {} is {}".format(req['name'], req['email']))
-        else:
+        else: 
             return api_fail("000", "Cannot find argument 'name' or 'email' within the request body.")
