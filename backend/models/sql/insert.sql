@@ -27,7 +27,7 @@ Insert into Image values(2,"def","nnnnnn",102);
 Insert into Image values(3,"ghi","oooooo",103);
 Insert into Image values(4,"jkl","pppppp",104);
 
-Insert into Message values(1,2,102,'2021-08-15 09:00:30',"I'm interested with yo-I mean, your cheese. Looking forward to hearing from you!");
+Insert into Message values(1,2,102,'2021-08-15 09:00:30',"I'm interested with you-I mean, your cheese. Looking forward to hearing from you!");
 Insert into Message values(2,3,103,'2021-08-01 09:00:30',"I can't understand a word you're talking about");
 Insert into Message values(3,4,104,'2021-06-01 07:00:30',"*Pigeon's murmuring voice*");
 Insert into Message values(4,1,101,'2021-06-03 08:00:30',"Are you really that Tom, from Tom and Jerry? I've been your fan since I was 4 years old!");
