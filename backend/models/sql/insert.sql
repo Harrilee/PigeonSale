@@ -42,7 +42,7 @@ Insert into Deal values(NULL, 102, 2, 1, 25, "Jerry's Home Sweet Home", "Pine's 
 Insert into Deal values(NULL, 103, 3, 2, 100, "Pigeonland", "Jerry's Home Sweet Home", 1, 0);
 Insert into Deal values(NULL, 104, 4, 3, 200, "Piccadilly", "Pigeonland", 1, 1);
 
-Insert into Rate values(201, 100, "The catfood is great! My cat loves it!");
+Insert into Rate values(201, 100, "The catfood is great! Topsy loves it!");
 Insert into Rate values(202, 99, "The cheese is nice");
 Insert into Rate values(203, 80, "Why is the package full of feathers?");
 Insert into Rate values(204, 90, "*compliment with satisfication, in pigeon language*");
