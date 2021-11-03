@@ -8,4 +8,4 @@ Oct 17 to Oct 30.
 * October 20: Added the barebones frontend code base
 
 ## Justin Chen
-* ...
+* Oct 30: Added the schema.sql for the database; inserted testing values to insert.sql
