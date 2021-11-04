@@ -16,9 +16,9 @@ def user_login():
     userController = UserController()
     if 'email' not in req or 'password' not in req:
         return api_fail("000", "Missing arguments")
-    check = userController.check_password(req['email'], req['password'])
+    check, uid = userController.check_password(req['email'], req['password'])
     if check == True:
-        session['uid'] = True
+        session['uid'] = uid
         return api_success()
     if check == -1:
         return api_fail("001", "Email not registered")

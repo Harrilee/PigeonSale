@@ -6,9 +6,11 @@
 """
 import hashlib
 import sys
+
 sys.path.append("..")
 import config
-from flask import json, request
+from flask import json, request, session
+
 
 def post_data():
     """
@@ -60,6 +62,16 @@ def encrypt_password(password):
     """
     password = password + config.PWD_SALT
     return hashlib.md5(bytes(password, encoding='utf-8')).hexdigest()
+
+
+def check_login(func):
+    def wrapper(*args):
+        if 'uid' in session:
+            return func(*args)
+        return api_fail('009', 'check_login: not logged in.')
+
+    return wrapper
+
 
 if __name__ == '__main__':
     print(encrypt_password('001'))
