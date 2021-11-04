@@ -115,7 +115,7 @@ For test purpose
       * `005`: Gender not valid
       * `006`: Avatar file not valid
       * `007`: Password not valid
-  * Method `UPDATE`: update user info
+  * Method `PUT`: update user info
     * Request
       * `username`: String, nickname preferred by user
       * `email`: String, email address, unique
@@ -177,7 +177,7 @@ For test purpose
       * `005`: Gender not valid
       * `006`: Avatar file not valid
       * `007`: Password not valid
-  * Method `UPDATE`: update staff info
+  * Method `PUT`: update staff info
     * Request
       * `username`: String, nickname preferred by user
       * `email`: String, email address, unique
