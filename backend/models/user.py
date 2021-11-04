@@ -41,8 +41,9 @@ class User:
                     SET username=%s, bio=%s, password=%s, avatar=%s, email=%s, birthday=%s, gender=%s
                     WHERE user_id = %s; 
                 """, (
-                self.username, self.bio, self.password_encrypted, self.avatar, self.email, self.birthday, self.gender,
-                self.user_id))
+                    self.username, self.bio, self.password_encrypted, self.avatar, self.email, self.birthday,
+                    self.gender,
+                    self.user_id))
                 db.db.commit()
         elif data['COUNT'] == 0:
             # If user_id does not exist
@@ -51,7 +52,8 @@ class User:
                     INSERT INTO user(username, bio, password, avatar, email, birthday, gender)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """, (
-                self.username, self.bio, self.password_encrypted, self.avatar, self.email, self.birthday, self.gender))
+                    self.username, self.bio, self.password_encrypted, self.avatar, self.email, self.birthday,
+                    self.gender))
                 db.db.commit()
         else:
             raise Exception("No operation done to database")
@@ -88,13 +90,13 @@ class User:
         return self.password_encrypted == encrypt_password(pwd)
 
     def get_info(self):
-        output= {}
+        output = {}
         output['username'] = self.username
         output['bio'] = self.bio
         output['avatar'] = self.avatar
         output['user_id'] = self.user_id
         output['birthday'] = self.birthday
-        output['gender'] = "Male" if self.gender==1 else "Female" if self.gender==0 else "Other"
+        output['gender'] = "Male" if self.gender == 1 else "Female" if self.gender == 0 else "Other"
         return output
 
 
@@ -129,6 +131,8 @@ class UserController:
 
     def check_password(self, email, pwd):
         user = self.get_user_by_email(email)
+        if user == -1:
+            return -1, -1
         return user.check_password(pwd), user.user_id
 
     def add_new_user(self, username, password, email, bio="", avatar='', birthday=None, gender=None):

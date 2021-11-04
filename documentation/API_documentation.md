@@ -151,8 +151,8 @@ For test purpose
     * Error code
       * `000` Missing arguments
       * `008` No such user
-* `./account/user/get_code`
-  * Method: `POST`: generate a verification code for user
+* `./account/user/code`
+  * Method: `GET`: generate a verification code for user
     * Request: None
     * Response
       * `data`: Empty string
@@ -213,8 +213,8 @@ For test purpose
     * Error code
       * `000` Missing arguments
       * `008` No such staff
-* `./account/staff/get_code`
-  * Method: `POST`: generate a verification code for staff
+* `./account/staff/code`
+  * Method: `GET`: generate a verification code for staff
     * Request: None
     * Response
       * `data`: Empty string
