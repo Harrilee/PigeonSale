@@ -51,7 +51,7 @@ def add_user():
     return api_success()
 
 
-@bp.route('/user', methods=['UPDATE'])
+@bp.route('/user', methods=['PUT'])
 @check_login
 def modify_user():
     req = post_data()
