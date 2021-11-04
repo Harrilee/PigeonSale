@@ -43,10 +43,8 @@ CREATE TABLE Image
     image_alt_text VARCHAR(100),
     post_id        INT,
     PRIMARY KEY (img_id),
-    FOREIGN KEY (image_owner_id) REFERENCES User (user_id)
+    FOREIGN KEY (image_owner_id, post_id) REFERENCES Post(post_author_id, post_id)
         ON DELETE CASCADE,
-    FOREIGN KEY (post_id) REFERENCES Post (post_id)
-        ON DELETE CASCADE
 );
 
 CREATE TABLE Message
@@ -58,12 +56,10 @@ CREATE TABLE Message
     send_time   TIMESTAMP,
     msg         VARCHAR(256),
     PRIMARY KEY (msg_id),
-    FOREIGN KEY (post_id) REFERENCES Post (post_id)
+    FOREIGN KEY (receiver_id,post_id) REFERENCES Post (post_author_id,post_id)
         ON DELETE CASCADE,
     FOREIGN KEY (sender_id) REFERENCES User (user_id)
         ON DELETE CASCADE,
-    FOREIGN KEY (receiver_id) REFERENCES User (user_id)
-        ON DELETE CASCADE
 );
 
 CREATE TABLE Address
@@ -91,14 +87,12 @@ CREATE TABLE Deal
     package_status INT,
     CHECK (package_status in (0, 1)),
     PRIMARY KEY (deal_id),
-    FOREIGN KEY (seller_id) REFERENCES Address (user_id)
+    FOREIGN KEY (seller_id, sender_address) REFERENCES Address (user_id, address)
         ON DELETE CASCADE,
-    FOREIGN KEY (buyer_id) REFERENCES Address (user_id)
+    FOREIGN KEY (buyer_id, buyer_address) REFERENCES Address (user_id, address)
         ON DELETE CASCADE,
-    FOREIGN KEY (buyer_address) REFERENCES Address (address)
+    FOREIGN KEY (seller_id, post_id) REFERENCES Post(post_author_id, post_id)
         ON DELETE CASCADE,
-    FOREIGN KEY (sender_address) REFERENCES Address (address)
-        ON DELETE CASCADE
 );
 
 CREATE TABLE Rate
