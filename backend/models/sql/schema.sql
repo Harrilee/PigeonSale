@@ -44,7 +44,7 @@ CREATE TABLE Image
     post_id        INT,
     PRIMARY KEY (img_id),
     FOREIGN KEY (image_owner_id, post_id) REFERENCES Post(post_author_id, post_id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Message
@@ -59,7 +59,7 @@ CREATE TABLE Message
     FOREIGN KEY (receiver_id,post_id) REFERENCES Post (post_author_id,post_id)
         ON DELETE CASCADE,
     FOREIGN KEY (sender_id) REFERENCES User (user_id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Address
@@ -92,7 +92,7 @@ CREATE TABLE Deal
     FOREIGN KEY (buyer_id, buyer_address) REFERENCES Address (user_id, address)
         ON DELETE CASCADE,
     FOREIGN KEY (seller_id, post_id) REFERENCES Post(post_author_id, post_id)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Rate
