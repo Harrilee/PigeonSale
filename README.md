@@ -1,6 +1,15 @@
 # PigeonSale
 Software engineering course project. Secondhand trading system.
 
+## Environment
+The following services are required to install on your machine:
+* MySQL (XAMPP is recommended)
+* [Redis](https://redis.io/download)
+* Python 3
+  * flask
+  * redis
+  * pymysql
+
 ## Documentation
 * [API doumenatation](./documentation/API_documentation.md): list of APIs
   * [Backend documentation](./backend/README.md): notes on how to establish backend server

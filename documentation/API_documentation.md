@@ -94,7 +94,14 @@ For test purpose
     * Request: None
     * Response
       * `data`: Empty string
-
+* `./account/code`
+  * Method: `POST`: generate a verification code for staff/user
+    * Request: 
+      * `email`: the email to send to
+    * Response
+      * `data`: Empty string
+    * Error code:
+      * `000`: Missing arguments
 ### ./account
 * `./account/user`
   * Method `POST`: add new user
@@ -135,6 +142,7 @@ For test purpose
       * `006`: Avatar file not valid
       * `007`: Password not valid
       * `009`: Not logged in or not qualified
+      * `010`: verification code not correct
   * Method `GET`: get one user info
     * Request: has at least 1 argument
       * `email`: email of the user
@@ -151,13 +159,7 @@ For test purpose
     * Error code
       * `000` Missing arguments
       * `008` No such user
-* `./account/user/code`
-  * Method: `GET`: generate a verification code for user
-    * Request: None
-    * Response
-      * `data`: Empty string
-    * Error code:
-      * `009`: Not logged in or not qualified
+
 * `./account/staff`: add new staff
   * Method `POST`
     * Request
@@ -197,6 +199,7 @@ For test purpose
       * `006`: Avatar file not valid
       * `007`: Password not valid 
       * `009`: Not logged in or not qualified
+      * `010`: verification code not correct
   * Method `GET`: get one staff info
     * Request: has at least 1 argument
       * `email`: email of the staff
@@ -213,10 +216,3 @@ For test purpose
     * Error code
       * `000` Missing arguments
       * `008` No such staff
-* `./account/staff/code`
-  * Method: `GET`: generate a verification code for staff
-    * Request: None
-    * Response
-      * `data`: Empty string
-    * Error code:
-      * `009`: Not logged in or not qualified

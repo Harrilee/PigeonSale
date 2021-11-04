@@ -6,6 +6,7 @@
 """
 import hashlib
 import sys
+import datetime
 
 sys.path.append("..")
 import config
@@ -72,9 +73,14 @@ def check_login(func):
 
     return wrapper
 
+def check_date_format(string):
+    try:
+        date = string.split('-')
+        datetime.datetime(year=int(date[0]), month=int(date[1]), day=int(date[2]))
+        return True
+    except:
+        return False
+
 
 if __name__ == '__main__':
-    print(encrypt_password('001'))
-    print(encrypt_password('002'))
-    print(encrypt_password('003'))
-    print(encrypt_password('004'))
+    print(check_date_format('1111-05-08'))

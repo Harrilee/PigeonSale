@@ -9,6 +9,14 @@ from models import *
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+@bp.route('/user/logout', methods=['POST'])
+@bp.route('/staff/logout', methods=['POST'])
+@bp.route('/admin/logout', methods=['POST'])
+@bp.route('/logout', methods=['POST'])
+def logout():
+    if 'logged_in' in session:
+        del session['uid']
+    return api_success()
 
 @bp.route('/user/login', methods=['POST'])
 def user_login():
@@ -26,11 +34,11 @@ def user_login():
         return api_fail("002", "In correct password")
 
 
-@bp.route('/user/logout', methods=['POST'])
-@bp.route('/staff/logout', methods=['POST'])
-@bp.route('/admin/logout', methods=['POST'])
-@bp.route('/logout', methods=['POST'])
-def logout():
-    if 'logged_in' in session:
-        del session['uid']
+@bp.route('/code', methods=["POST"])
+def get_code():
+    req = post_data()
+    if 'email' not in req:
+        return api_fail('000', "Missing argument, email")
+    verification = Verification()
+    verification.send_code(req['email'])
     return api_success()

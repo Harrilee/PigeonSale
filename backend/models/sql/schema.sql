@@ -22,7 +22,6 @@ CREATE TABLE Post
     post_id              INT AUTO_INCREMENT,
     post_content         VARCHAR(100),
     post_author_id       INT,
-    post_author_username VARCHAR(20),
     post_status          INT,
     CHECK (post_status in (0, 1, 2)),
     post_product_price   NUMERIC(15, 2),
@@ -30,8 +29,6 @@ CREATE TABLE Post
     CHECK (post_product_status in (0, 1)),
     PRIMARY KEY (post_id),
     FOREIGN KEY (post_author_id) REFERENCES User (user_id)
-        ON DELETE CASCADE,
-    FOREIGN KEY (post_author_username) REFERENCES User (username)
         ON DELETE CASCADE
 );
 
@@ -43,7 +40,7 @@ CREATE TABLE Image
     image_alt_text VARCHAR(100),
     post_id        INT,
     PRIMARY KEY (img_id),
-    FOREIGN KEY (image_owner_id, post_id) REFERENCES Post(post_author_id, post_id)
+    FOREIGN KEY (image_owner_id) REFERENCES User(user_id)
         ON DELETE CASCADE
 );
 
@@ -56,7 +53,7 @@ CREATE TABLE Message
     send_time   TIMESTAMP,
     msg         VARCHAR(256),
     PRIMARY KEY (msg_id),
-    FOREIGN KEY (receiver_id,post_id) REFERENCES Post (post_author_id,post_id)
+    FOREIGN KEY (receiver_id) REFERENCES Post (post_author_id)
         ON DELETE CASCADE,
     FOREIGN KEY (sender_id) REFERENCES User (user_id)
         ON DELETE CASCADE
