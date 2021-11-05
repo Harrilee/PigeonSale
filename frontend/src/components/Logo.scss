@@ -1,0 +1,58 @@
+@import '../_theme.scss';
+
+.logo-card > .logo a {
+    color:$mainTextColor;
+}
+
+.logo-card > .logo img {
+    margin:0.5em;
+}
+
+/* Default */
+.logo img {
+    width:3em;
+}
+  
+/* Center */ 
+
+.center {
+    text-align:center;
+}
+
+.center > .logo-title {
+    margin:1em;
+}
+
+/* Left */
+
+.left .logo-title, .left > .logo {
+    display:inline-block;
+}
+
+.left > .logo {
+    vertical-align:middle;
+    margin-right:1em;
+}
+
+.left > .logo img {
+    width:1.5em;
+}
+
+/* Small card */
+
+.small > .logo img {
+    width:2em;
+}
+
+.small {
+    font-size:0.98em;
+}
+
+/* Medium card */
+
+.medium > .logo img {
+    width:3em;
+}
+
+
+  
