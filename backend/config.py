@@ -5,7 +5,7 @@
 @Email   : harrylee@nyu.edu
 """
 
-# Database configuration
+# MySQL database configuration
 DB_HOST = 'localhost'
 DB_PORT = 3306
 DB_PASSWORD = ''
@@ -13,6 +13,28 @@ DB_USER = 'root'
 DB_NAME = 'pigeon_sale'
 DB_SCHEMA = './models/sql/schema.sql'
 DB_INSERT = './models/sql/insert.sql'
+
+# Redis database configuration
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+
+# Email sender configuration
+SENDER_ADDRESS = "noreply@violeter.xyz"
+SENDER_PASSWORD = "h2dG7od7jE75RyV2"
+SENDER_SERVER = "smtp.exmail.qq.com"
+SENDER_MESSAGE = """
+<p>Dear PigeonSale user,</p>
+<div style="margin-left:1em">
+    <p>Greetings!</p>
+    <p>You requested a verification code at {} to {} at Pigeon Sale. Your code is:</p>
+    <p style="color:#1890ff; font-size: xx-large;"><strong>{}</strong></p>
+    <p>Please make sure it is your own operation. The code is valid in 5 minutes.</p>
+</div>
+<p>Sincerely,<br>
+Pigeon Sale Team</p>
+"""
+SENDER_DEFAULT_SUBJECT = 'Verification Code'
 
 # Flask configuration
 SECRET_KEY = '20210818SZ'

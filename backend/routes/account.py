@@ -6,6 +6,7 @@
 """
 from flask import Blueprint, session
 from models import *
+import datetime
 
 bp = Blueprint('account', __name__, url_prefix='/account')
 
@@ -41,8 +42,16 @@ def add_user():
         req['avatar'] = ''
     if 'gender' not in req:
         req['gender'] = None
+    else:
+        if req['gender'] not in [0, 1, '0', '1']:
+            return api_fail('005', "Invalid gender")
     if 'birthday' not in req:
         req['birthday'] = None
+    else:
+        if not check_date_format(req['birthday']):
+            return api_fail('004',
+                            'Birthday format incorrect, received: {}, expected: YYYY-MM-DD'.format(req['birthday']))
+
     result = userController.add_new_user(username=req['username'], password=req['password'],
                                          email=req['email'], bio=req['bio'], avatar=req['avatar'],
                                          birthday=req['birthday'], gender=req['gender'])
@@ -56,6 +65,19 @@ def add_user():
 def modify_user():
     req = post_data()
     userController = UserController()
+    if 'gender' in req and req['gender'] not in [0, 1, '0', '1']:
+        return api_fail('005', "Invalid gender")
+    if 'birthday' in req and not check_date_format(req['birthday']):
+        return api_fail('004',
+                        'Birthday format incorrect, received: {}, expected: YYYY-MM-DD'.format(req['birthday']))
+    if 'password' in req:
+        if 'verification_code' not in req:
+            return api_fail('000', "Missing argument, verification_code")
+        verification = Verification()
+        userController = UserController()
+        user = userController.get_user_by_uid(session['uid'])
+        if not verification.verify_code(user.email, req['verification_code']):
+            return api_fail('010', "Incorrect verification code.")
     userController.update_user(
         username=req['username'] if 'username' in req else None,
         bio=req['bio'] if 'bio' in req else None,

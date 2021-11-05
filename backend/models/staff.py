@@ -1,6 +1,6 @@
 """
 # -*- coding: utf-8 -*-
-@Time    : 10/18/2021 11:22 PM
+@Time    : 11/4/2021 9:50 AM
 @Author  : Harry Lee
 @Email   : harrylee@nyu.edu
 """
@@ -9,7 +9,7 @@ from . import encrypt_password
 from . import db
 
 
-class User:
+class Staff:
     def __init__(self, user_id, username, bio, password_encrypted, avatar, email, birthday, gender):
         self.user_id = user_id
         self.username = username
@@ -27,9 +27,9 @@ class User:
         """
         with db.db.cursor() as cursor:
             cursor.execute("""
-                SELECT COUNT(user_id) AS COUNT
-                FROM user
-                WHERE user_id = %s; 
+                SELECT COUNT(staff_id) AS COUNT
+                FROM staff
+                WHERE staff_id = %s; 
             """, [self.user_id])
         data = cursor.fetchone()
         assert data['COUNT'] in [0, 1]
@@ -37,9 +37,9 @@ class User:
             # If user_id exists
             with db.db.cursor() as cursor:
                 cursor.execute("""
-                    UPDATE user
-                    SET username=%s, bio=%s, password=%s, avatar=%s, email=%s, birthday=%s, gender=%s
-                    WHERE user_id = %s; 
+                    UPDATE staff
+                    SET staff_id=%s, bio=%s, password=%s, avatar=%s, email=%s, birthday=%s, gender=%s
+                    WHERE staff_id = %s; 
                 """, (
                     self.username, self.bio, self.password_encrypted, self.avatar, self.email, self.birthday,
                     self.gender,
@@ -49,7 +49,7 @@ class User:
             # If user_id does not exist
             with db.db.cursor() as cursor:
                 cursor.execute("""
-                    INSERT INTO user(username, bio, password, avatar, email, birthday, gender)
+                    INSERT INTO staff(staff_id, bio, password, avatar, email, birthday, gender)
                     VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """, (
                     self.username, self.bio, self.password_encrypted, self.avatar, self.email, self.birthday,
@@ -100,57 +100,49 @@ class User:
         return output
 
 
-class UserController:
+class StaffController:
     def get_user_by_email(self, email):
         with db.db.cursor() as cursor:
             cursor.execute("""
-                SELECT * FROM user
+                SELECT * FROM staff
                 WHERE email=%s
             """, email)
             result = cursor.fetchone()
         if not result:
             return -1
-        user = User(user_id=result['user_id'], username=result['username'], bio=result['bio'],
+        staff = Staff(user_id=result['user_id'], username=result['username'], bio=result['bio'],
                     password_encrypted=result['password'], avatar=result['avatar'], email=result['email'],
                     birthday=result['birthday'], gender=result['gender'])
-        return user
+        return staff
 
     def get_user_by_uid(self, uid):
         with db.db.cursor() as cursor:
             cursor.execute("""
-                SELECT * FROM user
-                WHERE user_id=%s
+                SELECT * FROM staff
+                WHERE staff_id=%s
             """, uid)
             result = cursor.fetchone()
         if not result:
             return -1
-        user = User(user_id=result['user_id'], username=result['username'], bio=result['bio'],
+        staff = Staff(user_id=result['user_id'], username=result['username'], bio=result['bio'],
                     password_encrypted=result['password'], avatar=result['avatar'], email=result['email'],
                     birthday=result['birthday'], gender=result['gender'])
-        return user
+        return staff
 
     def check_password(self, email, pwd):
-        """
-        Verify if the password user sent is the same as what we stored
-        :param email:
-        :param pwd:
-        :return:
-        """
-        user = self.get_user_by_email(email)
-        if user == -1:
-            return -1, -1
-        return user.check_password(pwd), user.user_id
+        staff = self.get_user_by_email(email)
+        return staff.check_password(pwd), staff.user_id
 
     def add_new_user(self, username, password, email, bio="", avatar='', birthday=None, gender=None):
         if not self.get_user_by_email(email):
             return 3  # Email exists
-        user = User(username=username, bio=bio, email=email, birthday=birthday, gender=gender,
+        staff = Staff(username=username, bio=bio, email=email, birthday=birthday, gender=gender,
                     password_encrypted=encrypt_password(password), avatar=avatar, user_id=None)
-        user.update_to_db()
+        staff.update_to_db()
         return True
 
     def update_user(self, username, password, email, bio="", avatar='', birthday=None, gender=None):
-        user = self.get_user_by_uid(session['uid'])
-        user.update_info(username=username, bio=bio, avatar=avatar, birthday=birthday, gender=gender, email=email)
-        user.update_pwd(pwd=password)
+        staff = self.get_user_by_uid(session['uid'])
+        staff.update_info(username=username, bio=bio, avatar=avatar, birthday=birthday, gender=gender, email=email)
+        staff.update_pwd(pwd=password)
         return True
