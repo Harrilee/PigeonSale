@@ -9,10 +9,14 @@ The following services are required to install on your machine:
   * flask
   * redis
   * pymysql
+* [React](https://reactjs.org/docs/getting-started.html)
+* [MUI](https://mui.com/)
+* [Sass](https://sass-lang.com/)
 
 ## Documentation
-* [API doumenatation](./documentation/API_documentation.md): list of APIs
+* [API documentation](./documentation/API_documentation.md): list of APIs
   * [Backend documentation](./backend/README.md): notes on how to establish backend server
+  * [Frontend documentation](./frontend/README.md) : notes on how to establish frontend server and general maintenance
 * Contribution log: working record of each group member
   * [Cycle 1](./documentation/contribution_log/cycle_1.md)
   * [Cycle 2](./documentation/contribution_log/cycle_2.md)

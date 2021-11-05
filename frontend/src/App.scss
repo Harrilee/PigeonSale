@@ -1,0 +1,53 @@
+@import "./_theme.scss";
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body {
+  font-family:$mainFont;
+  line-height:100%;
+  font-weight:400;
+  font-size:calc(12px + 0.1rem);
+  color:$mainTextColor;
+}
+
+.center {text-align:center;}
+
+a {
+  color:$mainLinkColor;
+}
+
+a:hover {
+  color:$mainLinkHoverColor;
+}
+
+p {
+  margin:0.5em 0em;
+}
+
+p:first-of-type {
+  margin-top:0;
+}
+
+p:last-of-type {
+  margin-bottom:0;
+}
+
+h1,h2,h3 {
+  font-weight:500;
+}
+
+h1 {
+  font-size:1.2em;
+}
+
+h2 {
+  font-size:1.1em;
+}
+
+#content {
+  padding:1em;
+}

@@ -1,0 +1,19 @@
+@import "../_theme.scss";
+
+header {
+    padding:1em 1.5em;
+    border-bottom:1px solid $mainBorderColor;
+}
+
+header > .logo-card, nav {
+    display:inline-block;
+}
+
+nav {
+    float:right;
+    margin:1em;
+}
+
+nav a {
+    margin-left:1em;
+}

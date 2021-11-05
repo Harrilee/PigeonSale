@@ -1,0 +1,96 @@
+@import "../_theme.scss";
+
+#register-wrapper {
+    position:fixed;
+    height:100%;
+    width:100%;
+    background:$mainBackground;
+}
+
+#register-container {
+    position:absolute;
+    background:$mainBoxColor;
+    border-radius:2%;
+    padding:2em;
+}
+
+#register-wrapper[name=login] #register-container {
+    width:calc(400px + 1em);
+    height:calc(460px + 1em);
+    top:calc(50% - (460px + 1em)/2);
+    left:calc(50% - (400px + 1em)/2);
+}
+
+#register-wrapper[name=signup] #register-container {
+    width:calc(450px + 1em);
+    height:calc(470px + 1em);
+    top:calc(50% - (470px + 1em)/2);
+    left:calc(50% - (450px + 1em)/2);
+}
+
+#register-container button[name=login] {
+    width:100%;
+}
+
+#register-container button[name=next], #register-container button[name=signup] {
+    float:right;
+}
+
+#register-container button[name=prev] {
+    float:left;
+    background:none;
+    color:$mainTextColor;
+    background:$mainBorderColor;
+}
+
+#register-container .MuiFormControl-root, #register-container button {
+    margin:0.5em 0em;
+}
+
+#register-container form {
+    padding:0.5em 0em;
+}
+
+#register-wrapper[name=signup] #form1 .MuiFormControl-root:nth-child(2),
+#form2 .MuiFormControl-root:first-child {
+    margin-right:calc(1.5em - 4px);
+}
+
+#register-container button {
+    font-size:1.05em;
+}
+
+.multiform {
+    z-index:99;
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    flex-grow:1;
+    align-items:baseline;
+    overflow:hidden;
+}
+
+.form-block {
+    min-width:100%;
+}
+
+.form-block:first-child {
+    margin-right:1em;
+}
+
+.scroll1 {
+    transform:translateX(0%) translateX(0em);
+    transition: 0.6s;
+}
+
+.scroll2 {
+    transform:translateX(-100%) translateX(-1em);
+    transition: 0.6s;
+}
+
+#register-error {
+    width:100%;
+    position:absolute;
+    margin-left:-2em;
+    margin-top:-8em;
+}
