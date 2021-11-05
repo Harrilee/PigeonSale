@@ -7,10 +7,10 @@
 
 from models.utils import *
 from models.database import Database
-
 db = Database()
 from models.user import User, UserController
 from models.verification import Verification
+verification = Verification()
 from models.staff import Staff, StaffController
 
 if __name__ == '__main__':

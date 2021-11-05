@@ -65,13 +65,32 @@ def encrypt_password(password):
     return hashlib.md5(bytes(password, encoding='utf-8')).hexdigest()
 
 
-def check_login(func):
-    def wrapper(*args):
-        if 'uid' in session:
+def check_login_user(func):
+    def wrapper_user(*args):
+        if 'uid' in session and session['role'] == 'user':
             return func(*args)
-        return api_fail('009', 'check_login: not logged in.')
+        return api_fail('009', 'check_login: not logged in or logged in as a different role')
 
-    return wrapper
+    return wrapper_user
+
+
+def check_login_staff(func):
+    def wrapper_staff(*args):
+        if 'uid' in session and session['role'] == 'staff':
+            return func(*args)
+        return api_fail('009', 'check_login: not logged in or logged in as a different role')
+
+    return wrapper_staff
+
+
+def check_login_admin(func):
+    def wrapper_admin(*args):
+        if session['role'] == 'admin':
+            return func(*args)
+        return api_fail('009', 'check_login: not logged in or logged in as a different role')
+
+    return wrapper_admin
+
 
 def check_date_format(string):
     try:

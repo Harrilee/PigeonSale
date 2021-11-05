@@ -27,6 +27,23 @@ def user_login():
     check, uid = userController.check_password(req['email'], req['password'])
     if check == True:
         session['uid'] = uid
+        session['role'] = 'user'
+        return api_success()
+    if check == -1:
+        return api_fail("001", "Email not registered")
+    if check == False:
+        return api_fail("002", "In correct password")
+
+@bp.route('/staff/login', methods=['POST'])
+def staff_login():
+    req = post_data()
+    staffController = StaffController()
+    if 'email' not in req or 'password' not in req:
+        return api_fail("000", "Missing arguments")
+    check, uid = staffController.check_password(req['email'], req['password'])
+    if check == True:
+        session['uid'] = uid
+        session['role'] = 'staff'
         return api_success()
     if check == -1:
         return api_fail("001", "Email not registered")
@@ -39,6 +56,5 @@ def get_code():
     req = post_data()
     if 'email' not in req:
         return api_fail('000', "Missing argument, email")
-    verification = Verification()
     verification.send_code(req['email'])
     return api_success()

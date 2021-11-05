@@ -105,8 +105,8 @@ CREATE TABLE rate
 
 CREATE TABLE staff
 (
-    staff_id   INT AUTO_INCREMENT,
-    staff_name VARCHAR(20),
+    user_id   INT AUTO_INCREMENT,
+    username VARCHAR(20),
     bio        VARCHAR(100),
     password   VARCHAR(50),
     email      VARCHAR(50) UNIQUE,
@@ -114,7 +114,8 @@ CREATE TABLE staff
     gender     INT,
     birthday   DATE,
     CHECK (gender in (0, 1, NULL)),
-    PRIMARY KEY (staff_id)
+    PRIMARY KEY (user_id),
+    INDEX (username)
 );
 
 CREATE TABLE admin

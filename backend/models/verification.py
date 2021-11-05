@@ -19,9 +19,6 @@ class Verification:
         self.redis = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=config.REDIS_DB,
                                  password=config.REDIS_PWD)
 
-    def generation_code(self, email):
-        pass
-
     def send_email(self, to, subject, html):
         ret = True
         try:
