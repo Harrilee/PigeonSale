@@ -13,12 +13,14 @@ The following services are required to install on your machine:
 * [MUI](https://mui.com/)
 * [Sass](https://sass-lang.com/)
 
-## Get Started
-* Admin password: `pigeon`
 
 *Note: to simplify collaboration process, MySQL and Redis are already deployed on Harry's Tencent Cloud 
 server. When backend starts, it will automatically connect to the cloud.
 For more information, see [config.py](./backend/config.py) [Although it's not safe to do so].
+## Get Started
+* Admin password: `pigeon`
+
+
 ## Documentation
 * [API documentation](./documentation/API_documentation.md): list of APIs
   * [Backend documentation](./backend/README.md): notes on how to establish backend server
