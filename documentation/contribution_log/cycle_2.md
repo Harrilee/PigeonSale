@@ -1,4 +1,4 @@
-# Contribution Log - Cycle 1
+# Contribution Log - Cycle 2
 Oct 17 to Oct 30.
 
 ## Harry Lee
