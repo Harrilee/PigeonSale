@@ -14,7 +14,7 @@ The following services are required to install on your machine:
 * [Sass](https://sass-lang.com/)
 
 ## Get Started
-* Admin password: pigeon
+* Admin password: `pigeon`
 
 *Note: to simplify collaboration process, MySQL and Redis are already deployed on Harry's Tencent Cloud 
 server. When backend starts, it will automatically connect to the cloud.
