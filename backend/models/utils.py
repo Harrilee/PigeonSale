@@ -102,4 +102,4 @@ def check_date_format(string):
 
 
 if __name__ == '__main__':
-    print(check_date_format('1111-05-08'))
+    print(encrypt_password('pigeon'))

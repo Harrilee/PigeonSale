@@ -50,6 +50,18 @@ def staff_login():
     if check == False:
         return api_fail("002", "In correct password")
 
+@bp.route('/admin/login', methods=['POST'])
+def admin_login():
+    req = post_data()
+    adminController = AdminController()
+    if 'password' not in req:
+        return api_fail("000", "Missing arguments: password")
+    if adminController.check_password(req['password']):
+        session['uid'] = None
+        session['role'] = 'admin'
+        return api_success()
+    return api_fail("002", "In correct password")
+
 
 @bp.route('/code', methods=["POST"])
 def get_code():
