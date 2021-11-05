@@ -2,7 +2,7 @@ DROP DATABASE pigeon_sale;
 CREATE DATABASE pigeon_sale;
 use pigeon_sale;
 
-CREATE TABLE User
+CREATE TABLE user
 (
     user_id  INT AUTO_INCREMENT,
     username VARCHAR(20),
@@ -17,7 +17,7 @@ CREATE TABLE User
     INDEX (username)
 );
 
-CREATE TABLE Post
+CREATE TABLE post
 (
     post_id              INT AUTO_INCREMENT,
     post_content         VARCHAR(100),
@@ -28,11 +28,11 @@ CREATE TABLE Post
     post_product_status  INT,
     CHECK (post_product_status in (0, 1)),
     PRIMARY KEY (post_id),
-    FOREIGN KEY (post_author_id) REFERENCES User (user_id)
+    FOREIGN KEY (post_author_id) REFERENCES user (user_id)
         ON DELETE CASCADE
 );
 
-CREATE TABLE Image
+CREATE TABLE image
 (
     img_id         INT AUTO_INCREMENT,
     image_owner_id INT,
@@ -40,11 +40,11 @@ CREATE TABLE Image
     image_alt_text VARCHAR(100),
     post_id        INT,
     PRIMARY KEY (img_id),
-    FOREIGN KEY (image_owner_id) REFERENCES User(user_id)
+    FOREIGN KEY (image_owner_id) REFERENCES user(user_id)
         ON DELETE CASCADE
 );
 
-CREATE TABLE Message
+CREATE TABLE message
 (
     msg_id      INT AUTO_INCREMENT,
     sender_id   INT,
@@ -53,24 +53,24 @@ CREATE TABLE Message
     send_time   TIMESTAMP,
     msg         VARCHAR(256),
     PRIMARY KEY (msg_id),
-    FOREIGN KEY (receiver_id) REFERENCES Post (post_author_id)
+    FOREIGN KEY (receiver_id) REFERENCES post (post_author_id)
         ON DELETE CASCADE,
-    FOREIGN KEY (sender_id) REFERENCES User (user_id)
+    FOREIGN KEY (sender_id) REFERENCES user (user_id)
         ON DELETE CASCADE
 );
 
-CREATE TABLE Address
+CREATE TABLE address
 (
     name    VARCHAR(15),
     phone   VARCHAR(20),
     address VARCHAR(50),
     user_id INT,
     PRIMARY KEY (address, user_id),
-    FOREIGN KEY (user_id) REFERENCES User (user_id)
+    FOREIGN KEY (user_id) REFERENCES user (user_id)
         ON DELETE CASCADE
 );
 
-CREATE TABLE Deal
+CREATE TABLE deal
 (
     deal_id        INT AUTO_INCREMENT,
     post_id        INT,
@@ -84,26 +84,26 @@ CREATE TABLE Deal
     package_status INT,
     CHECK (package_status in (0, 1)),
     PRIMARY KEY (deal_id),
-    FOREIGN KEY (seller_id, sender_address) REFERENCES Address (user_id, address)
+    FOREIGN KEY (seller_id, sender_address) REFERENCES address (user_id, address)
         ON DELETE CASCADE,
-    FOREIGN KEY (buyer_id, buyer_address) REFERENCES Address (user_id, address)
+    FOREIGN KEY (buyer_id, buyer_address) REFERENCES address (user_id, address)
         ON DELETE CASCADE,
-    FOREIGN KEY (seller_id, post_id) REFERENCES Post(post_author_id, post_id)
+    FOREIGN KEY (seller_id, post_id) REFERENCES post(post_author_id, post_id)
         ON DELETE CASCADE
 );
 
-CREATE TABLE Rate
+CREATE TABLE rate
 (
     rate_id INT AUTO_INCREMENT,
     deal_id INT,
     rate    INT,
     comment VARCHAR(512),
     PRIMARY KEY (rate_id),
-    FOREIGN KEY (deal_id) REFERENCES Deal (deal_id)
+    FOREIGN KEY (deal_id) REFERENCES deal (deal_id)
         ON DELETE CASCADE
 );
 
-CREATE TABLE Staff
+CREATE TABLE staff
 (
     staff_id   INT AUTO_INCREMENT,
     staff_name VARCHAR(20),
@@ -117,7 +117,7 @@ CREATE TABLE Staff
     PRIMARY KEY (staff_id)
 );
 
-CREATE TABLE Admin
+CREATE TABLE admin
 (
     password VARCHAR(50)
 )
