@@ -6,7 +6,7 @@ Oct 17 to Oct 30.
 * Modify SQL files to comply to API documentation
 * Set up Flask code for 
   * Auto startup: link to and set up database 
-  * Routes: handle authentication(login/logout), add/modify/read user/staff info
+  * Routes: handle authentication(user/staff/admin login/logout), add/modify/read user/staff info
   * Models
     * Base code for util functions
     * User class, Staff class
