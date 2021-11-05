@@ -6,16 +6,16 @@
 """
 
 # MySQL database configuration
-DB_HOST = 'localhost'
+DB_HOST = '42.192.232.121'
 DB_PORT = 3306
-DB_PASSWORD = ''
-DB_USER = 'root'
+DB_PASSWORD = 'LyGmETdLJ6zDrMMD'
+DB_USER = 'pigeon'
 DB_NAME = 'pigeon_sale'
 DB_SCHEMA = './models/sql/schema.sql'
 DB_INSERT = './models/sql/insert.sql'
 
 # Redis database configuration
-REDIS_HOST = 'localhost'
+REDIS_HOST = '42.192.232.121'
 REDIS_PORT = 6379
 REDIS_DB = 0
 

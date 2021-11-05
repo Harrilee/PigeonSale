@@ -94,7 +94,7 @@ For test purpose
     * Request: None
     * Response
       * `data`: Empty string
-* `./account/code`
+* `./auth/code`
   * Method: `POST`: generate a verification code for staff/user
     * Request: 
       * `email`: the email to send to
