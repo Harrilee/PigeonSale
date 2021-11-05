@@ -5,13 +5,13 @@
 @Email   : harrylee@nyu.edu
 """
 
-
-
-import models.authentication
 from models.utils import *
 from models.database import Database
+
 db = Database()
 from models.user import User, UserController
+from models.verification import Verification
+from models.staff import Staff, StaffController
 
 if __name__ == '__main__':
     print(encrypt_password('0607'))
