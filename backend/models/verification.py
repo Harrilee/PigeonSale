@@ -16,7 +16,8 @@ from email.utils import formataddr
 
 class Verification:
     def __init__(self):
-        self.redis = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=config.REDIS_DB)
+        self.redis = redis.Redis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=config.REDIS_DB,
+                                 password=config.REDIS_PWD)
 
     def generation_code(self, email):
         pass
@@ -48,7 +49,7 @@ class Verification:
 
     def verify_code(self, email, code):
         stored_code = self.redis.get(email)
-        if stored_code is None or stored_code.decode()!= code:
+        if stored_code is None or stored_code.decode() != code:
             return False
         self.redis.delete(email)
         return True

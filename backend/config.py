@@ -16,6 +16,7 @@ DB_INSERT = './models/sql/insert.sql'
 
 # Redis database configuration
 REDIS_HOST = '42.192.232.121'
+REDIS_PWD = 'aicgasuicaskcjb'
 REDIS_PORT = 6379
 REDIS_DB = 0
 
