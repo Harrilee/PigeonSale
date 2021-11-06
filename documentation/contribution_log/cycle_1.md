@@ -14,7 +14,14 @@ Oct 17 to Oct 30.
     * Authetication class
 
 ## Robin Luo
-* October 20: Added the barebones frontend code base
+* Added the barebones frontend code base
+* Added necessary packages for frontend base
+* Added preliminary components for registration with MUI, React, and Sass/CSS:
+  * Login
+  * Signup
+  * Logout
+* Modified file structure for a feature-focused layout 
+* Connected backend with frontend through authentication service
 
 ## Justin Chen
 * Oct 30: Added the schema.sql for the database; inserted testing values to insert.sql
