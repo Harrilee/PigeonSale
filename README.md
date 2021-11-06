@@ -24,7 +24,7 @@ For more information, see [config.py](./backend/config.py) [Although it's not sa
 ## Documentation
 * [API documentation](./documentation/API_documentation.md): list of APIs
   * [Backend documentation](./backend/README.md): notes on how to establish backend server
-  * [Frontend documentation](./frontend/README.md) : notes on how to establish frontend server and general maintenance
+  * [Frontend documentation](./frontend/README.md) : notes on how to establish frontend and general maintenance
 * Contribution log: working record of each group member
   * [Cycle 1](./documentation/contribution_log/cycle_1.md)
   * [Cycle 2](./documentation/contribution_log/cycle_2.md)
