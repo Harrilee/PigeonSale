@@ -45,6 +45,7 @@ function Login() {
         localStorage.setItem("isLoggedIn", false);
 
         console.log("Form submitted");
+        
         if (values.email.length === 0) {
             setErrors({...errors, emailError: { status: true, msg: "Required field"} });
         }

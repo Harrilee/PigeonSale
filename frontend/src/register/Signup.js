@@ -74,6 +74,7 @@ function Signup() {
     }
 
     const handleScroll = () => {
+        setErrors(resetErrors);
         let hasError = false;
         if (scrolling === "scroll1") {
             if (values.email.length === 0) {
@@ -92,7 +93,7 @@ function Signup() {
                 setErrors({...errors, passwordError: { status: true, msg: "Required field"} });
                 hasError=true;
             }
-            else if (values.password === values.password2) {
+            else if (values.password !== values.password2) {
                 setErrors({...errors, password2Error: { status: true, msg: "Passwords don't match"} });
                 hasError=true;
             }
@@ -115,11 +116,22 @@ function Signup() {
         setErrors(resetErrors);
 
         console.log("Form submitted");
-        delete values.password2; // only used as verification
-        console.log("values", values);
-        console.log("usertype", usertype);
+
+        let cleanedValues = JSON.parse(JSON.stringify(values)); // clone values
+
+        delete cleanedValues.password2; // only used as verification
+        // remove optional parameters if it does not exist
+        if (cleanedValues.gender.length === 0) {
+            delete cleanedValues.gender;
+        }
+        if (cleanedValues.birthday.length === 0) {
+            delete cleanedValues.birthday;
+        }
+        if (cleanedValues.bio.length === 0) {
+            delete cleanedValues.bio;
+        }
         
-        AuthService.signup(values, usertype)
+        AuthService.signup(cleanedValues, usertype)
         .then(res => {
             console.log(res)
             return res.json();
@@ -127,7 +139,7 @@ function Signup() {
         .then(result => {
             if (result.status === 1) {
                 console.log("Sign up success");
-                return <Redirect to="/" />;
+                window.location.href="/";
             }
             if (result.status === 0) {
                 console.log(result);
