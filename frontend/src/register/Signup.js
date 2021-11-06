@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Box, Button, TextField, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import LogoCard from "../components/LogoCard";
 import AlertCard from "../components/AlertCard";
@@ -10,6 +11,7 @@ function Signup() {
         email: "",
         username: "",
         password: "",
+        password2: "",
         gender: "",
         birthday: "",
         bio: ""
@@ -23,6 +25,7 @@ function Signup() {
         usernameError: { status: false, msg: "" },
         emailError: { status: false, msg: "" },
         passwordError: { status: false, msg: "" },
+        password2Error: { status: false, msg: "" },
         usertypeError: { status: false, msg: "" },
         birthdayError: { status: false, msg: "" },
         genderError: { status: false, msg: "" }
@@ -38,6 +41,11 @@ function Signup() {
     const handlePassword = (e) => {
         let password = e.target.value;
         setValues({ ...values, password: password });
+    }
+
+    const handlePassword2 = (e) => {
+        let password2 = e.target.value;
+        setValues({ ...values, password2: password2 });
     }
 
     const handleUsername = (e) => {
@@ -72,12 +80,20 @@ function Signup() {
                 setErrors({...errors, emailError: { status: true, msg: "Required field"} });
                 hasError=true;
             }
+            else if (values.email.includes("@") === false) {
+                setErrors({...errors, emailError: { status: true, msg: "Not a valid email"} });
+                hasError=true;
+            }
             else if (values.username.length === 0) {
                 setErrors({...errors, usernameError: { status: true, msg: "Required field"} });
                 hasError=true;
             }
             else if (values.password.length === 0) {
                 setErrors({...errors, passwordError: { status: true, msg: "Required field"} });
+                hasError=true;
+            }
+            else if (values.password === values.password2) {
+                setErrors({...errors, password2Error: { status: true, msg: "Passwords don't match"} });
                 hasError=true;
             }
             else if (usertype.length === 0) {
@@ -99,6 +115,7 @@ function Signup() {
         setErrors(resetErrors);
 
         console.log("Form submitted");
+        delete values.password2; // only used as verification
         console.log("values", values);
         console.log("usertype", usertype);
         
@@ -110,6 +127,7 @@ function Signup() {
         .then(result => {
             if (result.status === 1) {
                 console.log("Sign up success");
+                return <Redirect to="/" />;
             }
             if (result.status === 0) {
                 console.log(result);
@@ -121,103 +139,118 @@ function Signup() {
         });
 
     }
-    
-    return (
-        <div id="register-wrapper" name="signup">
-            <Box id="register-container">
-                <AlertCard severity="error" id="register-error" 
-                display={errors.loginError.status} 
-                message={errors.loginError.msg} />
 
-                <LogoCard title="Sign Up" position="center" size="medium" />
+    if (localStorage.isLoggedIn === "true") {
+        console.log("Already logged in");
+        window.location.href="./";
+    }
+    else {
+        return (
+            <div id="register-wrapper" name="signup">
+                <Box id="register-container">
+                    <AlertCard severity="error" id="register-error" 
+                    display={errors.loginError.status} 
+                    message={errors.loginError.msg} />
 
-                <form className='multiform' onSubmit={handleSubmit}>
-                    
-                    <div id="form1" className={"form-block "+scrolling}>
-                        <TextField 
-                            label="Email" 
-                            onChange={handleEmail} 
-                            value={values.email} 
-                            error={errors.emailError.status}
-                            helperText={errors.emailError.msg}
-                            fullWidth  />
+                    <LogoCard title="Sign Up" position="center" size="medium" />
 
-                        <TextField 
-                            label="Username" 
-                            onChange={handleUsername} 
-                            value={values.username} 
-                            error={errors.usernameError.status}
-                            helperText={errors.usernameError.msg} />
-
-                        <TextField 
-                            label="Password" 
-                            type="password"
-                            onChange={handlePassword} 
-                            value={values.password} 
-                            error={errors.passwordError.status}
-                            helperText={errors.passwordError.msg}
-                        />
+                    <form className='multiform' onSubmit={handleSubmit}>
                         
-                        <FormControl fullWidth>
-                            <InputLabel>Login As</InputLabel>
-                            <Select
-                            value={usertype}
-                            label="Login As"
-                            onChange={handleUserType}
-                            error={errors.usertypeError.status}
-                            helperText={errors.usertypeError.msg}
-                            >
-                            <MenuItem value={"user"}>User</MenuItem>
-                            <MenuItem value={"staff"}>Staff</MenuItem>
-                            <MenuItem value={"admin"}>Admin</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Button name="next" variant="contained" onClick={handleScroll}>Next</Button>
-                        <p>
-                            <small>Have an account? <a href="./login">Log in</a></small>
-                        </p>
-                    </div>
+                        <div id="form1" className={"form-block "+scrolling}>
+                            <TextField 
+                                label="Email" 
+                                onChange={handleEmail} 
+                                value={values.email} 
+                                error={errors.emailError.status}
+                                helperText={errors.emailError.msg}
+                                fullWidth  />
 
-                    <div id="form2" className={"form-block "+scrolling}>
-                        <FormControl sx={{ width: "calc(50% - 2px)" }}>
-                            <InputLabel>Gender</InputLabel>
-                            <Select
-                                value={values.gender}
-                                label="Gender"
-                                onChange={handleGender}
-                                error={errors.genderError.status}
-                            >
-                            <MenuItem value={1}>Male</MenuItem>
-                            <MenuItem value={0}>Female</MenuItem>
-                            <MenuItem value={2}>Other</MenuItem>
-                            </Select>
-                        </FormControl>
-                        
-                        <TextField
-                            label="Date of Birth"
-                            type="date"
-                            value={values.birthday}
-                            InputLabelProps={{
-                            shrink: true,
-                            }}
-                            onChange={handleDOB}
-                            error={errors.birthdayError.status}
-                        />
+                            <TextField 
+                                label="Username" 
+                                onChange={handleUsername} 
+                                value={values.username} 
+                                error={errors.usernameError.status}
+                                helperText={errors.usernameError.msg} 
+                                fullWidth />
 
-                        <TextField label="Bio" 
-                            placeholder="Tell us about yourself" 
-                            onChange={handleBio} 
-                            value={values.bio}
-                            multiline
-                            rows={5}
-                            fullWidth />
-                        <Button name="prev" variant="contained" onClick={handleScroll}>Back</Button>
-                        <Button type="submit" name="signup" variant="contained">Sign Up</Button>
-                    </div>
-                </form>
-            </Box>
-        </div>
-    )
+                            <TextField 
+                                label="Password" 
+                                type="password"
+                                onChange={handlePassword} 
+                                value={values.password} 
+                                error={errors.passwordError.status}
+                                helperText={errors.passwordError.msg}
+                            />
+
+                            <TextField 
+                                label="Confirm Password" 
+                                type="password"
+                                onChange={handlePassword2} 
+                                value={values.password2} 
+                                error={errors.password2Error.status}
+                                helperText={errors.password2Error.msg}
+                            />
+                            
+                            <FormControl fullWidth>
+                                <InputLabel>Login As</InputLabel>
+                                <Select
+                                value={usertype}
+                                label="Login As"
+                                onChange={handleUserType}
+                                error={errors.usertypeError.status}
+                                >
+                                <MenuItem value={"user"}>User</MenuItem>
+                                <MenuItem value={"staff"}>Staff</MenuItem>
+                                <MenuItem value={"admin"}>Admin</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <Button name="next" variant="contained" onClick={handleScroll}>Next</Button>
+                            <p>
+                                <small>Have an account? <a href="./login">Log in</a></small>
+                            </p>
+                        </div>
+
+                        <div id="form2" className={"form-block "+scrolling}>
+                            <FormControl sx={{ width: "calc(50% - 2px)" }}>
+                                <InputLabel>Gender</InputLabel>
+                                <Select
+                                    value={values.gender}
+                                    label="Gender"
+                                    onChange={handleGender}
+                                    error={errors.genderError.status}
+                                >
+                                <MenuItem value={1}>Male</MenuItem>
+                                <MenuItem value={0}>Female</MenuItem>
+                                <MenuItem value={2}>Other</MenuItem>
+                                </Select>
+                            </FormControl>
+                            
+                            <TextField
+                                label="Date of Birth"
+                                type="date"
+                                value={values.birthday}
+                                InputLabelProps={{
+                                shrink: true,
+                                }}
+                                onChange={handleDOB}
+                                error={errors.birthdayError.status}
+                            />
+
+                            <TextField label="Bio" 
+                                placeholder="Tell us about yourself" 
+                                onChange={handleBio} 
+                                value={values.bio}
+                                multiline
+                                rows={5}
+                                fullWidth />
+                            <Button name="prev" variant="contained" onClick={handleScroll}>Back</Button>
+                            <Button type="submit" name="signup" variant="contained">Sign Up</Button>
+                        </div>
+                    </form>
+                </Box>
+            </div>
+        )
+    }
 }
 
 export default Signup;

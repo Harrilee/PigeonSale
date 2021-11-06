@@ -16,8 +16,8 @@
 
 #register-wrapper[name=login] #register-container {
     width:calc(400px + 1em);
-    height:calc(460px + 1em);
-    top:calc(50% - (460px + 1em)/2);
+    height:calc(470px + 1em);
+    top:calc(50% - (470px + 1em)/2);
     left:calc(50% - (400px + 1em)/2);
 }
 
@@ -51,7 +51,7 @@
     padding:0.5em 0em;
 }
 
-#register-wrapper[name=signup] #form1 .MuiFormControl-root:nth-child(2),
+#register-wrapper[name=signup] #form1 .MuiFormControl-root:nth-child(3),
 #form2 .MuiFormControl-root:first-child {
     margin-right:calc(1.5em - 4px);
 }
@@ -93,4 +93,13 @@
     position:absolute;
     margin-left:-2em;
     margin-top:-8em;
+}
+
+#logout-container {
+    margin:4em;
+}
+
+#logout-container h2 {
+    font-size:1.2em;
+    margin-bottom:0.5em;
 }

@@ -1,16 +1,21 @@
 const API_URL = "http://localhost:5000";
 
-const login = (values, usertype) => {
-    let AUTH_URL=API_URL+"/auth";
+const getUserType = (link, usertype) => {
     if (usertype === "user") {
-        AUTH_URL += "/user/login";
+        link += "/user";
     }
     else if (usertype === "staff") {
-        AUTH_URL += "/staff/login";
+        link += "/staff";
     }
     else if (usertype === "admin") {
-        AUTH_URL += "/admin/login";
+        link += "/admin";
     }
+}
+
+const login = (values, usertype) => {
+    let AUTH_URL=API_URL+"/auth";
+    getUserType(AUTH_URL, usertype);
+    AUTH_URL += "/login";
     return fetch(AUTH_URL, {
         mode: 'cors',
         method: 'POST',
@@ -24,15 +29,7 @@ const login = (values, usertype) => {
 
 const signup = (values, usertype) => {
     let ACCOUNT_URL=API_URL+"/account";
-    if (usertype === "user") {
-        ACCOUNT_URL += "/user";
-    }
-    else if (usertype === "staff") {
-        ACCOUNT_URL += "/staff";
-    }
-    else if (usertype === "admin") {
-        ACCOUNT_URL += "/admin";
-    }
+    getUserType(ACCOUNT_URL, usertype);
     // ADD NEW USER
     return fetch(ACCOUNT_URL, {
         mode: 'cors',
@@ -45,8 +42,19 @@ const signup = (values, usertype) => {
     });
 }
 
-const logout = () => {
-    localStorage.removeItem("user");
+const logout = (usertype) => {
+    let AUTH_URL=API_URL+"/auth";
+    getUserType(AUTH_URL, usertype);
+    AUTH_URL += "/logout";
+    return fetch(AUTH_URL, {
+        mode: 'cors',
+        method: 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include'
+    });
+    
 };
 
 export default {

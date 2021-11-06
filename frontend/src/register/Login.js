@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import { Button, Box, TextField, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import LogoCard from "../components/LogoCard";
 import AlertCard from "../components/AlertCard";
@@ -7,14 +6,13 @@ import AuthService from "../services/auth.service";
 
 import './Register.scss';
 
-function Login(props) {
+function Login() {
     const [values, setValues] = useState({
         email: "",
         password: ""
     });
     
     const [usertype,setUserType]=useState("");
-    const [isLoggedIn, setLoggedIn]=useState(false);
 
     let resetErrors = {
         loginError: { status: false, msg: "" },
@@ -44,10 +42,14 @@ function Login(props) {
         e.preventDefault();
 
         setErrors(resetErrors);
+        localStorage.setItem("isLoggedIn", false);
 
         console.log("Form submitted");
         if (values.email.length === 0) {
             setErrors({...errors, emailError: { status: true, msg: "Required field"} });
+        }
+        else if (values.email.includes("@") === 0) {
+            setErrors({...errors, emailError: { status: true, msg: "Not a valid email"} });
         }
         else if (values.password.length === 0) {
             setErrors({...errors, passwordError: { status: true, msg: "Required field"} });
@@ -63,8 +65,10 @@ function Login(props) {
             })
             .then(result => {
                 if (result.status === 1) {
-                    setLoggedIn(true);
+                    localStorage.setItem("isLoggedIn", true);
+                    localStorage.setItem("type", usertype);
                     console.log("Login success");
+                    window.location.href="./";
                 }
                 if (result.status === 0) {
                     // current working example
@@ -81,57 +85,60 @@ function Login(props) {
         }
     }
 
-    if (isLoggedIn) {
-        return <Redirect to="/" />;
+    if (localStorage.isLoggedIn === "true") {
+        console.log("Already logged in");
+        window.location.href="./";
+        return 
     }
-    
-    return (
-        <div id="register-wrapper" name="login">
-            <Box id="register-container" >
-                <AlertCard severity="error" id="register-error" 
-                display={errors.loginError.status} 
-                message={errors.loginError.msg} />
-           
-                <LogoCard title="Login" position="center" size="medium" />
+    else {
+        return (
+            <div id="register-wrapper" name="login">
+                <Box id="register-container" >
+                    <AlertCard severity="error" id="register-error" 
+                    display={errors.loginError.status} 
+                    message={errors.loginError.msg} />
 
-                <form onSubmit={handleSubmit}>
-                    <TextField label="Email" 
-                        onChange={handleEmail} 
-                        value={values.email} 
-                        error={errors.emailError.status}
-                        helperText={errors.emailError.msg}
-                        fullWidth 
-                    />
-                    <TextField label="Password" 
-                        onChange={handlePassword} 
-                        type="password"
-                        value={values.password} 
-                        error={errors.passwordError.status}
-                        helperText={errors.passwordError.msg}
-                        fullWidth
-                    />
-                    
-                    <FormControl fullWidth>
-                        <InputLabel>Login As</InputLabel>
-                        <Select
-                            value={usertype}
-                            label="Login As"
-                            onChange={handleUserType}
-                            error={errors.usertypeError.status}
-                        >
-                        <MenuItem value={"user"}>User</MenuItem>
-                        <MenuItem value={"staff"}>Staff</MenuItem>
-                        <MenuItem value={"admin"}>Admin</MenuItem>
-                        </Select>
-                    </FormControl>
+                    <LogoCard title="Login" position="center" size="medium" />
 
-                    <Button type="submit" name="login" variant="contained">Login</Button>
-                </form>
+                    <form onSubmit={handleSubmit}>
+                        <TextField label="Email" 
+                            onChange={handleEmail} 
+                            value={values.email} 
+                            error={errors.emailError.status}
+                            helperText={errors.emailError.msg}
+                            fullWidth 
+                        />
+                        <TextField label="Password" 
+                            onChange={handlePassword} 
+                            type="password"
+                            value={values.password} 
+                            error={errors.passwordError.status}
+                            helperText={errors.passwordError.msg}
+                            fullWidth
+                        />
+                        
+                        <FormControl fullWidth>
+                            <InputLabel>Login As</InputLabel>
+                            <Select
+                                value={usertype}
+                                label="Login As"
+                                onChange={handleUserType}
+                                error={errors.usertypeError.status}
+                            >
+                            <MenuItem value={"user"}>User</MenuItem>
+                            <MenuItem value={"staff"}>Staff</MenuItem>
+                            <MenuItem value={"admin"}>Admin</MenuItem>
+                            </Select>
+                        </FormControl>
 
-                <p><small>No account? <a href="./signup">Create one</a></small></p>
-            </Box>
-        </div>
-    )
+                        <Button type="submit" name="login" variant="contained">Login</Button>
+                    </form>
+
+                    <p><small>No account? <a href="./signup">Create one</a></small></p>
+                </Box>
+            </div>
+        )
+    }
 }
 
 export default Login;
