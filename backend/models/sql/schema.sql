@@ -19,13 +19,14 @@ CREATE TABLE user
 
 CREATE TABLE post
 (
-    post_id              INT AUTO_INCREMENT,
-    post_content         VARCHAR(100),
-    post_author_id       INT,
-    post_status          INT,
+    post_id             INT AUTO_INCREMENT,
+    post_title          VARCHAR(25),
+    post_content        VARCHAR(1000),
+    post_author_id      INT,
+    post_status         INT,
     CHECK (post_status in (0, 1, 2)),
-    post_product_price   NUMERIC(15, 2),
-    post_product_status  INT,
+    post_product_price  NUMERIC(15, 2),
+    post_product_status INT,
     CHECK (post_product_status in (0, 1)),
     PRIMARY KEY (post_id),
     FOREIGN KEY (post_author_id) REFERENCES user (user_id)
@@ -40,7 +41,7 @@ CREATE TABLE image
     image_alt_text VARCHAR(100),
     post_id        INT,
     PRIMARY KEY (img_id),
-    FOREIGN KEY (image_owner_id) REFERENCES user(user_id)
+    FOREIGN KEY (image_owner_id) REFERENCES user (user_id)
         ON DELETE CASCADE
 );
 
@@ -61,11 +62,12 @@ CREATE TABLE message
 
 CREATE TABLE address
 (
-    name    VARCHAR(15),
-    phone   VARCHAR(20),
-    address VARCHAR(50),
-    user_id INT,
-    PRIMARY KEY (address, user_id),
+    address_id INT AUTO_INCREMENT,
+    name       VARCHAR(15),
+    phone      VARCHAR(20),
+    address    VARCHAR(50),
+    user_id    INT,
+    PRIMARY KEY (address_id),
     FOREIGN KEY (user_id) REFERENCES user (user_id)
         ON DELETE CASCADE
 );
@@ -84,11 +86,7 @@ CREATE TABLE deal
     package_status INT,
     CHECK (package_status in (0, 1)),
     PRIMARY KEY (deal_id),
-    FOREIGN KEY (seller_id, sender_address) REFERENCES address (user_id, address)
-        ON DELETE CASCADE,
-    FOREIGN KEY (buyer_id, buyer_address) REFERENCES address (user_id, address)
-        ON DELETE CASCADE,
-    FOREIGN KEY (seller_id, post_id) REFERENCES post(post_author_id, post_id)
+    FOREIGN KEY (seller_id, post_id) REFERENCES post (post_author_id, post_id)
         ON DELETE CASCADE
 );
 
@@ -105,14 +103,14 @@ CREATE TABLE rate
 
 CREATE TABLE staff
 (
-    user_id   INT AUTO_INCREMENT,
+    user_id  INT AUTO_INCREMENT,
     username VARCHAR(20),
-    bio        VARCHAR(100),
-    password   VARCHAR(50),
-    email      VARCHAR(50) UNIQUE,
-    avatar     VARCHAR(150),
-    gender     INT,
-    birthday   DATE,
+    bio      VARCHAR(100),
+    password VARCHAR(50),
+    email    VARCHAR(50) UNIQUE,
+    avatar   VARCHAR(150),
+    gender   INT,
+    birthday DATE,
     CHECK (gender in (0, 1, NULL)),
     PRIMARY KEY (user_id),
     INDEX (username)
