@@ -171,5 +171,55 @@ def get_posts():
     if "user_id" not in req:
         return api_fail('000', "Missing argument, user_id")
     postController = PostController(get_uid())
-    return api_success(postController.get_user_posts(req['user_id'])
-                       )
+    return api_success(postController.get_user_posts(req['user_id']))
+
+
+@bp.route('/user/addresses', methods=['GET'])
+@check_login_user
+def get_my_address():
+    addressController = AddressController(get_uid())
+    return api_success(addressController.get_my_addresses())
+
+
+@bp.route('/user/addresses', methods=['POST'])
+@check_login_user
+def add_an_address():
+    req = post_data()
+    if 'name' not in req or 'phone' not in req or 'address' not in req:
+        return api_fail("000", "Missing arguments: name, phone or address")
+    addressController = AddressController(get_uid())
+    addressController.add_new_address(req['name'], req['phone'], req['address'])
+    return api_success()
+
+
+@bp.route('/user/addresses', methods=['PUT'])
+@check_login_user
+def modify_an_address():
+    req = post_data()
+    if 'address_id' not in req:
+        return api_fail('000', "Missing arguments: address_id")
+    if 'name' not in req:
+        req['name'] = None
+    if 'phone' not in req:
+        req['phone'] = None
+    if 'address' not in req:
+        req['address'] = None
+    addressController = AddressController(get_uid())
+    address = addressController.get_address_by_address_id(req['address_id'], get_address_class=True)
+    if address is None:
+        return api_fail("009", "Access is denied to this address")
+    address.modify_address(name=req['name'], phone=req['phone'], address=req['address'])
+    return api_success()
+
+@bp.route('/user/addresses', methods=['DELETE'])
+@check_login_user
+def delete_an_address():
+    req = post_data()
+    if 'address_id' not in req:
+        return api_fail('000', "Missing arguments: address_id")
+    addressController = AddressController(get_uid())
+    address = addressController.get_address_by_address_id(req['address_id'], get_address_class=True)
+    if address is None:
+        return api_fail("009", "Access is denied to this address")
+    addressController.delete_address(req['address_id'])
+    return api_success()

@@ -160,8 +160,8 @@ class PostController:
     def get_one_post(self, post_id, get_post_class=False) -> dict or None:
         """
         If the user is not logged in as the author, and the post is not public, then show nothing
+        :param get_post_class:
         :param post_id:
-        :param my_uid:
         :return: None
         """
         with db.db.cursor() as cursor:
