@@ -24,4 +24,5 @@ Oct 17 to Oct 30.
 * Connected backend with frontend through authentication service
 
 ## Justin Chen
-* Oct 30: Added the schema.sql for the database; inserted testing values to insert.sql
+* Added the schema.sql for the database
+* Inserted testing values to insert.sql
