@@ -7,8 +7,10 @@
 import routes.hello
 import routes.auth
 import routes.account
+import routes.posts
 
 def init_app(app):
     app.register_blueprint(hello.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(account.bp)
+    app.register_blueprint(posts.bp)

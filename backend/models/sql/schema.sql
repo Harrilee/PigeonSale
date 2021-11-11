@@ -19,15 +19,17 @@ CREATE TABLE user
 
 CREATE TABLE post
 (
-    post_id             INT AUTO_INCREMENT,
-    post_title          VARCHAR(25),
-    post_content        VARCHAR(1000),
-    post_author_id      INT,
-    post_status         INT,
+    post_id                INT AUTO_INCREMENT,
+    post_title             VARCHAR(25),
+    post_content           VARCHAR(1000),
+    post_author_id         INT,
+    post_status            INT,
     CHECK (post_status in (0, 1, 2)),
-    post_product_price  NUMERIC(15, 2),
-    post_product_status INT,
+    post_product_price     NUMERIC(15, 2),
+    post_product_status    INT,
     CHECK (post_product_status in (0, 1)),
+    post_creation_time     DATETIME,
+    post_modification_time DATETIME,
     PRIMARY KEY (post_id),
     FOREIGN KEY (post_author_id) REFERENCES user (user_id)
         ON DELETE CASCADE

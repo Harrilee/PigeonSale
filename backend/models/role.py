@@ -118,6 +118,8 @@ class RoleController:
             result = cursor.fetchone()
         if not result:
             return -1
+        if result['birthday']:
+            result['birthday'] = result['birthday'].strftime("%Y-%m-%d")
         user = self.role_class(user_id=result['user_id'], username=result['username'], bio=result['bio'],
                                password_encrypted=result['password'], avatar=result['avatar'], email=result['email'],
                                birthday=result['birthday'], gender=result['gender'])
@@ -132,6 +134,8 @@ class RoleController:
             result = cursor.fetchone()
         if not result:
             return -1
+        if result['birthday']:
+            result['birthday'] = result['birthday'].strftime("%Y-%m-%d")
         user = self.role_class(user_id=result['user_id'], username=result['username'], bio=result['bio'],
                                password_encrypted=result['password'], avatar=result['avatar'], email=result['email'],
                                birthday=result['birthday'], gender=result['gender'])

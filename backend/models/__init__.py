@@ -13,6 +13,6 @@ from models.verification import Verification
 verification = Verification()
 from models.staff import Staff, StaffController
 from models.admin import AdminController
-
+from models.post import Post, PostController
 if __name__ == '__main__':
     print(encrypt_password('0607'))

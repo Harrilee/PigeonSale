@@ -181,6 +181,7 @@ For test purpose
         * `address`: String, address information
     * Error code
       * `009`: Not logged in or not qualified
+      * 
   * Method `POST`: add a new address
     * Request
       * `name`: String, receiver name (not username)
@@ -277,11 +278,14 @@ For test purpose
       * `search`*: keyword to search, this could be something in the product title, or product description
     * Response (type 1: get exactly one post by post_id)
       * `data`
-        * `post_id`: String, The post id searched for
+        * `post_id`: int, The post id searched for
         * `post_title`: String, post title
         * `post_content`: String, The content of the post, entered by the user
         * `post_author_id`: String, Author's user_id
         * `post_author_username`: String, Author's username
+        * `post_author_avatar`: String, Author's Avatar
+        * `post_creation_time`: String, time of post creation, %Y-%m-%d %H:%M
+        * `post_modification_time`: String, time of last modification, %Y-%m-%d %H:%M
         * `post_status`: int, {0: deleted, 1: visible to public, 2: private}
         * `post_product_status`: int, {0: sold, 1:for_sale}
         * `post_product_price`: float, .2f. The price the seller enters
@@ -290,8 +294,7 @@ For test purpose
       * `data`: list, \[ \<post attributes same as Response type 1\>\]
     * Error code
       * `000`: Missing arguments
-      * `011`: The post does not exist
-      * `012`: The post is deleted/hidden
+      * `011`: The post does not exist or is deleted/hidden
   * Method `POST`: create new post
     * Request
       * `post_title`: String, post title

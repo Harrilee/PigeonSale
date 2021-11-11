@@ -87,6 +87,7 @@ def modify_user():
     )
     return api_success()
 
+
 @bp.route('/staff', methods=['GET'])
 def get_staff():
     req = get_data()
@@ -129,8 +130,8 @@ def add_staff():
                             'Birthday format incorrect, received: {}, expected: YYYY-MM-DD'.format(req['birthday']))
 
     result = staffController.add_new_user(username=req['username'], password=req['password'],
-                                         email=req['email'], bio=req['bio'], avatar=req['avatar'],
-                                         birthday=req['birthday'], gender=req['gender'])
+                                          email=req['email'], bio=req['bio'], avatar=req['avatar'],
+                                          birthday=req['birthday'], gender=req['gender'])
     if result == 3:
         return api_fail('003', "Email already exists")
     return api_success()
@@ -162,3 +163,13 @@ def modify_staff():
         password=req['password'] if 'password' in req else None,
     )
     return api_success()
+
+
+@bp.route('/user/posts', methods=['GET'])
+def get_posts():
+    req = get_data()
+    if "user_id" not in req:
+        return api_fail('000', "Missing argument, user_id")
+    postController = PostController(get_uid())
+    return api_success(postController.get_user_posts(req['user_id'])
+                       )
