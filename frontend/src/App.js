@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-import Dashboard from './dashboard/Dashboard';
+import Profile from './profile/Profile';
+import Settings from './profile/Settings';
 import Header from './layout/Header';
 import Home from './layout/Home';
 import Login from './register/Login';
@@ -13,7 +14,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 
 function App() {
-  console.log(localStorage);
+  
   return (
     <ThemeProvider theme={theme}>
       <div id="container">
@@ -25,7 +26,8 @@ function App() {
           <div id="content">
               <Switch>
                 <Route exact path="/" component={Home}/>
-                <Route path="/dashboard" component={Dashboard}/>  
+                <Route exact path={"/" + localStorage.username}  component={Profile}/>  
+                <Route exact path={"/" + localStorage.username + "/settings"} component={Settings}/>  
               </Switch>
           </div>
       </Router>
