@@ -1,0 +1,168 @@
+./hello
+	Method 'GET' with 'prefix':
+		{
+			"data": ": Hello world!", 
+			"status": 1
+		}
+	Method 'GET' without 'prefix':
+		{
+			"code": "000", 
+			"msg": "Error. Please include 'prefix' argument in your GET request.", 
+			"status": 0
+		}
+
+
+./account/user
+	Method 'GET' without parameters:
+		{
+			"code": "000", 
+			"msg": "Missing arguments", 
+			"status": 0
+		}
+
+	Method 'GET' with 'email' = NULL/'user_id' = NULL:
+		{
+			"code": "008", 
+			"msg": "No such user", 
+			"status": 0
+		}
+
+	Method 'GET' with 'user_id' = 1:
+		{
+			"data": {
+				"avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
+				"bio": "I'm Tom", 
+				"birthday": "2001-05-18", 
+				"gender": "Female", 
+				"user_id": 1, 
+				"username": "Tom"
+			}, 
+			"status": 1
+		}
+
+
+./account/user/posts
+	Method 'GET' with 'user_id' = 1:
+		{
+			"data": [
+				{
+				"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
+				"post_author_id": 1, 
+				"post_author_username": "Tom", 
+				"post_content": "content content content", 
+				"post_creation_time": "2021-08-15 09:00", 
+				"post_id": 1, 
+				"post_images": [], 
+				"post_modification_time": "2021-11-11 13:47", 
+				"post_product_price": "588.88", 
+				"post_product_status": 1, 
+				"post_status": 1, 
+				"post_title": "test Title 2"
+				}, 
+				{
+				"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
+				"post_author_id": 1, 
+				"post_author_username": "Tom", 
+				"post_content": "content content content", 
+				"post_creation_time": "2021-11-11 03:18", 
+				"post_id": 5, 
+				"post_images": [], 
+				"post_modification_time": "2021-11-11 03:18", 
+				"post_product_price": "588.88", 
+				"post_product_status": 1, 
+				"post_status": 1, 
+				"post_title": "test Title 1"
+				}
+			], 
+			"status": 1
+		}
+
+	Method 'GET' with 'user_id' = 999:
+		{
+			"data": [], 
+			"status": 1
+		}
+	
+	Method 'GET' without parameters:
+		{
+			"code": "000", 
+			"msg": "Missing argument, user_id", 
+			"status": 0
+		}
+
+./account/user/addresses
+	Method 'GET' without logging in:
+		{
+			"code": "009", 
+			"msg": "check_login: not logged in or logged in as a different role", 
+			"status": 0
+		}
+
+./account/staff
+	Method 'GET' without parameters:
+		{
+			"code": "000", 
+			"msg": "Missing arguments", 
+			"status": 0
+		}
+
+	Method 'GET' with email = '999@nyu.edu':
+		{
+			"code": "008", 
+			"msg": "No such user", 
+			"status": 0
+		}
+
+
+./posts
+	Method 'GET' with post_id = 1:
+		{
+			"data": {
+				"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
+				"post_author_id": 1, 
+				"post_author_username": "Tom", 
+				"post_content": "content content content", 
+				"post_creation_time": "2021-08-15 09:00", 
+				"post_id": 1, 
+				"post_images": [], 
+				"post_modification_time": "2021-11-11 13:47", 
+				"post_product_price": "588.88", 
+				"post_product_status": 1, 
+				"post_status": 1, 
+				"post_title": "test Title 2"
+			}, 
+			"status": 1
+		}
+	
+	Method 'GET' with search = 'content':
+		{
+			"data": [], 
+			"status": 1
+		}
+
+
+	Method 'GET' with post_id = 999:
+		{
+			"code": "011", 
+			"msg": "The post does not exist or is deleted or hidden", 
+			"status": 0
+		}
+
+	Method 'GET' without parameters:
+		{
+			"code": "000", 
+			"msg": "Missing arguments: 'post_id' or 'search'", 
+			"status": 0
+		}
+
+./posts/my
+	Method 'GET' without logging in:
+		{
+			"code": "009", 
+			"msg": "check_login: not logged in or logged in as a different role", 
+			"status": 0
+		}
+
+	
+
+
