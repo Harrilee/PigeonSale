@@ -1,9 +1,10 @@
 ./hello
-	Method 'GET' with 'prefix':
+	Method 'GET' with 'prefix' = 'Tom' :
 		{
-			"data": ": Hello world!", 
+			"data": "Tom: Hello world!",
 			"status": 1
 		}
+
 	Method 'GET' without 'prefix':
 		{
 			"code": "000", 
@@ -11,108 +12,478 @@
 			"status": 0
 		}
 
-
-./account/user
-	Method 'GET' without parameters:
+	Method 'Post' with 'name' = 'Tom' and 'email' = 'tm@nyu.edu':
 		{
-			"code": "000", 
-			"msg": "Missing arguments", 
+			"data": "The email address of Thomas is tm@nyu.edu",
+			"status": 1
+		}
+
+	Method 'Post' with parameters 'name' and 'email' not filled together:
+		{
+			"code": "000",
+			"msg": "Cannot find argument 'name' or 'email' within the request body.",
 			"status": 0
 		}
 
-	Method 'GET' with 'email' = NULL/'user_id' = NULL:
-		{
-			"code": "008", 
-			"msg": "No such user", 
-			"status": 0
-		}
-
-	Method 'GET' with 'user_id' = 1:
-		{
-			"data": {
-				"avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
-				"bio": "I'm Tom", 
-				"birthday": "2001-05-18", 
-				"gender": "Female", 
-				"user_id": 1, 
-				"username": "Tom"
-			}, 
-			"status": 1
-		}
-
-
-./account/user/posts
-	Method 'GET' with 'user_id' = 1:
-		{
-			"data": [
-				{
-				"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
-				"post_author_id": 1, 
-				"post_author_username": "Tom", 
-				"post_content": "content content content", 
-				"post_creation_time": "2021-08-15 09:00", 
-				"post_id": 1, 
-				"post_images": [], 
-				"post_modification_time": "2021-11-11 13:47", 
-				"post_product_price": "588.88", 
-				"post_product_status": 1, 
-				"post_status": 1, 
-				"post_title": "test Title 2"
-				}, 
-				{
-				"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
-				"post_author_id": 1, 
-				"post_author_username": "Tom", 
-				"post_content": "content content content", 
-				"post_creation_time": "2021-11-11 03:18", 
-				"post_id": 5, 
-				"post_images": [], 
-				"post_modification_time": "2021-11-11 03:18", 
-				"post_product_price": "588.88", 
-				"post_product_status": 1, 
-				"post_status": 1, 
-				"post_title": "test Title 1"
-				}
-			], 
-			"status": 1
-		}
-
-	Method 'GET' with 'user_id' = 999:
-		{
-			"data": [], 
-			"status": 1
-		}
+./auth
+	./auth/user/login 
+		Method 'Post' with email unregistered:
+			{
+				"code": "001",
+				"msg": "Email not registered",
+				"status": 0
+			}
+		
+		Method 'Post' with no parameter:
+			{
+				"code": "000",
+				"msg": "Missing arguments",
+				"status": 0
+			}
+		
+		Method 'Post' with wrong password:
+			{
+				"code": "002",
+				"msg": "In correct password",
+				"status": 0
+			}
+		
+		Method 'Post' with right password:
+			{
+				"data": "",
+				"status": 1
+			}
 	
-	Method 'GET' without parameters:
-		{
-			"code": "000", 
-			"msg": "Missing argument, user_id", 
+	./auth/user/logout
+		Method 'Post':
+			{
+				"data": "",
+				"status": 1
+			}
+	
+	./auth/staff/login
+		Method 'Post' with right password:
+			{
+				"data": "",
+				"status": 1
+			}
+
+		Method 'Post' with wrong password:
+			{
+				"code": "002",
+				"msg": "In correct password",
+				"status": 0
+			}
+		
+		Method 'Post' with no parameter:
+			{
+			"code": "000",
+			"msg": "Missing arguments",
 			"status": 0
 		}
 
-./account/user/addresses
-	Method 'GET' without logging in:
-		{
-			"code": "009", 
-			"msg": "check_login: not logged in or logged in as a different role", 
-			"status": 0
-		}
+		Method 'Post' with unregistered email:
+			{
+				"code": "001",
+				"msg": "Email not registered",
+				"status": 0
+			}
 
-./account/staff
-	Method 'GET' without parameters:
-		{
-			"code": "000", 
-			"msg": "Missing arguments", 
-			"status": 0
-		}
+	./auth/staff/logout
+		Method 'Post':
+			{
+				"data": "",
+				"status": 1
+			}
 
-	Method 'GET' with email = '999@nyu.edu':
-		{
-			"code": "008", 
-			"msg": "No such user", 
-			"status": 0
-		}
+	./auth/admin/login	
+		Method 'Post' with no parameter:
+			{
+				"code": "000",
+				"msg": "Missing arguments: password",
+				"status": 0
+			}
+		
+		Method 'Post' with wrong/right password:
+			{
+				################################
+			}
+	
+	./auth/admin/logout
+		Method 'Post':
+			{
+				################################
+			}
+	
+	./auth/code
+		Method 'Post' without parameter:
+			{
+				"code": "000",
+				"msg": "Missing argument, email",
+				"status": 0
+			}
+		
+		Method 'Post' with 'email':
+			{
+				"data": "",
+				"status": 1
+			}
+		
+./account
+	./account/user
+		Method 'Post' without username:
+			{
+				"code": "000",
+				"msg": "Missing arguments: username",
+				"status": 0
+			}
+		
+		Method 'Post' without password:
+			{
+				"code": "000",
+				"msg": "Missing arguments: password",
+				"status": 0
+			}
 
+		Method 'Post' without email:
+			{
+				"code": "000",
+				"msg": "Missing arguments: email",
+				"status": 0
+			}
+		
+		Method 'Post' with already-registered email:
+			{
+				"code": "003",
+				"msg": "Email already exists",
+				"status": 0
+			}
+		
+		Method 'Post' with incorrect birthday format:
+			{
+				"code": "004",
+				"msg": "Birthday format incorrect, received: 2000_01_01, expected: YYYY-MM-DD",
+				"status": 0
+			}
+		
+		Method 'Post' with invalid gender:
+			{
+				"code": "005",
+				"msg": "Invalid gender",
+				"status": 0
+			}
+
+		Method 'Post' correctly:
+			{
+				"data": "",
+				"status": 1
+			}
+		
+		Method 'Put' without parameter:
+			{
+				################################
+			}
+
+		Method 'Put' with incorrect birthday format:
+			{
+				"code": "004",
+				"msg": "Birthday format incorrect, received: 2000_01_01, expected: YYYY-MM-DD",
+				"status": 0
+			}
+
+		Method 'Put' with invalid gender:
+			{
+				"code": "005",
+				"msg": "Invalid gender",
+				"status": 0
+			}
+
+		Method 'Put' with incorrect verification code:
+			{
+				"code": "010",
+				"msg": "Incorrect verification code.",
+				"status": 0
+			}
+		
+		Method 'Put' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}	
+
+		Method 'Put' correctly:
+			{
+				################################
+			}
+	
+
+		Method 'GET' without parameter:
+			{
+				"code": "000", 
+				"msg": "Missing arguments", 
+				"status": 0
+			}
+
+		Method 'GET' with 'user_id' = 999:
+			{
+				"code": "008", 
+				"msg": "No such user", 
+				"status": 0
+			}
+
+		Method 'GET' with 'user_id' = 1:
+			{
+				"data": {
+					"avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
+					"bio": "I'm Tom", 
+					"birthday": "2001-05-18", 
+					"gender": "Female", 
+					"user_id": 1, 
+					"username": "Tom"
+				}, 
+				"status": 1
+			}
+
+		Method 'Get' with 'email' = hl3794+tom@nyu.edu:
+			{
+				##############################
+			}
+		
+
+
+
+	./account/user/posts
+		Method 'GET' with 'user_id' = 1:
+			{
+				"data": [
+					{
+					"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
+					"post_author_id": 1, 
+					"post_author_username": "Tom", 
+					"post_content": "content content content", 
+					"post_creation_time": "2021-08-15 09:00", 
+					"post_id": 1, 
+					"post_images": [], 
+					"post_modification_time": "2021-11-11 13:47", 
+					"post_product_price": "588.88", 
+					"post_product_status": 1, 
+					"post_status": 1, 
+					"post_title": "test Title 2"
+					}, 
+					{
+					"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg", 
+					"post_author_id": 1, 
+					"post_author_username": "Tom", 
+					"post_content": "content content content", 
+					"post_creation_time": "2021-11-11 03:18", 
+					"post_id": 5, 
+					"post_images": [], 
+					"post_modification_time": "2021-11-11 03:18", 
+					"post_product_price": "588.88", 
+					"post_product_status": 1, 
+					"post_status": 1, 
+					"post_title": "test Title 1"
+					}
+				], 
+				"status": 1
+			}
+
+		Method 'GET' with 'user_id' = 999:
+			{
+				"data": [], 
+				"status": 1
+			}
+		
+		Method 'GET' without parameters:
+			{
+				"code": "000", 
+				"msg": "Missing argument, user_id", 
+				"status": 0
+			}
+
+	./account/user/addresses
+		Method 'GET' without logging in:
+			{
+				"code": "009", 
+				"msg": "check_login: not logged in or logged in as a different role", 
+				"status": 0
+			}
+		
+		Method 'GET' after logged in:
+			{
+				"data": [
+					{
+						"address": "Pine's Road",
+						"address_id": 1,
+						"name": "Peppa Dog 2",
+						"phone": "1234567",
+						"user_id": 1
+					}
+				],
+				"status": 1
+			}
+		
+		Method 'Post' without parameter:
+			{
+				"code": "000",
+				"msg": "Missing arguments: name, phone or address",
+				"status": 0
+			}
+		
+		Method 'Post' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}
+		
+		Method 'Post' adding new address:
+			{
+				"data": "",
+				"status": 1
+			}
+		
+		Method 'DELETE' without paramter:
+			{
+				"code": "000",
+				"msg": "Missing arguments: address_id",
+				"status": 0
+			}
+		
+		Method 'DELETE' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}
+
+		Method 'DELETE' after logged in:
+			{
+				"data": "",
+				"status": 1
+			}
+
+	./account/staff
+		Method 'Post' without username:
+			{
+				"code": "000",
+				"msg": "Missing arguments: username",
+				"status": 0
+			}
+
+		Method 'Post' without password:
+			{
+				"code": "000",
+				"msg": "Missing arguments: password",
+				"status": 0
+			}
+
+		Method 'Post' without email:
+			{
+				"code": "000",
+				"msg": "Missing arguments: email",
+				"status": 0
+			}
+		
+		Method 'Post' with invalid gender:
+			{
+				"code": "005",
+				"msg": "Invalid gender",
+				"status": 0
+			}
+
+		Method 'Post' with invalid birthday:
+			{
+				"code": "004",
+				"msg": "Birthday format incorrect, received: 2000_01_01, expected: YYYY-MM-DD",
+				"status": 0
+			}
+
+		Method 'Post' with already-existing email:
+			{
+				"code": "003",
+				"msg": "Email already exists",
+				"status": 0
+			}
+
+		Method 'Post' correctly:
+			{
+				"data": "",
+				"status": 1
+			}
+
+		Method 'Put' without parameter:
+			{
+				#############################
+			}
+
+		Method 'Put' with invalid birthday format:
+			{
+				"code": "004",
+				"msg": "Birthday format incorrect, received: 2000_01_01, expected: YYYY-MM-DD",
+				"status": 0
+			}
+
+		Method 'Put' with invalid gender:
+			{
+				"code": "005",
+				"msg": "Invalid gender",
+				"status": 0
+			}
+
+		Method 'Put' with incorrect verification code:
+			{
+				"code": "010",
+				"msg": "Incorrect verification code.",
+				"status": 0
+			}
+
+		Method 'Put' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}
+
+		Method 'Put' modifying staff info correctly:
+			{
+				##########################
+			}
+
+		Method 'GET' without parameter:
+			{
+				"code": "000", 
+				"msg": "Missing arguments", 
+				"status": 0
+			}
+
+		Method 'GET' with email = '999@nyu.edu':
+			{
+				"code": "008", 
+				"msg": "No such user", 
+				"status": 0
+			}
+		
+		Method 'GET' with staff_id:
+			{
+				"code": "000",
+				"msg": "Missing arguments",
+				"status": 0
+			}
+
+		Method 'GET' with email:
+			{
+				"data": {
+					"avatar": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+					"bio": "I am Topsy",
+					"birthday": "2000-01-01",
+					"gender": "Female",
+					"user_id": 5,
+					"username": "Topsy"
+				},
+				"status": 1
+			}
 
 ./posts
 	Method 'GET' with post_id = 1:
@@ -155,13 +526,13 @@
 			"status": 0
 		}
 
-./posts/my
-	Method 'GET' without logging in:
-		{
-			"code": "009", 
-			"msg": "check_login: not logged in or logged in as a different role", 
-			"status": 0
-		}
+	./posts/my
+		Method 'GET' without logging in:
+			{
+				"code": "009", 
+				"msg": "check_login: not logged in or logged in as a different role", 
+				"status": 0
+			}
 
 	
 
