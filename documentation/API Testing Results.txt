@@ -131,10 +131,24 @@
 		
 ./account
 	./account/user
-		Method 'Post' without parameter:
+		Method 'Post' without username:
 			{
 				"code": "000",
 				"msg": "Missing arguments: username",
+				"status": 0
+			}
+		
+		Method 'Post' without password:
+			{
+				"code": "000",
+				"msg": "Missing arguments: password",
+				"status": 0
+			}
+
+		Method 'Post' without email:
+			{
+				"code": "000",
+				"msg": "Missing arguments: email",
 				"status": 0
 			}
 		
@@ -172,12 +186,16 @@
 
 		Method 'Put' with incorrect birthday format:
 			{
-				################################
+				"code": "004",
+				"msg": "Birthday format incorrect, received: 2000_01_01, expected: YYYY-MM-DD",
+				"status": 0
 			}
 
 		Method 'Put' with invalid gender:
 			{
-				################################
+				"code": "005",
+				"msg": "Invalid gender",
+				"status": 0
 			}
 
 		Method 'Put' with incorrect verification code:
@@ -186,6 +204,13 @@
 				"msg": "Incorrect verification code.",
 				"status": 0
 			}
+		
+		Method 'Put' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}	
 
 		Method 'Put' correctly:
 			{
@@ -225,7 +250,7 @@
 				##############################
 			}
 		
-		
+
 
 
 	./account/user/posts
@@ -284,9 +309,149 @@
 				"msg": "check_login: not logged in or logged in as a different role", 
 				"status": 0
 			}
+		
+		Method 'GET' after logged in:
+			{
+				"data": [
+					{
+						"address": "Pine's Road",
+						"address_id": 1,
+						"name": "Peppa Dog 2",
+						"phone": "1234567",
+						"user_id": 1
+					}
+				],
+				"status": 1
+			}
+		
+		Method 'Post' without parameter:
+			{
+				"code": "000",
+				"msg": "Missing arguments: name, phone or address",
+				"status": 0
+			}
+		
+		Method 'Post' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}
+		
+		Method 'Post' adding new address:
+			{
+				"data": "",
+				"status": 1
+			}
+		
+		Method 'DELETE' without paramter:
+			{
+				"code": "000",
+				"msg": "Missing arguments: address_id",
+				"status": 0
+			}
+		
+		Method 'DELETE' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}
+
+		Method 'DELETE' after logged in:
+			{
+				"data": "",
+				"status": 1
+			}
 
 	./account/staff
-		Method 'GET' without parameters:
+		Method 'Post' without username:
+			{
+				"code": "000",
+				"msg": "Missing arguments: username",
+				"status": 0
+			}
+
+		Method 'Post' without password:
+			{
+				"code": "000",
+				"msg": "Missing arguments: password",
+				"status": 0
+			}
+
+		Method 'Post' without email:
+			{
+				"code": "000",
+				"msg": "Missing arguments: email",
+				"status": 0
+			}
+		
+		Method 'Post' with invalid gender:
+			{
+				"code": "005",
+				"msg": "Invalid gender",
+				"status": 0
+			}
+
+		Method 'Post' with invalid birthday:
+			{
+				"code": "004",
+				"msg": "Birthday format incorrect, received: 2000_01_01, expected: YYYY-MM-DD",
+				"status": 0
+			}
+
+		Method 'Post' with already-existing email:
+			{
+				"code": "003",
+				"msg": "Email already exists",
+				"status": 0
+			}
+
+		Method 'Post' correctly:
+			{
+				"data": "",
+				"status": 1
+			}
+
+		Method 'Put' without parameter:
+			{
+				#############################
+			}
+
+		Method 'Put' with invalid birthday format:
+			{
+				"code": "004",
+				"msg": "Birthday format incorrect, received: 2000_01_01, expected: YYYY-MM-DD",
+				"status": 0
+			}
+
+		Method 'Put' with invalid gender:
+			{
+				"code": "005",
+				"msg": "Invalid gender",
+				"status": 0
+			}
+
+		Method 'Put' with incorrect verification code:
+			{
+				"code": "010",
+				"msg": "Incorrect verification code.",
+				"status": 0
+			}
+
+		Method 'Put' without logging in:
+			{
+				"code": "009",
+				"msg": "check_login: not logged in or logged in as a different role",
+				"status": 0
+			}
+
+		Method 'Put' modifying staff info correctly:
+			{
+				##########################
+			}
+
+		Method 'GET' without parameter:
 			{
 				"code": "000", 
 				"msg": "Missing arguments", 
@@ -299,7 +464,26 @@
 				"msg": "No such user", 
 				"status": 0
 			}
+		
+		Method 'GET' with staff_id:
+			{
+				"code": "000",
+				"msg": "Missing arguments",
+				"status": 0
+			}
 
+		Method 'GET' with email:
+			{
+				"data": {
+					"avatar": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+					"bio": "I am Topsy",
+					"birthday": "2000-01-01",
+					"gender": "Female",
+					"user_id": 5,
+					"username": "Topsy"
+				},
+				"status": 1
+			}
 
 ./posts
 	Method 'GET' with post_id = 1:
