@@ -3,6 +3,7 @@ import { Button, Box, TextField, InputLabel, MenuItem, FormControl, Select } fro
 import LogoCard from "../components/LogoCard";
 import AlertCard from "../components/AlertCard";
 import AuthService from "../services/auth.service";
+import AccountService from "../services/account.service";
 
 import './Register.scss';
 
@@ -40,12 +41,11 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         setErrors(resetErrors);
-        localStorage.setItem("isLoggedIn", false);
 
+        localStorage.setItem("isLoggedIn", false);
         console.log("Form submitted");
-        
+
         if (values.email.length === 0) {
             setErrors({...errors, emailError: { status: true, msg: "Required field"} });
         }
@@ -67,11 +67,12 @@ function Login() {
             .then(result => {
                 if (result.status === 1) {
                     localStorage.setItem("isLoggedIn", true);
-                    localStorage.setItem("type", usertype);
+                    localStorage.setItem("usertype", usertype);
+                    localStorage.setItem("email", values.email);
                     console.log("Login success");
-                    window.location.href="./";
+                    return AccountService.getProfile({ email : values.email });
                 }
-                if (result.status === 0) {
+                else if (result.status === 0) {
                     // current working example
                     if (result.code === "000" 
                     || result.code === "001"
@@ -79,6 +80,18 @@ function Login() {
                         setErrors({...errors, loginError: { status: true, msg: result.msg } });
                     } 
                 }
+                return -1
+            })
+            .then(res => {
+                if (res !== -1) {
+                    return res.json();
+                }
+            })
+            .then(result => {
+                console.log(result);
+                localStorage.setItem("user_id", result.data.user_id);
+                localStorage.setItem("username", result.data.username);
+                window.location.href="./";
             })
             .catch(err => {
                 console.log(err);
