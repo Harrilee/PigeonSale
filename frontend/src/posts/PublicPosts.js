@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AccountService from "../services/account.service";
 
-function PublicPosts() {
+function PublicPosts(props) {
 
     const [publicPosts, setPublicPosts] = useState(-1);
 
@@ -25,12 +25,12 @@ function PublicPosts() {
         });
     }
 
-    // useEffect(() => {
-    //     if (publicPosts === -1) {
-    //         console.log("initialize");
-    //         getPublicPosts();
-    //     }
-    // });
+    useEffect(() => {
+        if (publicPosts === -1 && props.isProfileLoaded) {
+            console.log("initialize");
+            getPublicPosts();
+        }
+    });
 
     if (publicPosts.length > 0) {
         return ( 

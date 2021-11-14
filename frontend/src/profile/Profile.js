@@ -12,6 +12,7 @@ function Profile() {
     const [bio, setBio] = useState("");
     const [birthday, setBirthday] = useState("");
     const [usertype, setUsertype] = useState("");
+    const [loaded, setLoaded] = useState(false);
 
     const getProfile = () => {
         const usertype = localStorage.type;
@@ -38,6 +39,7 @@ function Profile() {
                 setBirthday(result.data.birthday);
             }
             console.log(result.data);
+            setLoaded(true);
         })
         .catch(err => {
             console.log(err);
@@ -69,7 +71,7 @@ function Profile() {
                     {bio}
                 </div>
                 <div id="my-posts">
-                    <PublicPosts />
+                    <PublicPosts isProfileLoaded={loaded} />
                 </div>
             </Box>
         </div>
