@@ -151,7 +151,7 @@ class RoleController:
         user = self.get_user_by_email(email)
         if user == -1:
             return -1, -1
-        return user.check_password(pwd), user.user_id
+        return user.check_password(pwd), user.user_id, user.username, user.avatar
 
     def add_new_user(self, username, password, email, bio="", avatar='', birthday=None, gender=None):
         if self.get_user_by_email(email) != -1:

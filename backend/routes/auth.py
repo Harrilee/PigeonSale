@@ -24,11 +24,14 @@ def user_login():
     userController = UserController()
     if 'email' not in req or 'password' not in req:
         return api_fail("000", "Missing arguments")
-    check, uid = userController.check_password(req['email'], req['password'])
+    check, uid, username, avatar = userController.check_password(req['email'], req['password'])
     if check == True:
         session['uid'] = uid
         session['role'] = 'user'
-        return api_success()
+        return api_success({
+            "username": username,
+            "avatar": avatar
+        })
     if check == -1:
         return api_fail("001", "Email not registered")
     if check == False:
@@ -40,11 +43,14 @@ def staff_login():
     staffController = StaffController()
     if 'email' not in req or 'password' not in req:
         return api_fail("000", "Missing arguments")
-    check, uid = staffController.check_password(req['email'], req['password'])
+    check, uid, username, avatar = staffController.check_password(req['email'], req['password'])
     if check == True:
         session['uid'] = uid
         session['role'] = 'staff'
-        return api_success()
+        return api_success({
+            "username": username,
+            "avatar": avatar
+        })
     if check == -1:
         return api_fail("001", "Email not registered")
     if check == False:
