@@ -4,6 +4,7 @@
 @Author  : Harry Lee
 @Email   : harrylee@nyu.edu
 """
+import config
 from models.user import User, UserController
 from . import db
 
@@ -198,6 +199,22 @@ class PostController:
                 FROM post 
                 
             """ + where_clause, arguments)
+            results = cursor.fetchall()
+        output = []
+        for each in results:
+            post = self.get_one_post(each['post_id'])
+            if post is not None:
+                output.append(post)
+        return output
+
+    def get_index_posts(self):
+        with db.db.cursor() as cursor:
+            cursor.execute("""
+                SELECT post_id
+                FROM post 
+                ORDER BY post_creation_time DESC
+                LIMIT %s
+            """, [config.RECENT_POSTS])
             results = cursor.fetchall()
         output = []
         for each in results:

@@ -22,6 +22,8 @@ def get_posts():
         return api_success(result)
     elif 'search' in req:
         return api_success(postController.search_post(req['search']))
+    else:
+        return api_success(postController.get_index_posts())
     return api_fail('000', "Missing arguments: 'post_id' or 'search'")
 
 
