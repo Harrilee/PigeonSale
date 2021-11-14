@@ -57,7 +57,8 @@ def update_post():
         return api_fail('000', 'Missing argument: post_id')
     postController = PostController(get_uid())
     post = postController.get_one_post(req['post_id'], get_post_class=True)
-    print(56, int(post.post_author_id) != postController.uid)
+    if post is None:
+        return api_fail('014', "Post does not exist")
     if not post or int(post.post_author_id) != postController.uid:
         return api_fail('009', "Access denied, your do not have access to this post")
     if post.post_product_status == 0:
