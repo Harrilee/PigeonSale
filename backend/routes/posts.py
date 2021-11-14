@@ -37,6 +37,8 @@ def create_new_post():
         return api_fail('000', 'Missing argument: post_content')
     if 'post_status' not in req:
         return api_fail('000', 'Missing argument: post_status')
+    if req['post_status'] not in [1, '1', 0, '0']:
+        return api_fail('014', 'Invalid post status')
     if 'post_product_price' not in req:
         return api_fail('000', 'Missing argument: post_product_price')
 

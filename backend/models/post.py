@@ -150,6 +150,7 @@ class PostController:
                 WHERE post_author_id=%s AND post_status!=0 AND (%s=%s OR post_status=1)
             """, [uid, uid, self.uid])
             results = cursor.fetchall()
+        print(results, uid)
         output = []
         print(output)
         for each in results:
