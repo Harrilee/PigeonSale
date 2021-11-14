@@ -1,0 +1,66 @@
+#profile-container {
+    width:60%;
+    max-width:100%;
+    margin:1em auto;
+}
+
+#profile-desc {
+    margin:0.5em 0em;
+}
+
+#avatar {
+    margin-right:3em;
+}
+
+#avatar-card {
+    display:flex;
+    align-items:center;
+    margin-bottom:2em;
+}
+
+#avatar-image {
+    width:calc(2em + 5vw);
+    height:calc(2em + 5vw);
+    border-radius:100%;
+    border:1px solid #eee;
+}
+
+#profile-container .MuiFormControl-root, #register-container button {
+    margin:0.5em 0em;
+}
+
+#profile-container form {
+    padding:0.5em 0em;
+    margin:1em 0em;
+}
+
+#profile-wrapper[name=settings] #avatar {
+    margin:1.5em 0em;
+}
+
+#profile-wrapper[name=settings] .MuiFormControl-root:nth-child(4),
+#profile-wrapper[name=settings] .MuiFormControl-root:nth-child(5) {
+    margin-right:calc(1.5em - 4px);
+}
+
+#profile-wrapper[name=settings] #profile-container {
+    width:50%;
+    max-width:100%;
+}
+
+#profile-wrapper[name=settings] #profile-container button {
+    font-size:1.05em;
+    float:right;
+    margin:1em 0em;
+}
+
+#profile-wrapper[name=settings] {
+    margin-bottom:25vh;
+}
+
+#profile-error {
+    right:1em;
+    bottom:1em;
+    position:fixed;
+    width:450px;
+}

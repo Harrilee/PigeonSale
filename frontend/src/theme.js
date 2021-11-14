@@ -32,15 +32,38 @@ const theme = createTheme({
                     fontFamily: fonts,
                     fontWeight : "normal",
                     textTransform: "capitalize",
-                    background: "#111",
                     padding: "0.5em 1em",
+                    color: "#000",
+                },
+                contained: {
+                    background: "#111",
                     color: "#fff",
                     "&:hover": {
                         background: "#333",
                     }
+                },
+                outlined: {
+                    borderColor: "#111",
+                    "&:hover": {
+                        borderColor: "#333",
+                    }
                 }
             },
         },
+        MuiFilledInput: {
+            styleOverrides: {
+                root: {
+                    background: "#fff",
+                    borderColor: "none",
+                    "&:hover": {
+                        background: "#fff",
+                    },
+                    "& label.Mui-focused": {
+                        background: "#fff",
+                    }
+                }
+            },
+        }
     },
 });
 

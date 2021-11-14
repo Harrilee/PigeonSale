@@ -52,7 +52,7 @@ def create_new_post():
 def update_post():
     req = post_data()
     if 'post_id' not in req:
-        return api_fail('000', 'Missing argument: post_title')
+        return api_fail('000', 'Missing argument: post_id')
     postController = PostController(get_uid())
     post = postController.get_one_post(req['post_id'], get_post_class=True)
     print(56, int(post.post_author_id) != postController.uid)
@@ -88,7 +88,7 @@ def update_post():
 def delete_post():
     req = post_data()
     if 'post_id' not in req:
-        return api_fail('000', 'Missing argument: post_title')
+        return api_fail('000', 'Missing argument: post_id')
     postController = PostController(get_uid())
     post = postController.get_one_post(req['post_id'], get_post_class=True)
 
@@ -97,7 +97,7 @@ def delete_post():
     if post.post_product_status == 0:
         return api_fail('016', 'Product is sold, post is locked')
     if post.post_status == 0:
-        return api_fail('016', 'Post is already deleted')
+        return api_fail('017', 'Post is already deleted')
     post.delete_post()
     return api_success()
 
