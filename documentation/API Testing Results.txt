@@ -571,7 +571,7 @@
 	Method 'Put' without parameter:
 		{
 			"code": "000",
-			"msg": "Missing argument: post_title",
+			"msg": "Missing argument: post_id",
 			"status": 0
 		}
 	
@@ -588,12 +588,106 @@
 			"status": 0
 		}
 
+	Method 'Put' with invalid product price:
+		{
+			###########################
+		}
+	Method 'Put' with denied access:
+		{
+			"code": "009",
+			"msg": "Access denied, your do not have access to this post",
+			"status": 0
+		}
+	
+	Method 'Put' with already-deleted post:
+		{
+			#########################
+		}
+	
+	Method 'Put' with already-sold product:
+		{
+			#########################
+		}
+	
+	Method 'DELETE' without post_id:
+		{
+			"code": "000",
+			"msg": "Missing argument: post_id",
+			"status": 0
+		}
+	
+	Method 'DELETE' with denied access:
+		{
+			"code": "009",
+			"msg": "Access denied, your do not have access to this post",
+			"status": 0
+		}
+	
+	Method 'DELETE' used correctly:
+		{
+			"data": "",
+			"status": 1
+		}
+	
+	Method 'DELETE' without logging in:
+		{
+			"code": "009",
+			"msg": "check_login: not logged in or logged in as a different role",
+			"status": 0
+		}
+
+	Method 'DELETE' with product already sold:
+		{
+			##########################
+		}	
+
+	Method 'DELETE' with post already deleted:
+		{
+			"code": "009",
+			"msg": "Access denied, your do not have access to this post",
+			"status": 0
+		}
 	./posts/my
 		Method 'GET' without logging in:
 			{
 				"code": "009", 
 				"msg": "check_login: not logged in or logged in as a different role", 
 				"status": 0
+			}
+		
+		Method 'GET' used correctly:
+			{
+				"data": [
+					{
+						"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg",
+						"post_author_id": 1,
+						"post_author_username": "Tom",
+						"post_content": "content content content",
+						"post_creation_time": "2021-11-11 03:18",
+						"post_id": 5,
+						"post_images": [],
+						"post_modification_time": "2021-11-11 03:18",
+						"post_product_price": "588.88",
+						"post_product_status": 1,
+						"post_status": 1,
+						"post_title": "test Title 1"
+					},
+					{
+						"post_author_avatar": "https://avatarfiles.alphacoders.com/838/thumb-1920-83876.jpg",
+						"post_author_id": 1,
+						"post_author_username": "Tom",
+						"post_content": "content content content",
+						"post_creation_time": "2021-11-11 13:47",
+						"post_id": 6,
+						"post_images": [],
+						"post_modification_time": "2021-11-11 13:56",
+						"post_product_price": "5888.88",
+						"post_product_status": 1,
+						"post_status": 2,
+						"post_title": "test Title 2"
+					}
+				],
+				"status": 1
 			}
 
 	

@@ -326,7 +326,7 @@ For test purpose
       * `014`: Invalid `post_status`
       * `015`: Invalid `post_product_price`
       * `006`: Invalid `post_images`
-      * `016`: The post is locked
+      * `016`: The post is locked because product already sold or post already deleted
   * Method `DELETE`: delete existing post
     * Request
       * `post_id`: String, the original `post_id` 
@@ -335,7 +335,7 @@ For test purpose
     * Error code
       * `000`: Missing arguments
       * `009`: Not logged in or not qualified
-      * `016`: The post is locked
+      * `016`: The post is locked because product already sold
       * `017`: The post is already deleted
 * `./posts/my`
   * Method `GET`: user's posts. **Note: must log in to see my posts, including both private and public ones**, 
