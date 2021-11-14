@@ -5,8 +5,8 @@ Insert into user values(NULL,"John","I'm John","8f2edca886227b39431b3b3ff662935f
 
 Insert into post values(NULL,"Cat","I am a cat, and I highly recommend this catfood brand", 1,  1, 50, 1, '2021-08-15 09:00:30', NOW());
 Insert into post values(NULL,"This is a mouse","I am a mouse, and I highly recommend this cheese brand", 2,  1, 25, 1, '2021-08-12 09:00:30', NOW());
-Insert into post values(NULL,"A bird","*Trying to recommend you something in bird language*", 3,  1, 100, 1, '2021-08-18 09:00:30', NOW());
-Insert into post values(NULL,"What is this?","I am John Smith", 4,  1, 200, 1, '2021-08-15 09:00:30', NOW());
+Insert into post values(NULL,"A bird","*Trying to recommend you something in bird language*", 3,  0, 100, 1, '2021-08-18 09:00:30', NOW());
+Insert into post values(NULL,"What is this?","I am John Smith", 4,  1, 200, 0, '2021-08-15 09:00:30', NOW());
 
 Insert into image values(NULL, 1,"https://www.meme-arsenal.com/memes/edd5044ccc889a3a93951130769bfc5e.jpg","Alt Text",1);
 Insert into image values(NULL, 2,"https://pbs.twimg.com/media/EbxSrOUX0AMs3U3.jpg","Alt Text",2);

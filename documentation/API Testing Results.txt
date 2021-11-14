@@ -519,10 +519,72 @@
 			"status": 0
 		}
 
-	Method 'GET' without parameters:
+	Method 'GET' without parameter:
 		{
 			"code": "000", 
 			"msg": "Missing arguments: 'post_id' or 'search'", 
+			"status": 0
+		}
+
+	Method 'Post' without logging in:
+		{
+			"code": "009",
+			"msg": "check_login: not logged in or logged in as a different role",
+			"status": 0
+		}
+
+	Method 'Post' without post_title:
+		{
+			"code": "000",
+			"msg": "Missing argument: post_title",
+			"status": 0
+		}
+
+	Method 'Post' without post_content:
+		{
+			"code": "000",
+			"msg": "Missing argument: post_content",
+			"status": 0
+		}
+
+	Method 'Post' without post_status:
+		{
+			"code": "000",
+			"msg": "Missing argument: post_status",
+			"status": 0
+		}
+
+	Method 'Post' without post_product_price:
+		{
+			"code": "000",
+			"msg": "Missing argument: post_product_price",
+			"status": 0
+		}
+	
+	Method 'Put' without logging in:
+		{
+			"code": "009",
+			"msg": "check_login: not logged in or logged in as a different role",
+			"status": 0
+		}
+	
+	Method 'Put' without parameter:
+		{
+			"code": "000",
+			"msg": "Missing argument: post_title",
+			"status": 0
+		}
+	
+	Method 'Put' correctly:
+		{
+			"data": "",
+			"status": 1
+		}
+	
+	Method 'Put' with invalid post_status:
+		{
+			"code": "014",
+			"msg": "Invalid post_status",
 			"status": 0
 		}
 
