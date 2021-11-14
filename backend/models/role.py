@@ -164,5 +164,6 @@ class RoleController:
     def update_user(self, username, password, email, bio="", avatar='', birthday=None, gender=None):
         user = self.get_user_by_uid(session['uid'])
         user.update_info(username=username, bio=bio, avatar=avatar, birthday=birthday, gender=gender, email=email)
-        user.update_pwd(pwd=password)
+        if password is not None:
+            user.update_pwd(pwd=password)
         return True
