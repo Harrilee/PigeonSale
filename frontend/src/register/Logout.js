@@ -5,13 +5,16 @@ import { Box } from "@mui/material";
 function Logout() {
 
     const handleLogout  = () => {
-        const usertype = localStorage.getItem("type");
-        AuthService.logout(usertype)
+        AuthService.logout()
         .then(res => {
             console.log(res);
             console.log("Logged out");
             localStorage.setItem("isLoggedIn", "false");
+            localStorage.removeItem("usertype");
+            localStorage.removeItem("email");
+            localStorage.removeItem("username");
             localStorage.removeItem("type");
+            localStorage.removeItem("user_id");
             window.location.href = "./";
         })
         .catch(err => {

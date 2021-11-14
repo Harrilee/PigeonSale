@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import { Box, Button, TextField, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 import LogoCard from "../components/LogoCard";
 import AlertCard from "../components/AlertCard";
-import AuthService from "../services/auth.service";
+import AccountService from "../services/account.service";
 import './Register.scss';
 
 function Signup() {
@@ -116,22 +115,8 @@ function Signup() {
         setErrors(resetErrors);
 
         console.log("Form submitted");
-
-        let cleanedValues = JSON.parse(JSON.stringify(values)); // clone values
-
-        delete cleanedValues.password2; // only used as verification
-        // remove optional parameters if it does not exist
-        if (cleanedValues.gender.length === 0) {
-            delete cleanedValues.gender;
-        }
-        if (cleanedValues.birthday.length === 0) {
-            delete cleanedValues.birthday;
-        }
-        if (cleanedValues.bio.length === 0) {
-            delete cleanedValues.bio;
-        }
         
-        AuthService.signup(cleanedValues, usertype)
+        AccountService.signup(values, usertype)
         .then(res => {
             console.log(res)
             return res.json();
@@ -139,7 +124,7 @@ function Signup() {
         .then(result => {
             if (result.status === 1) {
                 console.log("Sign up success");
-                window.location.href="/";
+                window.location.href="./login";
             }
             if (result.status === 0) {
                 console.log(result);
@@ -231,9 +216,9 @@ function Signup() {
                                     onChange={handleGender}
                                     error={errors.genderError.status}
                                 >
-                                <MenuItem value={1}>Male</MenuItem>
-                                <MenuItem value={0}>Female</MenuItem>
-                                <MenuItem value={2}>Other</MenuItem>
+                                <MenuItem value={"Male"}>Male</MenuItem>
+                                <MenuItem value={"Female"}>Female</MenuItem>
+                                <MenuItem value={"Other"}>Other</MenuItem>
                                 </Select>
                             </FormControl>
                             
