@@ -22,6 +22,8 @@ def get_posts():
         return api_success(result)
     elif 'search' in req:
         return api_success(postController.search_post(req['search']))
+    else:
+        return api_success(postController.get_index_posts())
     return api_fail('000', "Missing arguments: 'post_id' or 'search'")
 
 
@@ -35,6 +37,8 @@ def create_new_post():
         return api_fail('000', 'Missing argument: post_content')
     if 'post_status' not in req:
         return api_fail('000', 'Missing argument: post_status')
+    if req['post_status'] not in [1, '1', 0, '0']:
+        return api_fail('014', 'Invalid post status')
     if 'post_product_price' not in req:
         return api_fail('000', 'Missing argument: post_product_price')
 

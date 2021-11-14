@@ -276,6 +276,7 @@ For test purpose
       * `post_id`*: The original post id
     * Request (type 2: search for posts according to keywords)
       * `search`*: keyword to search, this could be something in the product title, or product description
+    * Request (type 3: get posts for index): `None`
     * Response (type 1: get exactly one post by post_id)
       * `data`
         * `post_id`: int, The post id searched for
@@ -291,6 +292,8 @@ For test purpose
         * `post_product_price`: float, .2f. The price the seller enters
         * `post_images`: list, \[String, String, String...\], the urls of images the seller uploaded
     * Response (type 2: search for posts according to keywords)
+      * `data`: list, \[ \<post attributes same as Response type 1\>\]
+    * Response (type 3: get posts for index)
       * `data`: list, \[ \<post attributes same as Response type 1\>\]
     * Error code
       * `000`: Missing arguments

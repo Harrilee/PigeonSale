@@ -43,3 +43,6 @@ SECRET_KEY = '20210818SZ'
 # Database password encryption
 PWD_SALT = '202110181145'
 
+# How many posts to show for on index page
+RECENT_POSTS = 25
+

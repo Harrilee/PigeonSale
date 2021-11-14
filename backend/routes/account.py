@@ -43,7 +43,14 @@ def add_user():
     if 'gender' not in req:
         req['gender'] = None
     else:
-        if req['gender'] not in [0, 1, '0', '1']:
+        if 'gender' in req:
+            if req['gender'] == 'Male':
+                req['gender'] = 1
+            elif req['gender'] == 'Female':
+                req['gender'] = 0
+            elif req['gender'] == 'Other':
+                req['gender'] = 2
+        if 'gender' in req and req['gender'] not in [0, 1, '0', '1', 2, '2']:
             return api_fail('005', "Invalid gender")
     if 'birthday' not in req:
         req['birthday'] = None
@@ -64,9 +71,17 @@ def add_user():
 @check_login_user
 def modify_user():
     req = post_data()
+    print(req)
     userController = UserController()
     staff = userController.get_user_by_uid(session['uid'])
-    if 'gender' in req and req['gender'] not in [0, 1, '0', '1']:
+    if 'gender' in req:
+        if req['gender'] == 'Male':
+            req['gender'] = 1
+        elif req['gender'] == 'Female':
+            req['gender'] = 0
+        elif req['gender'] == 'Other':
+            req['gender'] = 2
+    if 'gender' in req and req['gender'] not in [0, 1, '0', '1', 2, '2']:
         return api_fail('005', "Invalid gender")
     if 'birthday' in req and not check_date_format(req['birthday']):
         return api_fail('004',
@@ -120,7 +135,14 @@ def add_staff():
     if 'gender' not in req:
         req['gender'] = None
     else:
-        if req['gender'] not in [0, 1, '0', '1']:
+        if 'gender' in req:
+            if req['gender'] == 'Male':
+                req['gender'] = 1
+            elif req['gender'] == 'Female':
+                req['gender'] = 0
+            elif req['gender'] == 'Other':
+                req['gender'] = 2
+        if 'gender' in req and req['gender'] not in [0, 1, '0', '1', 2, '2']:
             return api_fail('005', "Invalid gender")
     if 'birthday' not in req:
         req['birthday'] = None
@@ -143,7 +165,14 @@ def modify_staff():
     req = post_data()
     staffController = StaffController()
     staff = staffController.get_user_by_uid(session['uid'])
-    if 'gender' in req and req['gender'] not in [0, 1, '0', '1']:
+    if 'gender' in req:
+        if req['gender'] == 'Male':
+            req['gender'] = 1
+        elif req['gender'] == 'Female':
+            req['gender'] = 0
+        elif req['gender'] == 'Other':
+            req['gender'] = 2
+    if 'gender' in req and req['gender'] not in [0, 1, '0', '1', 2, '2']:
         return api_fail('005', "Invalid gender")
     if 'birthday' in req and not check_date_format(req['birthday']):
         return api_fail('004',
@@ -210,6 +239,7 @@ def modify_an_address():
         return api_fail("009", "Access is denied to this address")
     address.modify_address(name=req['name'], phone=req['phone'], address=req['address'])
     return api_success()
+
 
 @bp.route('/user/addresses', methods=['DELETE'])
 @check_login_user

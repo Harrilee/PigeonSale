@@ -25,7 +25,7 @@ const signup = (values, usertype) => {
 
 const getProfile = (values) => {
     const uri = Object.keys(values).map((k)=> {
-        return k + "=" + values[k];
+        return k + "=" + encodeURIComponent(values[k]);
     }).join("?");
     console.log(uri);
     console.log(ACCOUNT_URL + "/" + localStorage.usertype + "?" + uri);
