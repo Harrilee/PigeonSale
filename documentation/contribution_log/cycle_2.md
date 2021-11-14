@@ -14,4 +14,5 @@ Oct 31 to Nov 14.
 * ...
 
 ## Justin Chen
-* ...
+* Add API Testing Results file according to results from Postman
+* Modify backend py files according to testing results
