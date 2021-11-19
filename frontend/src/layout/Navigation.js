@@ -4,26 +4,29 @@ import CreatePost from '../posts/CreatePost';
 
 function Navigation() {
 
-    if (localStorage.isLoggedIn === "true" && localStorage.usertype === "user"/*&& !window.location.href.includes("settings")*/) {
-        return (
-            <nav>
-                <CreatePost/>
-                <NavLink to={"/"+localStorage.username}>Profile</NavLink>
-                <NavLink to={"/"+localStorage.username+"/settings"}>Settings</NavLink>
-                <NavLink to="/logout">Log out</NavLink>
-            </nav>
-            
-        )
+    if (localStorage.isLoggedIn === "true") { 
+        if (localStorage.usertype === "user") {
+            return (
+                <nav>
+                    <CreatePost/>
+                    <NavLink to="/dashboard">Profile</NavLink>
+                    <NavLink to="/dashboard/settings">Settings</NavLink>
+                    <NavLink to="/logout">Log out</NavLink>
+                </nav>
+                
+            )
+        }
+        else if (localStorage.usertype === "staff") {
+                return (
+                    <nav>
+                        <NavLink to="/dashboard">Profile</NavLink>
+                        <NavLink to="/dashboard/settings">Settings</NavLink>
+                        <NavLink to="/logout">Log out</NavLink>
+                    </nav>
+                    
+                )
+        }
     }
-    // else if (localStorage.isLoggedIn === "true" && window.location.href.includes("settings")) {
-    //     return (
-    //         <nav>
-    //             <NavLink to={"/"+localStorage.username}>Profile</NavLink>
-    //             <NavLink to={"/"+localStorage.username+"/settings"}>Settings</NavLink>
-    //             <NavLink to="/logout">Log out</NavLink>
-    //         </nav>
-    //     )
-    // }
     return (
        <nav>
             <NavLink to="/login">Log in</NavLink>
