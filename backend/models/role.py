@@ -72,7 +72,7 @@ class Role:
         self.avatar = avatar if avatar is not None else self.avatar
         self.birthday = birthday if birthday is not None else self.birthday
         self.gender = gender if gender is not None else self.gender
-        self.email = email if email is not None else self.gender
+        self.email = email if email is not None else self.email
         self.update_to_db()
 
     def update_pwd(self, pwd):
