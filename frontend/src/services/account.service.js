@@ -27,8 +27,6 @@ const getProfile = (values) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
     }).join("?");
-    console.log(uri);
-    console.log(ACCOUNT_URL + "/" + localStorage.usertype + "?" + uri);
     return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "?" + uri, {
         mode: 'cors',
         method: 'GET',
@@ -40,7 +38,6 @@ const getProfile = (values) => {
 }
 
 const updateProfile = (values) => {
-    console.log("updateProfile", values);
     return fetch(ACCOUNT_URL + "/" + localStorage.usertype, {
         mode: 'cors',
         method: 'PUT',

@@ -23,7 +23,24 @@ const logout = () => {
     });   
 }
 
+const getVerificationCode = (email) => {
+    const values = {
+        email : email
+    };
+    return fetch(AUTH_URL + "/code", {
+        mode: 'cors',
+        method: 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(values)
+    });   
+}
+
+
 export default {
     login,
     logout,
+    getVerificationCode
 }
