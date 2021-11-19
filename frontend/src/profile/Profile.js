@@ -11,35 +11,35 @@ function Profile() {
     const [gender, setGender] = useState("");
     const [bio, setBio] = useState("");
     const [birthday, setBirthday] = useState("");
-    const [usertype, setUsertype] = useState("");
+    const [usertype, setUsertype] = useState(localStorage.usertype);
     const [loaded, setLoaded] = useState(false);
 
     const getProfile = () => {
-        const usertype = localStorage.type;
         const email = localStorage.email;
         const request = {
             email : email
         };
         AccountService.getProfile(request)
         .then(res => {
-            console.log(res);
             return res.json();
         })
         .then(result => {
-            setUsername(result.data.username);
-            setGender(result.data.gender);
-            setUsertype(result.data.usertype);
-            if (result.data.avatar.length !== 0) {
-                setAvatar(result.data.avatar);
+            if (result.status === 1) {
+                setUsername(result.data.username);
+                setGender(result.data.gender);
+                setUsertype(localStorage.usertype);
+                if (result.data.avatar.length !== 0) {
+                    setAvatar(result.data.avatar);
+                }
+                if (result.data.bio.length !== 0) {
+                    setBio(result.data.bio);
+                }
+                if (result.data.birthday !== null) {
+                    setBirthday(result.data.birthday);
+                }
+                console.log(result.data);
+                setLoaded(true);
             }
-            if (result.data.bio.length !== 0) {
-                setBio(result.data.bio);
-            }
-            if (result.data.birthday !== null) {
-                setBirthday(result.data.birthday);
-            }
-            console.log(result.data);
-            setLoaded(true);
         })
         .catch(err => {
             console.log(err);
@@ -62,9 +62,7 @@ function Profile() {
                     </div>
                     <div id="username">
                         <h1>{username}</h1>
-                        <small>{birthday}</small>
-                        <small>{gender}</small>
-                        <small>{usertype}</small>
+                        <small>{birthday}</small> <small>{gender}</small> <small>{usertype}</small>
                     </div>
                 </div>
                 <div id="profile-desc">
