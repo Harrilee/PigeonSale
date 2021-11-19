@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import Profile from './profile/Profile';
-import Settings from './profile/Settings';
+import Settings from './settings/Settings';
 import Header from './layout/Header';
 import Home from './layout/Home';
 import Login from './register/Login';
@@ -26,8 +26,8 @@ function App() {
           <div id="content">
               <Switch>
                 <Route exact path="/" component={Home}/>
-                <Route exact path={"/" + localStorage.username}  component={Profile}/>  
-                <Route exact path={"/" + localStorage.username + "/settings"} component={Settings}/>  
+                <Route exact path="/dashboard"  component={Profile}/>  
+                <Route exact path="/dashboard/settings" component={Settings}/>  
               </Switch>
           </div>
       </Router>
