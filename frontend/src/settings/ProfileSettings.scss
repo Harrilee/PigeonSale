@@ -1,0 +1,44 @@
+#tab-settings-container .MuiFormControl-root {
+    margin:0.5em 0em;
+}
+
+#tab-settings-container form {
+    padding:0.5em 0em;
+    margin:1em 0em;
+}
+
+#tab-settings-wrapper #avatar {
+    margin:1.5em 0em;
+}
+
+#tab-settings-wrapper[name=profile] .MuiFormControl-root:nth-child(3),
+#tab-settings-wrapper[name=profile] .MuiFormControl-root:nth-child(4) {
+    margin-right:calc(1.5em - 4px);
+}
+
+#tab-settings-wrapper[name=resetPassword] .MuiFormControl-root:nth-child(1) {
+    margin-right:1.5em;
+}
+
+#tab-settings-wrapper button[name=update] {
+    float:right;
+    margin:1em 0em;
+}
+
+#tab-settings-wrapper button[name=reset], #tab-settings-wrapper button[name=code] {
+    float:right;
+    margin:1em 0.5em;
+}
+
+
+#tab-settings-wrapper[name=profile] {
+    margin-bottom:25vh;
+}
+
+#profile-alert {
+    right:1em;
+    bottom:1em;
+    position:fixed;
+    width:350px;
+    z-index:999;
+}

@@ -1,0 +1,22 @@
+#settings-wrapper {
+    width:60%;
+    margin:0 auto;
+}
+
+#settings-wrapper div[role=tabpanel] {
+    margin-top:1em;
+}
+
+#settings-container .MuiTab-root {
+    text-transform:capitalize;
+    font-size:1.05em;
+    padding:1em 3em;
+}
+
+#settings-container .Mui-selected {
+    color:#000;
+}
+
+#settings-container .MuiTabs-indicator {
+    background-color:#000;
+}
