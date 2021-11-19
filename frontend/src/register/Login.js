@@ -59,6 +59,7 @@ function Login() {
             setErrors({...errors, usertypeError: { status: true, msg: "Required field"} });
         }
         else {
+            console.log(values);
             AuthService.login(values, usertype)
             .then(res => {
                 console.log(res);
@@ -69,11 +70,11 @@ function Login() {
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("usertype", usertype);
                     localStorage.setItem("email", values.email);
+                    console.log(values);
                     console.log("Login success");
                     return AccountService.getProfile({ email : values.email });
                 }
                 else if (result.status === 0) {
-                    // current working example
                     if (result.code === "000" 
                     || result.code === "001"
                     || result.code === "002" ) {

@@ -23,8 +23,8 @@
 
 #register-wrapper[name=signup] #register-container {
     width:calc(450px + 1em);
-    height:calc(470px + 1em);
-    top:calc(50% - (470px + 1em)/2);
+    height:calc(500px + 1em);
+    top:calc(50% - (500px + 1em)/2);
     left:calc(50% - (450px + 1em)/2);
 }
 
@@ -53,7 +53,7 @@
 
 #register-wrapper[name=signup] #form1 .MuiFormControl-root:nth-child(3),
 #form2 .MuiFormControl-root:first-child {
-    margin-right:calc(1.5em - 4px);
+    margin-right:calc(1.5em - 6px);
 }
 
 #register-container button {
