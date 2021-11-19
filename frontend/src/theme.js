@@ -33,6 +33,7 @@ const theme = createTheme({
                     fontWeight : "normal",
                     textTransform: "capitalize",
                     padding: "0.5em 1em",
+                    fontSize: "1em",
                     color: "#000",
                 },
                 contained: {
