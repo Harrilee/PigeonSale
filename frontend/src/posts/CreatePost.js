@@ -12,7 +12,8 @@ function CreatePost() {
     const [body, setBody] = useState("");
     const [price, setPrice] = useState("");
     const [postButton, setPostButton] = useState("Post");
-    const [checked, setPostPrivacy] = useState(false);
+    const [checked, setChecked] = useState(false);
+    const [postStatus, setPostStatus] = useState(1);
 
     const handleTitle = (e) => {
         let title = e.target.value;
@@ -38,13 +39,17 @@ function CreatePost() {
     }
 
     const handlePrivacy = (e) => {
-        setPostPrivacy(e.target.checked);
+        let val = 0;
         if (e.target.checked) {
+            val = 2;
             setPostButton("Post Privately");
         }
         else {
+            val = 1;
             setPostButton("Post");
         }
+        setChecked(e.target.checked);
+        setPostStatus(val);
     }
 
     const handleSubmit = (e) => {
@@ -55,9 +60,11 @@ function CreatePost() {
         let values = {
             post_title: title,
             post_content: body,
-            post_status: checked,
+            post_status: postStatus,
             post_product_price: parseFloat(price)
         };
+        console.log(checked);
+        console.log(postStatus);
 
         console.log("Values submitted: ", values);
 

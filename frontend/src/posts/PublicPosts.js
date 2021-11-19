@@ -32,7 +32,14 @@ function PublicPosts(props) {
         }
     });
 
-    if (publicPosts.length > 0) {
+    if (publicPosts === -1) {
+        return ( 
+            <div id="public-posts">
+                Loading...
+            </div>
+        )
+    }
+    else if (publicPosts.length > 0) {
         return ( 
             <div id="public-posts">
                 There are posts!
