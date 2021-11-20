@@ -1,6 +1,10 @@
 @import '../_theme.scss';
 
-.logo-card > .logo a {
+.logo-card {
+    display:inline;
+}
+
+.logo-link {
     color:$mainTextColor;
 }
 
