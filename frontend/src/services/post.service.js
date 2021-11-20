@@ -1,5 +1,16 @@
 const POST_URL = "http://localhost:5000/posts";
 
+const getIndexPosts = () => {
+    return fetch(POST_URL, {
+        mode: 'cors',
+        method: 'GET',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include'
+    });
+}
+
 const createPost = (values) => {
     return fetch(POST_URL, {
         mode: 'cors',
@@ -26,12 +37,12 @@ const updatePost = (id, values) => {
     });
 }
 
-const getPost = (id) => {
-    const values = { user_id : id };
+const getOnePost = (id) => {
+    const values = { post_id : id };
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
     }).join("?");
-    return fetch(POST_URL + "/" + uri, {
+    return fetch(POST_URL + "?" + uri, {
         mode: 'cors',
         method: 'GET',
         headers : {
@@ -46,7 +57,7 @@ const searchPost = (keyword) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
     }).join("?");
-    return fetch(POST_URL + "/" + uri, {
+    return fetch(POST_URL + "?" + uri, {
         mode: 'cors',
         method: 'GET',
         headers : {
@@ -81,10 +92,11 @@ const getMyPosts = () => {
 }
 
 export default {
+    getIndexPosts,
     createPost,
     updatePost,
     deletePost,
-    getPost,
+    getOnePost,
     searchPost,
     getMyPosts
 }
