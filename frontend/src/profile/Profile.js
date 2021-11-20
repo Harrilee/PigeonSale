@@ -3,21 +3,17 @@ import { Box } from "@mui/material";
 import "./Profile.scss";
 import AccountService from "../services/account.service";
 import PublicPosts from '../posts/PublicPosts';
+import ProfileCard from './ProfileCard';
 
-function Profile() {
+function Profile({ match }) {
 
-    const [username, setUsername] = useState("");
-    const [avatar, setAvatar] = useState("/default/empty-icon.png");
-    const [gender, setGender] = useState("");
-    const [bio, setBio] = useState("");
-    const [birthday, setBirthday] = useState("");
-    const [usertype, setUsertype] = useState(localStorage.usertype);
-    const [loaded, setLoaded] = useState(false);
+    const { params: { user_id } } = match;
+    const [profile, setProfile] = useState("");
+    const [loaded, setLoaded]= useState(false);
 
     const getProfile = () => {
-        const email = localStorage.email;
         const request = {
-            email : email
+            user_id : user_id
         };
         AccountService.getProfile(request)
         .then(res => {
@@ -25,19 +21,7 @@ function Profile() {
         })
         .then(result => {
             if (result.status === 1) {
-                setUsername(result.data.username);
-                setGender(result.data.gender);
-                setUsertype(localStorage.usertype);
-                if (result.data.avatar.length !== 0) {
-                    setAvatar(result.data.avatar);
-                }
-                if (result.data.bio.length !== 0) {
-                    setBio(result.data.bio);
-                }
-                if (result.data.birthday !== null) {
-                    setBirthday(result.data.birthday);
-                }
-                console.log(result.data);
+                setProfile(result.data);
                 setLoaded(true);
             }
         })
@@ -47,7 +31,7 @@ function Profile() {
     }
 
     useEffect(() => {
-        if (username.length === 0) {
+        if (profile.length === 0) {
             getProfile();
         }
     });
@@ -56,20 +40,10 @@ function Profile() {
     return ( 
         <div id="profile-wrapper">
             <Box id="profile-container">
-                <div id="avatar-card">
-                    <div id="avatar">
-                        <div id="avatar-image" style={{ backgroundImage: "url('"+ avatar + "')", backgroundSize: "100%" }}></div>
-                    </div>
-                    <div id="username">
-                        <h1>{username}</h1>
-                        <small>{birthday}</small> <small>{gender}</small> <small>{usertype}</small>
-                    </div>
-                </div>
-                <div id="profile-desc">
-                    {bio}
-                </div>
-                <div id="my-posts">
-                    <PublicPosts isProfileLoaded={loaded} />
+                <ProfileCard data={profile} />
+                <div id="public-posts">
+                    <h2 className="title center">Shop</h2>
+                    <PublicPosts isProfileLoaded={loaded} user_id={user_id} />
                 </div>
             </Box>
         </div>
