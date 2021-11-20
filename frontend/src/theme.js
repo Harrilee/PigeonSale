@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 const fonts = [
-    '"Rubik"',
+    '"Public Sans"',
     'Helvetica Neue',
     'Arial',
     'sans-serif'
@@ -19,10 +19,24 @@ const theme = createTheme({
         tonalOffset: 0.2,
     },
     typography: {
-        fontSize : 12.5,
+        fontSize : "1em",
         fontFamily: fonts,
     },
     components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    fontWeight: "300",
+                }
+            }
+        },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    fontSize: "1.5em",
+                }
+            }
+        },
         MuiButton: {
             defaultProps: {
                 disableElevation: true

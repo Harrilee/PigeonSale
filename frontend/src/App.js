@@ -2,9 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import Profile from './profile/Profile';
+import FullPost from './posts/FullPost';
+import SearchPosts from './posts/SearchPost';
+import Dashboard from './dashboard/Dashboard';
 import Settings from './settings/Settings';
 import Header from './layout/Header';
-import Home from './layout/Home';
+import Footer from './layout/Footer';
+import Index from './layout/Index';
 import Login from './register/Login';
 import Signup from './register/Signup';
 import Logout from './register/Logout';
@@ -25,11 +29,15 @@ function App() {
         <Header />
           <div id="content">
               <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/dashboard"  component={Profile}/>  
+                <Route exact path="/" component={Index}/>
+                <Route exact path="/user/:user_id"  component={Profile}/>  
+                <Route exact path="/post/:post_id"  component={FullPost}/> 
+                <Route exact path="/search/:keyword"  component={SearchPosts}/>   
+                <Route exact path="/dashboard"  component={Dashboard}/>  
                 <Route exact path="/dashboard/settings" component={Settings}/>  
               </Switch>
           </div>
+        <Footer />
       </Router>
       </div>
       </ThemeProvider>
