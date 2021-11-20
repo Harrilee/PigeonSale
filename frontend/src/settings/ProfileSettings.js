@@ -115,15 +115,25 @@ function ProfileSettings() {
 
         AccountService.updateProfile(values)
         .then(res => {
-            console.log(res)
             return res.json();
         })
         .then(result => {
             if (result.status === 1) {
                 setAlertCard({ type: "success", status: true, msg: "Update success" });
+                if (values.username) {
+                    localStorage.setItem("username", values.username);
+                }
+                if (values.email) {
+                    localStorage.setItem("email", values.email);
+                }
+                if (values.avatar) {
+                    localStorage.setItem("avatar", values.avatar);
+                }
+                else {
+                    localStorage.setItem("avatar", "/default/empty-icon.png");
+                }
             }
             if (result.status === 0) {
-                console.log(result);
                 setAlertCard({ type: "error", status: true, msg: result.msg });
             }
         })
@@ -135,7 +145,6 @@ function ProfileSettings() {
 
     useEffect(() => {
         if (prevValues && Object.keys(prevValues).length === 0 && Object.getPrototypeOf(prevValues) === Object.prototype) {
-            console.log("initialize");
             getProfile();
         }
     });

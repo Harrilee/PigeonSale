@@ -29,7 +29,7 @@ function a11yProps(index) {
       id: `vertical-tab-${index}`,
       'aria-controls': `vertical-tabpanel-${index}`,
     };
-  }
+}
 
 function Settings() {
 
@@ -46,7 +46,6 @@ function Settings() {
                 orientation="horizontal"
                 value={value}
                 onChange={handleChange}
-                aria-label="Vertical tabs example"
                 sx={{ borderBottom: 1, borderColor: 'divider' }}
                 centered
             >
