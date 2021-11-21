@@ -54,7 +54,7 @@ const getPublicPosts = (id) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + values[k];
     }).join("?");
-    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/posts" + "?" + uri, {
+    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/posts?" + uri, {
         mode: 'cors',
         method: 'GET',
         headers : {
