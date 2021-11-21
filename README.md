@@ -31,7 +31,7 @@ For more information, see [config.py](./backend/config.py) [Although it's not sa
   * [Cycle 3](./documentation/contribution_log/cycle_3.md)
   * [Cycle 4](./documentation/contribution_log/cycle_4.md)
   * [Post Cycle 4](./documentation/contribution_log/cycle_5.md)
-
+* [Project highlights](./documentation/highlights.md): a record of some excellent parts in this project
 ## Release History
 None
 
