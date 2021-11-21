@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
 import CreatePost from '../posts/CreatePost';
+import AccountMenu from './AccountMenu';
+import { NavLink } from 'react-router-dom';
 
 function Navigation() {
 
@@ -9,9 +10,7 @@ function Navigation() {
             return (
                 <nav>
                     <CreatePost/>
-                    <NavLink to="/dashboard">Profile</NavLink>
-                    <NavLink to="/dashboard/settings">Settings</NavLink>
-                    <NavLink to="/logout">Log out</NavLink>
+                    <AccountMenu />
                 </nav>
                 
             )
@@ -19,9 +18,7 @@ function Navigation() {
         else if (localStorage.usertype === "staff") {
                 return (
                     <nav>
-                        <NavLink to="/dashboard">Profile</NavLink>
-                        <NavLink to="/dashboard/settings">Settings</NavLink>
-                        <NavLink to="/logout">Log out</NavLink>
+                        <AccountMenu />
                     </nav>
                     
                 )

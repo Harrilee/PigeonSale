@@ -62,7 +62,6 @@ function Login() {
             console.log(values);
             AuthService.login(values, usertype)
             .then(res => {
-                console.log(res);
                 return res.json();
             })
             .then(result => {
@@ -70,7 +69,13 @@ function Login() {
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("usertype", usertype);
                     localStorage.setItem("email", values.email);
-                    console.log(values);
+                    localStorage.setItem("username", result.data.username);
+                    if (result.data.avatar.length !== 0) {
+                        localStorage.setItem("avatar", result.data.username);
+                    }
+                    else {
+                        localStorage.setItem("avatar", "/default/empty-icon.png");
+                    }
                     console.log("Login success");
                     return AccountService.getProfile({ email : values.email });
                 }

@@ -1,6 +1,4 @@
-#profile-desc {
-    margin:0.5em 0em;
-}
+@import '../_theme.scss';
 
 #avatar {
     margin-right:3em;
@@ -16,5 +14,22 @@
     width:calc(2em + 5vw);
     height:calc(2em + 5vw);
     border-radius:100%;
-    border:1px solid #eee;
+    border:1px solid $mainBorderColor;
+}
+
+#gender {
+    width:0.8em;
+    height:0.8em;
+    opacity:0.5;
+}
+
+#public-posts {
+    margin-top:3em;
+}
+
+#profile-desc {
+    display:block;
+    margin:0.5em 0em;
+    border-bottom:1px solid $mainBorderColor;
+    padding-bottom:1.5em;
 }

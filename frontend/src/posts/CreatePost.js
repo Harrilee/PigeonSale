@@ -4,6 +4,7 @@ import LockOpenIcon from '../icons/LockOpenIcon';
 import LockCloseIcon from '../icons/LockCloseIcon';
 import "./CreatePost.scss";
 import PostService from "../services/post.service";
+import AddIcon from '../icons/AddIcon';
 
 function CreatePost() {
 
@@ -63,14 +64,11 @@ function CreatePost() {
             post_status: postStatus,
             post_product_price: parseFloat(price)
         };
-        console.log(checked);
-        console.log(postStatus);
 
         console.log("Values submitted: ", values);
 
         PostService.createPost(values)
         .then(res => {
-            console.log(res)
             return res.json();
         })
         .then(result => {
@@ -78,6 +76,7 @@ function CreatePost() {
                 console.log("Posted");
                 console.log(result);
                 handleClose();
+                window.location.href="/dashboard";
             }
             if (result.status === 0) {
                 console.log(result);
@@ -92,7 +91,7 @@ function CreatePost() {
 
     return (
        <React.Fragment>
-       <span name="open" onClick={handleOpen} name="createpost">Create Post</span>
+       <div name="open" onClick={handleOpen} name="createpost"><AddIcon /></div>
        <div id="create-post-wrapper">
            <Modal
             open={openModal}

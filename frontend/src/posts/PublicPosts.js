@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import AccountService from "../services/account.service";
+import PostGrid from './PostGrid';
 
 function PublicPosts(props) {
 
     const [publicPosts, setPublicPosts] = useState(-1);
 
     const getPublicPosts = () => {
-        AccountService.getPublicPosts(localStorage.user_id)
+        AccountService.getPublicPosts(props.user_id)
         .then(res => {
             console.log(res);
             return res.json();
@@ -32,31 +33,8 @@ function PublicPosts(props) {
         }
     });
 
-    if (publicPosts === -1) {
-        return ( 
-            <div id="public-posts">
-                Loading...
-            </div>
-        )
-    }
-    else if (publicPosts.length > 0) {
-        return ( 
-            <div id="public-posts">
-                There are posts!
-            </div>
-        )
-    }
-    else if (publicPosts.length === 0) {
-        return ( 
-            <div id="public-posts">
-                No posts
-            </div>
-        )
-    }
-    return ( 
-        <div id="public-posts">
-        Hm... something went wrong
-        </div>
+    return (
+        <PostGrid posts={publicPosts} />
     )
 }
 

@@ -1,0 +1,54 @@
+@import '../_theme.scss';
+
+.post-container {
+    border:1px solid $mainBorderColor;
+    border-radius:0.3em;
+    width:inherit;
+}
+
+.post-avatar {
+    width:1.5em;
+    height:1.5em;
+    border-radius:100%;
+    vertical-align:middle;
+    border:1px solid $mainBorderColor;
+}
+
+.post-avatar, .post-author {
+    display:inline-block;
+}
+
+.post-author {
+    margin:0em 1em; 
+}
+
+.post-bottombar {
+    border-top:1px solid $mainBorderColor;
+    margin-top:0.5em;
+}
+
+.post-topbar, .post-bottombar {
+    padding:1.5em;
+}
+
+.post-price {
+    font-size:1.2em;
+}
+
+.post-title, .post-content {
+    padding:1.5em;
+}
+
+.post-content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-title {
+    padding-bottom:0em;
+}
+
+.post-images img {
+    max-width:100%;
+}
