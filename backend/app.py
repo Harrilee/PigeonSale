@@ -27,11 +27,14 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
+    try:
+        os.makedirs(config.IMAGE_STORAGE_PATH)
+    except OSError:
+        pass
     import routes, models
     with app.app_context():
         routes.init_app(app)
     return app
 
 if __name__ == '__main__':
-    create_app().run(debug=True, port=5000)
+    create_app().run(debug=True, port=config.FLASK_PORT)
