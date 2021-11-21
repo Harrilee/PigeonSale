@@ -1,5 +1,5 @@
 import React from 'react';
-import CreatePost from '../posts/CreatePost';
+import CreatePost from '../post-editor/CreatePost';
 import AccountMenu from './AccountMenu';
 import { NavLink } from 'react-router-dom';
 
