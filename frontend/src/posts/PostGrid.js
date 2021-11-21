@@ -33,11 +33,12 @@ function PostGrid(props) {
         if (postList === -1) {
             setPostList(props.posts);
         }
-    }, [props.posts]);
+    }, [props.posts, postList]);
 
     
     return (
         <Grid container 
+        id="post-grid"
         spacing={{ xs: 2, md: 4 }} 
         columns={{ xs: 4, sm: 8, md: 13 }}
         flow="column wrap"

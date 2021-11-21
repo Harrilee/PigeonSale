@@ -5,6 +5,7 @@ import PostGrid from './PostGrid';
 function SearchPosts({ match }) {
 
     const [searchPosts, setSearchPosts] = useState(-1);
+    const [searchText, setSearchText] = useState("Searching for ");
     const { params: { keyword } } = match;
 
     const getSearchPosts = () => {
@@ -16,7 +17,8 @@ function SearchPosts({ match }) {
         .then(result => {
             console.log(result);
             if (result.status === 1) {
-                setSearchPosts(result.data)
+                setSearchPosts(result.data);
+                setSearchText(result.data.length + " result(s) found for ");
             }
             else {
                 setSearchPosts(0);
@@ -35,7 +37,7 @@ function SearchPosts({ match }) {
 
     return (
         <div id="basic-grid-container">
-            <h2 className="title center">{searchPosts.length} result(s) found for <em>{keyword}</em></h2>
+            <h2 className="title center">{searchText} <em>{keyword}</em></h2>
             <PostGrid posts={searchPosts} />
         </div>
     )

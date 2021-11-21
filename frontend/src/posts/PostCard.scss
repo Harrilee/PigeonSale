@@ -1,9 +1,14 @@
 @import '../_theme.scss';
 
+#post-grid {
+    text-align:center;
+}
+
 .post-container {
     border:1px solid $mainBorderColor;
     border-radius:0.3em;
     width:inherit;
+    text-align:left;
 }
 
 .post-avatar {
@@ -22,12 +27,11 @@
     margin:0em 1em; 
 }
 
-.post-bottombar {
+.post-bottom-bar {
     border-top:1px solid $mainBorderColor;
-    margin-top:0.5em;
 }
 
-.post-topbar, .post-bottombar {
+.post-user-bar, .post-bottom-bar {
     padding:1.5em;
 }
 
@@ -39,10 +43,10 @@
     padding:1.5em;
 }
 
-.post-content {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.post-container .post-content, .post-container .post-author-card {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
 .post-title {
@@ -58,7 +62,6 @@
     display:inline-block;
 }
 
-
 #edit-button,
 #delete-button {
     float:right;
@@ -67,7 +70,12 @@
 
 .privacy {
     position:absolute;
+    background:$mainBackground;
+    padding:0em 1em 0em 0em;
+    margin:1em;
+    border-radius:0.3em;
     font-size:0.95em;
+    cursor:normal;
 }
 
 .privacy button {
