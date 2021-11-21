@@ -84,7 +84,7 @@ CREATE TABLE deal
     buyer_address  VARCHAR(50),
     buyer_phone    VARCHAR(20),
     buyer_name     VARCHAR(15),
-    payment_status INT,
+    payment_status BOOLEAN,
     CHECK (payment_status in (0, 1)),
     package_status INT,
     CHECK (package_status in (0, 1, 2)),

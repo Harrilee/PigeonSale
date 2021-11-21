@@ -1,0 +1,1 @@
+-- This file is for scheduled events to maintain MySQL

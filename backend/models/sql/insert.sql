@@ -23,10 +23,10 @@ Insert into address values(NULL, "jer_address",142857,"Jerry's Home Sweet Home",
 Insert into address values(NULL, "pigeon_address",31415926,"Pigeonland",3);
 Insert into address values(NULL, "john's address",2718281828,"Piccadilly",4);
 
-Insert into deal values(NULL, 1, 1, 4, 50, "Pine's Road", "3336658221", "Harry", 1, 1, NULL,'2021-08-18 09:00:30', NULL, NULL, NULL, FALSE, NULL, NULL);
-Insert into deal values(NULL, 2, 2, 1, 25, "Jerry's Home Sweet Home", "Lee", "18820203596", 0, 0, "LXK96232265262", '2021-08-18 09:00:30', NULL, NULL, NULL, FALSE, NULL, NULL);
-Insert into deal values(NULL, 3, 3, 2, 100, "Pigeonland", "66886688", "Lalalala", 1, 0,"JD655132198653", '2021-08-18 09:00:30', NULL, NULL, NULL, FALSE, NULL, NULL);
-Insert into deal values(NULL, 4, 4, 3, 200, "Piccadilly", "9985036", "This is my name", 1, 1,"SF551313385", '2021-08-18 09:00:30', NULL, NOW(), NULL, TRUE, "Cancel reason***", "staff");
+Insert into deal values(NULL, 1, 1, 4, 50, "Pine's Road", "3336658221", "Harry", TRUE, 1, NULL,'2021-08-18 09:00:30', NULL, NULL, NULL, FALSE, NULL, NULL);
+Insert into deal values(NULL, 2, 2, 1, 25, "Jerry's Home Sweet Home", "18820203596", "Lee", FALSE, 0, "LXK96232265262", '2021-08-18 09:00:30', NULL, NULL, NULL, FALSE, NULL, NULL);
+Insert into deal values(NULL, 3, 3, 2, 100, "Pigeonland", "66886688", "Lalalala", TRUE, 0,"JD655132198653", '2021-08-18 09:00:30', NULL, NULL, NULL, FALSE, NULL, NULL);
+Insert into deal values(NULL, 4, 4, 3, 200, "Piccadilly", "9985036", "This is my name", FALSE, 1,"SF551313385", '2021-08-18 09:00:30', NULL, NOW(), NULL, TRUE, "Cancel reason***", "staff");
 
 Insert into rate values(NULL, 3, 5, "The catfood is great! Topsy loves it!");
 Insert into rate values(NULL, 3, 4, "The cheese is nice. Unfortunately it seems I'm a bit allergic to it.");
