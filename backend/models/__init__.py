@@ -15,3 +15,4 @@ from models.staff import Staff, StaffController
 from models.admin import AdminController
 from models.post import Post, PostController
 from models.address import Address, AddressController
+from models.deal import Deal, DealController

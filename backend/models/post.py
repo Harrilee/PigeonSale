@@ -79,11 +79,11 @@ class Post:
         self.update_post_status_to_db()
 
     def set_post_to_sold(self):
-        self.post_status = 0
+        self.post_product_status = 0
         self.update_product_status_to_db()
 
     def set_post_to_selling(self):
-        self.post_status = 1
+        self.post_product_status = 1
         self.update_product_status_to_db()
 
     def update_description_to_db(self):

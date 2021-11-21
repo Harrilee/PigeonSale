@@ -370,6 +370,19 @@ For test purpose
     2. If express tracking number is entered, go to step 4
 4. Buyer can click "confirm", or, after 10 days, the deal will confirm automatically
 
+**Cancel Policy**
+
+In the following stats, each role has different permissions to cancel the order or not
+
+| State            | Staff | Seller | Buyer |
+|------------------|-------|--------|-------|
+| Unpaid           | TRUE  | TRUE   | TRUE  |
+| Shipment pending | TRUE  | TRUE   | TRUE  |
+| Delivering       | TRUE  | TRUE   | FALSE |
+| Deal finished    | TRUE  | FALSE  | FALSE |
+| Cancelled        | FALSE | FALSE  | FALSE |
+
+
 #### APIs
 
 * `./deal`
@@ -383,8 +396,7 @@ For test purpose
                 * `seller_id`: int, user_id of the seller
                 * `buyer_id`: int, user_id of the buyer
                 * `price`: float (.2f), the price paid, which cannot be modified once the deal is created
-                * `ststus`: String, one from {"Buyer paid", "Product has been sent out",
-                  "Deal finished", "Deal cancelled by seller", "Deal cancelled by buyer"}
+                * `ststus`: String, one from {"Unpaid", "Shipment pending", "Delivering","Deal finished", "Cancelled by ***" (seller, buyer, staff)}
                 * `buyer_address`: where the package sent to
                 * `buyer_phone`
                 * `buyer_name`
@@ -412,6 +424,7 @@ For test purpose
             * `000`: Missing arguments
             * `009`: Not logged in or qualified
             * `011`: The post does not exist or is deleted/hidden
+            * `021`: Post status does not allow itself to be turned into a deal
     * Method `PUT`: either adding an express tracking number, or confirm receipt
         * Request 1: add/update an express tracking number
             * `action`: `"express"`
@@ -420,22 +433,29 @@ For test purpose
         * Request 2: confirm receipt
             * `action`: `"confirm"`
             * `deal_id`: int
-            * `code`: int, the express tracking number
         * Response
             * `data`:`""`
         * Error code
             * `000`: Missing arguments
             * `009`: Do not have access to this feature
             * `018`: Receipt already confirmed
+            * `023`: Invalid action attribute
+            * `024`: Deal does not exist
     * Method `DELETE`: cancel the order
         * Request
             * `deal_id`: int, the deal which is going to cancel
+            * `reason`: str, why to cancel the deal
         * Response
             * `data`: `""`
         * Error code
             * `009`: Not logged in or not qualified
             * `019`: (For buyer) Package has sent out, can not cancel
             * `020`: Receipt is confirmed, can not cancel
+            * `024`: Deal does not exist
+            * `025`: Deal already cancelled
+            * `026`: Deal already finished, seller cannot cancel
+            * `027`: Deal already finished, buyer cannot cancel
+            * `028`: Deal in delivering, buyer cannot cancel
 
 ### ./image
 
@@ -447,6 +467,7 @@ For test purpose
 
 For image upload demo, see [image_demo](../backend/image_demo) in directory `backend`
 ![img_1.png](img_1.png)
+
 #### APIs
 
 * `./image`
@@ -463,16 +484,16 @@ For image upload demo, see [image_demo](../backend/image_demo) in directory `bac
             * `022`: File extension not accepted
 * `/image/{image sub url}`
     * Method `GET`
-      * Request: `None`
-      * Response: the image
-      * Error code: `404` (default http request code)
+        * Request: `None`
+        * Response: the image
+        * Error code: `404` (default http request code)
     * Method `DELETE`: delete image
         * Request: `None`
         * Response
             * `data`: `""`
         * Error code
-          * `021`: image doesn't exist
-          * `009`: Not qualified to delete this image
+            * `021`: image doesn't exist
+            * `009`: Not qualified to delete this image
 
 
 

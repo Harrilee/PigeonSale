@@ -9,6 +9,7 @@ import routes.auth
 import routes.account
 import routes.posts
 import routes.image
+import routes.deal
 
 def init_app(app):
     app.register_blueprint(hello.bp)
@@ -16,3 +17,4 @@ def init_app(app):
     app.register_blueprint(account.bp)
     app.register_blueprint(posts.bp)
     app.register_blueprint(image.bp)
+    app.register_blueprint(deal.bp)

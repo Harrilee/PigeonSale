@@ -85,6 +85,16 @@ def check_login_staff(func):
     return wrapper_staff
 
 
+def check_login_user_or_staff(func):
+    def wrapper_staff(*args):
+        if 'uid' in session and session['role'] in ['staff', 'user']:
+            return func(*args)
+        return api_fail('009', 'check_login: not logged in or logged in as a different role')
+
+    wrapper_staff.__name__ = func.__name__
+    return wrapper_staff
+
+
 def check_login_admin(func):
     def wrapper_admin(*args):
         if session['role'] == 'admin':
@@ -93,6 +103,7 @@ def check_login_admin(func):
 
     wrapper_admin.__name__ = func.__name__
     return wrapper_admin
+
 
 def get_uid():
     """
@@ -103,6 +114,7 @@ def get_uid():
     else:
         uid = -1
     return int(uid)
+
 
 def check_date_format(string):
     try:
