@@ -51,4 +51,26 @@
 
 .post-images img {
     max-width:100%;
+    display:block;
+}
+
+.post-price {
+    display:inline-block;
+}
+
+
+#edit-button,
+#delete-button {
+    float:right;
+    font-size:0.8em;
+}
+
+.privacy {
+    position:absolute;
+    font-size:0.95em;
+}
+
+.privacy button {
+    font-size:0.95em;
+    display:inline-block;
 }
