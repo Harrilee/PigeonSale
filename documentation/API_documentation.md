@@ -402,6 +402,9 @@ For test purpose
     * Method `POST`: create a new post using `post_id`. Note: we assume the buyer is paid by calling this API
         * Request
             * `post_id`: int
+            * `buyer_address`: String
+            * `buyer_phone`: String
+            * `buyer_name`: String
         * Response
             * `data`
                 * `deal_id`: int, the newly generated deal_id
