@@ -1,0 +1,43 @@
+@import '../_theme.scss';
+
+#avatar {
+    margin-right:3em;
+}
+
+#avatar-card {
+    display:flex;
+    align-items:center;
+    margin-bottom:2em;
+}
+
+#avatar-image {
+    width:calc(2em + 5vw);
+    height:calc(2em + 5vw);
+    border-radius:100%;
+    border:1px solid $mainBorderColor;
+}
+
+#gender {
+    width:0.8em;
+    height:0.8em;
+    opacity:0.5;
+}
+
+#dashboard-container div[role=tabpanel] {
+    margin-top:1em;
+}
+
+#dashboard-container .MuiTab-root {
+    text-transform:capitalize;
+    font-family:$mainFont;
+    font-size:1em;
+    padding:1em 3em;
+}
+
+#dashboard-container .Mui-selected {
+    color:#000;
+}
+
+#dashboard-container .MuiTabs-indicator {
+    background-color:#000;
+}
