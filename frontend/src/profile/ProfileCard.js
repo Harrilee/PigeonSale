@@ -14,7 +14,7 @@ function ProfileCard(props) {
                 setLoaded(true);
             }
         }
-    }, [props.data]);
+    }, [props.data, loaded, avatar]);
 
     return ( 
         <div>
