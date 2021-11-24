@@ -314,7 +314,7 @@ For test purpose
             * `post_content`: String, The content of the post, entered by the user
             * `post_status`: int, {1: visible to public, 2: private} (Cannot set to be {0: deleted} here)
             * `post_product_price`: float, .2f. The price the seller enters
-            * `post_images`: list of File (Can be ignored in cycle 2)
+            * `post_images`: list of File **If no images, pass [] to list**
         * Response (type 2: search for posts according to keywords)
             * `data`: Empty String
         * Error code
