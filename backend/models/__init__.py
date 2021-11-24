@@ -5,6 +5,8 @@
 @Email   : harrylee@nyu.edu
 """
 
+# The import order DOES MATTER!!!!!!!!!!!
+
 from models.utils import *
 from models.database import Database
 db = Database()
@@ -13,6 +15,9 @@ from models.verification import Verification
 verification = Verification()
 from models.staff import Staff, StaffController
 from models.admin import AdminController
+from models.image import Image, ImageController
 from models.post import Post, PostController
 from models.address import Address, AddressController
 from models.deal import Deal, DealController
+
+

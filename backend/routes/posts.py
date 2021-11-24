@@ -41,10 +41,12 @@ def create_new_post():
         return api_fail('014', 'Invalid post status')
     if 'post_product_price' not in req:
         return api_fail('000', 'Missing argument: post_product_price')
+    if 'post_images' not in req:
+        return api_fail('000', 'Missing argument: post_images')
 
     postController = PostController(get_uid())
     postController.create_new_post(
-        req['post_title'], req['post_content'], req['post_status'], req['post_product_price']
+        req['post_title'], req['post_content'], req['post_status'], req['post_product_price'], req['post_images']
     )
     return api_success()
 

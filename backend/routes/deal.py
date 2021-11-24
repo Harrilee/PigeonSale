@@ -92,7 +92,6 @@ def cancel_deal():
         return api_fail("000", "Missing argument: reason")
     dealController = DealController(session['role'], session['uid'])
     result = dealController.cancel_receipt(req['deal_id'], req['reason'])
-    print(result)
     if result == 0:
         return api_success()
     elif result == -1:

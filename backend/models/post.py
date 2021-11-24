@@ -4,14 +4,14 @@
 @Author  : Harry Lee
 @Email   : harrylee@nyu.edu
 """
-import config
-from models.user import User, UserController
+from models import *
 from . import db
 
 
 class Post:
     def __init__(self, post_title, post_content, post_author_id, post_status, post_product_price,
-                 post_product_status=1, post_id=None, post_creation_time=None, post_modification_time=None):
+                 post_product_status=1, post_id=None, post_creation_time=None, post_modification_time=None,
+                 post_images=None):
         self.post_id = post_id
         self.post_title = post_title
         self.post_content = post_content
@@ -21,32 +21,27 @@ class Post:
         self.post_product_price = post_product_price
         self.post_creation_time = post_creation_time
         self.post_modification_time = post_modification_time
+        self.images = post_images
 
     def get_info(self):
         """
         Get author information, image information, and also include its own information
         :return: the whole bunch of information as a Python dictionary
         """
-        output = {}
-        output['post_id'] = self.post_id
-        output['post_title'] = self.post_title
-        output['post_content'] = self.post_content
-        output['post_author_id'] = self.post_author_id
-        output['post_status'] = self.post_status
-        output['post_product_status'] = self.post_product_status
-        output['post_product_price'] = self.post_product_price
-        output['post_creation_time'] = self.post_creation_time
-        output['post_modification_time'] = self.post_modification_time
+        output = {'post_id': self.post_id, 'post_title': self.post_title, 'post_content': self.post_content,
+                  'post_author_id': self.post_author_id, 'post_status': self.post_status,
+                  'post_product_status': self.post_product_status, 'post_product_price': self.post_product_price,
+                  'post_creation_time': self.post_creation_time, 'post_modification_time': self.post_modification_time}
         # Get author information
-        userController = UserController()
-        author = userController.get_user_by_uid(self.post_author_id)
+        user_controller = UserController()
+        author = user_controller.get_user_by_uid(self.post_author_id)
         author_info = author.get_info()
         output['post_author_avatar'] = author_info['avatar']
         output['post_author_username'] = author_info['username']
         # Get image information
-        output['post_images'] = []
+        image_controller = ImageController(role="user", uid=self.post_author_id)
+        output['post_images'] = image_controller.get_post_images(self.post_id)
 
-        # todo: add images after image class is created
         return output
 
     def update_info(self, post_title=None, post_content=None, post_status=None, post_product_status=None,
@@ -89,27 +84,51 @@ class Post:
     def update_description_to_db(self):
         """
         ONLY FOR CONTENT, TITLE, PRICE UPDATE!!!
+        11/24/2021 UPDATE IMAGE
         :return:
         """
-        if self.post_id is None:
-            # Post not created
-            with db.db.cursor() as cursor:
+        # CONTENT, TITLE, PRICE
+        with db.db.cursor() as cursor:
+            if self.post_id is None:
+                # Post not created
                 cursor.execute("""
                     INSERT INTO post (post_title, post_content, post_author_id, post_status, post_product_price, 
                     post_product_status, post_creation_time, post_modification_time) 
                     VALUES (%s, %s, %s, %s, %s, 1, NOW(), NOW())
                 """, (
                     self.post_title, self.post_content, self.post_author_id, self.post_status, self.post_product_price))
-            db.db.commit()
-        else:
-            # Post already exists
-            with db.db.cursor() as cursor:
+                cursor.execute("""
+                    SELECT post_id
+                    FROM post
+                    WHERE post_id=@@identity 
+                """)
+                post_id = cursor.fetchone()['post_id']
+                print(post_id)
+                self.post_id = post_id
+            else:
+                # Post already exists
                 cursor.execute("""
                     UPDATE post
                     SET post_title=%s, post_content=%s, post_product_price=%s, post_modification_time=NOW()
                     WHERE post_id=%s
                 """, (
                     self.post_title, self.post_content, self.post_product_price, self.post_id))
+            # IMAGES
+            # Unlink all previous ones
+                cursor.execute("""
+                    UPDATE image
+                    SET post_id = NULL 
+                    WHERE post_id = %s
+                """, [self.post_id])
+            # Link all current ones
+            if self.images is not None and len(self.images) > 0:
+                for img_url in self.images:
+                    with db.db.cursor() as cursor:
+                        cursor.execute("""
+                            UPDATE image
+                            SET post_id = %s 
+                            WHERE image_url = %s
+                        """, [self.post_id, img_url])
             db.db.commit()
 
     def update_post_status_to_db(self):
@@ -224,7 +243,7 @@ class PostController:
                 output.append(post)
         return output
 
-    def create_new_post(self, post_title, post_content, post_status, post_product_price):
+    def create_new_post(self, post_title, post_content, post_status, post_product_price, post_images):
         post = Post(post_author_id=self.uid, post_content=post_content, post_title=post_title,
-                    post_status=post_status, post_product_price=post_product_price)
+                    post_status=post_status, post_product_price=post_product_price, post_images=post_images)
         post.update_description_to_db()
