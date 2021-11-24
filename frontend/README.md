@@ -5,6 +5,7 @@ The frontend component is created with React, MUI, Sass, and JavaScript Fetch AP
 * [React](https://reactjs.org/docs/getting-started.html)
 * [MUI](https://mui.com/)
 * [Sass](https://sass-lang.com/)
+* [Font Awesome Icons](https://fontawesome.com/v5.15/icons)
 * Other dependencies in ```package.json```
 
 ## Getting Started

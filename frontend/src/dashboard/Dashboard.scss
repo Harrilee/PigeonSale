@@ -23,12 +23,21 @@
     opacity:0.5;
 }
 
-#public-posts {
-    margin-top:3em;
+#dashboard-container div[role=tabpanel] {
+    margin-top:1em;
 }
 
-#profile-desc {
-    display:block;
-    border-bottom:1px solid $mainBorderColor;
-    padding-bottom:1.5em;
+#dashboard-container .MuiTab-root {
+    text-transform:capitalize;
+    font-family:$mainFont;
+    font-size:1em;
+    padding:1em 3em;
+}
+
+#dashboard-container .Mui-selected {
+    color:#000;
+}
+
+#dashboard-container .MuiTabs-indicator {
+    background-color:#000;
 }

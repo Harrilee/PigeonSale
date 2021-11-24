@@ -36,18 +36,22 @@ function Profile({ match }) {
         }
     });
 
-
-    return ( 
-        <div id="profile-wrapper">
-            <Box id="profile-container">
-                <ProfileCard data={profile} />
-                <div id="public-posts">
-                    <h2 className="title center">Shop</h2>
-                    <PublicPosts isProfileLoaded={loaded} user_id={user_id} />
-                </div>
-            </Box>
-        </div>
-    )
+    if (user_id !== localStorage.user_id) {
+        return ( 
+            <div id="profile-wrapper">
+                <Box id="profile-container">
+                    <ProfileCard data={profile} />
+                    <div id="public-posts">
+                        <h2 className="title center">Shop</h2>
+                        <PublicPosts isProfileLoaded={loaded} user_id={user_id} />
+                    </div>
+                </Box>
+            </div>
+        )
+    }
+    else {
+        window.location.href="/dashboard";
+    }
 }
 
 export default Profile;

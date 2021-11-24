@@ -24,8 +24,8 @@ const createPost = (values) => {
 }
 
 const updatePost = (id, values) => {
-    const post_id = { post_id, id };
-    const sendOver = { ...post_id, ...values };
+    const one_id = { post_id: id };
+    const sendOver = { ...one_id, ...values };
     return fetch(POST_URL, {
         mode: 'cors',
         method: 'PUT',
@@ -71,7 +71,7 @@ const deletePost = (id) => {
     const values = { post_id : id };
     return fetch(POST_URL, {
         mode: 'cors',
-        method: 'PUT',
+        method: 'DELETE',
         headers : {
             'Content-Type' : 'application/json'
         },

@@ -1,0 +1,111 @@
+@import "../_theme.scss";
+
+div[role=presentation] {
+    overflow-y:scroll;
+    position:absolute;
+    height:100vh;
+}
+
+#post-editor-wrapper {
+    position:absolute;
+}
+
+#post-editor-container {
+    width:60%;
+    position:relative;
+    margin:3em 0em 10em 0em;
+    left:calc(40% / 2);
+    background:$mainBoxColor;
+    border-radius:0.3em;
+}
+
+#post-editor-container button[name=post] {
+    float:right;
+}
+
+#post-editor-container input[placeholder=Title] {
+    font-weight:400;
+}
+
+#post-editor-container input, #post-editor-container textarea {
+    padding:1.5em;
+    border-bottom:1px solid $mainBorderColor;
+}
+
+#post-editor-container #price-input {
+    border-bottom:none;
+}
+
+#post-editor-container textarea {
+    font-weight:300;
+}
+
+#post-editor-container .MuiCheckbox-root button {
+    padding:0;
+    margin:0;
+}
+
+#post-privacy {
+    float:right;
+    margin:1.75em 0em;
+    font-size:0.9em;
+}
+
+#post-editor-container button[name=close] {
+    background:#d5d5d5;
+    color:black;
+}
+
+div[name=createpost] {
+    display:inline-block;
+    cursor:pointer;
+}
+
+#delete-modal .MuiBackdrop-root {
+    background:rgba(255,255,255,0.8);
+}
+
+#delete-modal-container {
+    height:150px;
+    width:350px;
+    position:fixed;
+    left:calc(50% - (350px / 2));
+    top:calc(50% - (150px / 2));
+}
+
+#delete-modal-container button {
+    margin:1em;
+    float:right;
+}
+
+#uploads-grid {
+    width:100%;
+    background:$mainBackground;
+}
+
+.upload-image {
+    width:100%;
+    flex:0 auto;
+    height:0;
+    padding-bottom:100%;
+}
+
+#text-form {
+    padding:1.5em 2em;
+    border-top:1px solid $mainBorderColor;
+    border-bottom:1px solid $mainBorderColor;
+}
+
+#post-editor-container button, #upload-button {
+    margin:1.5em;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #post-editor-container {
+        width:calc(100% - 1.5em);
+        left:calc(1.5em/2);
+        margin:1.5em 0em;
+    }
+  }
+  
