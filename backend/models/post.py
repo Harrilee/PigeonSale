@@ -45,9 +45,10 @@ class Post:
         return output
 
     def update_info(self, post_title=None, post_content=None, post_status=None, post_product_status=None,
-                    post_product_price=None):
+                    post_product_price=None, post_images=None):
         """
         Update changeable attributes
+        :param post_images:
         :param post_id:
         :param post_title:
         :param post_content:
@@ -56,9 +57,11 @@ class Post:
         :param post_product_price:
         :return:
         """
+        # It seem that the following 3 lines may have been badly writen, but anyway it works, so I will not change it
         self.post_title = post_title if post_title is not None else self.post_title
         self.post_content = post_content if post_content is not None else self.post_content
         self.post_product_price = post_product_price if post_product_price is not None else self.post_product_price
+        self.images = post_images
         self.update_description_to_db()
 
     def set_post_to_public(self):
@@ -114,14 +117,16 @@ class Post:
                 """, (
                     self.post_title, self.post_content, self.post_product_price, self.post_id))
             # IMAGES
-            # Unlink all previous ones
-                cursor.execute("""
-                    UPDATE image
-                    SET post_id = NULL 
-                    WHERE post_id = %s
-                """, [self.post_id])
             # Link all current ones
+            print(self.images)
             if self.images is not None and len(self.images) > 0:
+                # Unlink all previous ones
+                cursor.execute("""
+                        UPDATE image
+                        SET post_id = NULL 
+                        WHERE post_id = %s
+                    """, [self.post_id])
+                print(self.post_id)
                 for img_url in self.images:
                     with db.db.cursor() as cursor:
                         cursor.execute("""

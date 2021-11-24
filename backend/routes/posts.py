@@ -67,15 +67,17 @@ def update_post():
         return api_fail('016', 'Product is sold, post is locked')
     if post.post_status == 0:
         return api_fail('016', 'Post is deleted and locked')
-    if 'post_title' in req or 'post_content' in req or 'post_product_price' in req:
+    if 'post_title' in req or 'post_content' in req or 'post_product_price' in req or "post_images" in req:
         if 'post_title' not in req:
             req['post_title'] = None
         if 'post_content' not in req:
             req['post_content'] = None
         if 'post_product_price' not in req:
             req['post_product_price'] = None
+        if "post_images" not in req:
+            req["post_images"] = None
         post.update_info(post_title=req['post_title'], post_content=req['post_content'],
-                         post_product_price=req['post_product_price'])
+                         post_product_price=req['post_product_price'], post_images=req['post_images'])
         post.update_description_to_db()
     if 'post_status' in req and int(req['post_status']) != post.post_status:
         if int(req['post_status']) == 1:
