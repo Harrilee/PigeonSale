@@ -1,5 +1,5 @@
 # Contribution Log - Cycle 1
-Oct 17 to Oct 30.
+Nov 23 to Nov 30.
 
 ## Harry Lee
 * ...
@@ -8,4 +8,4 @@ Oct 17 to Oct 30.
 * ...
 
 ## Justin Chen
-* ...
+* Did API testing with the GET/POST/PUT methods included in the "deal" class
