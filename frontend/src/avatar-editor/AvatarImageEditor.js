@@ -47,7 +47,6 @@ function AvatarImageEditor(props) {
 
     useEffect(() => {
         if (props.avatar !== uploadedAvatar) {
-            console.log("changed");
             setUploadedAvatar([props.avatar]);
         }
     }, [props]);
