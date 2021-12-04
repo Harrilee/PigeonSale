@@ -11,7 +11,7 @@ function CreatePost() {
 
     return (
        <React.Fragment>
-       <div name="open" onClick={handleOpen} name="createpost"><AddIcon /></div>
+       <div onClick={handleOpen} name="createpost"><AddIcon /></div>
        <PostEditor openModal={openModal} handleOpen={handleOpen} variant="create" />
        </React.Fragment>
     )
