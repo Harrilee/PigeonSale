@@ -23,6 +23,21 @@ const theme = createTheme({
         fontFamily: fonts,
     },
     components: {
+        MuiPaper: {
+            styleOverrides: {
+                root : {
+                    fontWeight:"300"
+                }
+            }
+        },
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: {
+                    fontSize: "0.8em",
+                    fontWeight: "300"
+                }
+            }
+        },
         MuiTypography: {
             styleOverrides: {
                 root: {
@@ -93,7 +108,21 @@ const theme = createTheme({
                 }
             },
         },
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    fontWeight: "300",
+                }
+            },
+        },
         MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    fontWeight: "300",
+                }
+            },
+        },
+        MuiInputBase: {
             styleOverrides: {
                 root: {
                     fontWeight: "300",

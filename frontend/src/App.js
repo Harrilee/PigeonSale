@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import Profile from './profile/Profile';
 import FullPost from './posts/FullPost';
@@ -12,6 +12,7 @@ import Index from './layout/Index';
 import Login from './register/Login';
 import Signup from './register/Signup';
 import Logout from './register/Logout';
+import NotFound from './layout/NotFound';
 import './App.scss';
 
 import { ThemeProvider } from '@mui/material/styles';
@@ -23,9 +24,9 @@ function App() {
     <ThemeProvider theme={theme}>
       <div id="container">
       <Router>
-        <Route path="/login" component={Login}/>
-        <Route path="/signup" component={Signup}/>
-        <Route path="/logout" component={Logout}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/signup" component={Signup}/>
+        <Route exact path="/logout" component={Logout}/>
         <Header />
           <div id="content">
               <Switch>
@@ -34,7 +35,9 @@ function App() {
                 <Route exact path="/post/:post_id"  component={FullPost}/> 
                 <Route exact path="/search/:keyword"  component={SearchPosts}/>   
                 <Route exact path="/dashboard"  component={Dashboard}/>  
-                <Route exact path="/dashboard/settings" component={Settings}/>  
+                <Route exact path="/settings" component={Settings}/>  
+                <Route exact path="/404" component={NotFound} />
+                {/* <Redirect to="/404" /> */}
               </Switch>
           </div>
         <Footer />

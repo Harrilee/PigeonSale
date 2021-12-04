@@ -25,7 +25,7 @@ function Navigation() {
         }
     }
     return (
-       <nav>
+       <nav id="guest-nav">
             <NavLink to="/login">Log in</NavLink>
             <NavLink to="/signup">Sign up</NavLink>
         </nav>

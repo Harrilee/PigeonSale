@@ -5,6 +5,7 @@ header {
     padding:1em 1.5em;
     background:$mainBoxColor;
     border-bottom:1px solid $mainBorderColor;
+    z-index:1;
 }
 
 header > .logo-card, nav {
@@ -43,8 +44,20 @@ header form {
 #search-bar {
     width:40vw;
     border:1px solid $mainBorderColor;
-    padding:0.5em 0.7em;
+    padding:0.3em 1em;
     border-radius:0.3em;
+}
+
+#search-bar svg {
+    opacity:0.7;
+}
+
+#search-bar input {
+    margin-left:1em;
+}
+
+#guest-nav {
+    padding:1em;
 }
 
 @media only screen and (max-width: 768px) {
