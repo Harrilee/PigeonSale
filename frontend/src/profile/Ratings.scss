@@ -1,0 +1,22 @@
+
+@import '../_theme.scss';
+
+#ratings-container {
+    margin:0 auto;
+    width:80%;
+}
+
+.rating-wrapper {
+    padding:1.5em;
+}
+
+.rating-wrapper {
+    border:1px solid $mainBorderColor;
+    border-radius:0.3em;
+}
+
+.rating-comment {
+    padding:1.5em;
+    margin-top:0.5em;
+    background:$mainBackground;
+}
