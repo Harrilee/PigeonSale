@@ -31,16 +31,17 @@ function App() {
           <div id="content">
               <Switch>
                 <Route exact path="/" component={Index}/>
-                <Route exact path="/user/:user_id"  component={Profile}/>  
+                <Route exact path="/user/:user_id"  component={(matchProps) => <Profile {...matchProps} type="user"/>}/>
+                <Route exact path="/staff/:user_id"  component={(matchProps) => <Profile {...matchProps} type="staff"/>}/>  
                 <Route exact path="/post/:post_id"  component={FullPost}/> 
                 <Route exact path="/search/:keyword"  component={SearchPosts}/>   
                 <Route exact path="/dashboard"  component={Dashboard}/>  
                 <Route exact path="/settings" component={Settings}/>  
-                <Route exact path="/404" component={NotFound} />
-                {/* <Redirect to="/404" /> */}
+                <Route component={NotFound} />
               </Switch>
           </div>
         <Footer />
+        <Route component={NotFound} />
       </Router>
       </div>
       </ThemeProvider>

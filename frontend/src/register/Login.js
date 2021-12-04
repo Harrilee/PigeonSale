@@ -60,6 +60,7 @@ function Login() {
         }
         else {
             console.log(values);
+            console.log(usertype);
             AuthService.login(values, usertype)
             .then(res => {
                 return res.json();
@@ -77,7 +78,7 @@ function Login() {
                         localStorage.setItem("avatar", "/default/empty-icon.png");
                     }
                     console.log("Login success");
-                    return AccountService.getProfile({ email : values.email });
+                    return AccountService.getProfile({ email : values.email }, usertype);
                 }
                 else if (result.status === 0) {
                     if (result.code === "000" 

@@ -66,7 +66,7 @@ function ProfileSettings(props) {
         const request = {
             email : email
         };
-        AccountService.getProfile(request)
+        AccountService.getProfile(request, localStorage.usertype)
         .then(res => {
             console.log(res);
             return res.json();

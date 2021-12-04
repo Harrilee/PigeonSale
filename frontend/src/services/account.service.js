@@ -23,11 +23,11 @@ const signup = (values, usertype) => {
     });
 }
 
-const getProfile = (values) => {
+const getProfile = (values, usertype) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
     }).join("?");
-    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "?" + uri, {
+    return fetch(ACCOUNT_URL + "/" + usertype + "?" + uri, {
         mode: 'cors',
         method: 'GET',
         headers : {
@@ -54,7 +54,7 @@ const getPublicPosts = (id) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + values[k];
     }).join("?");
-    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/posts?" + uri, {
+    return fetch(ACCOUNT_URL + "/user/posts?" + uri, {
         mode: 'cors',
         method: 'GET',
         headers : {
