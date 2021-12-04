@@ -7,8 +7,13 @@
 .post-container {
     border:1px solid $mainBorderColor;
     border-radius:0.3em;
-    width:inherit;
+    width:100%;
     text-align:left;
+    position:relative;
+}
+
+.post-container a .post-content,.post-container a .post-title {
+    color:$mainTextColor;
 }
 
 .post-avatar {
@@ -29,9 +34,7 @@
 
 .post-bottom-bar {
     border-top:1px solid $mainBorderColor;
-}
-
-.post-user-bar, .post-bottom-bar {
+    margin-top:2em;
     padding:1.5em;
 }
 
@@ -39,18 +42,19 @@
     font-size:1.2em;
 }
 
-.post-title, .post-content {
+.post-title, .post-content,.post-user-bar {
     padding:1.5em;
+    padding-bottom:0;
 }
 
-.post-container .post-content, .post-container .post-author-card {
+.post-user-bar {
+    padding-top:2em;
+}
+
+.post-container .post-content, .post-container .post-author-card, .post-price {
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-}
-
-.post-title {
-    padding-bottom:0em;
 }
 
 .post-images img {
@@ -68,6 +72,28 @@
     font-size:0.8em;
 }
 
+.post-container {
+    position:relative;
+}
+
+.image-wrapper .sold {
+    width:100%;
+    height:100%;
+    padding:1.5em;
+    position:absolute;
+    background:rgba(255,255,255,0.7);
+}
+
+.image-wrapper .sold h3 {
+    padding:0.3em 1em;
+    border-radius:0.3em 1em 1em 0.3em;
+    position:absolute;
+    color:$mainBoxColor;
+    background:$mainTextColor;
+    right:1em;
+    top:0.75em;
+}
+
 .privacy {
     position:absolute;
     background:$mainBackground;
@@ -76,6 +102,7 @@
     border-radius:0.3em;
     font-size:0.95em;
     cursor:normal;
+    right:0;
 }
 
 .privacy button {
