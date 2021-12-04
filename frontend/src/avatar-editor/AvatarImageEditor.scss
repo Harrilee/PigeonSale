@@ -1,0 +1,38 @@
+#avatar-image-editor {
+    margin-bottom:1.5em;
+}
+
+#avatar-image-editor #avatar-wrapper {
+    margin-right:1em;
+    display:inline-block;
+    vertical-align:middle;
+}
+
+#avatar-image-editor #upload-button {
+    display:inline-block;
+}
+
+#avatar-image-editor #avatar-wrapper {
+    width:calc(2em + 5vw);
+    height:calc(2em + 5vw);
+    border-radius:100%;
+}
+
+#avatar-image-editor .image-options {
+    position:absolute;
+    width:100%;
+    height:40%;
+    padding:0.2em;
+    left:0;
+    bottom:0;
+    text-align:center;
+    background:rgba(255,255,255,0.6);
+    z-index:999;
+    opacity:0;
+    font-size:0.7em;
+    transition:0.5s;
+}
+
+#avatar-image-editor #avatar-wrapper:hover .image-options {
+    opacity:1;
+}
