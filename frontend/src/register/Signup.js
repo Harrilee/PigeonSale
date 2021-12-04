@@ -113,8 +113,6 @@ function Signup() {
         e.preventDefault();
 
         setErrors(resetErrors);
-
-        console.log("Form submitted");
         
         AccountService.signup(values, usertype)
         .then(res => {
@@ -147,7 +145,7 @@ function Signup() {
                 <Box id="register-container">
                     <AlertCard severity="error" id="register-error" 
                     display={errors.loginError.status} 
-                    message={errors.loginError.msg} />
+                    message={errors.loginError.msg} static={true} />
 
                     <LogoCard title="Sign Up" position="center" size="medium" />
 
@@ -207,6 +205,7 @@ function Signup() {
                             </p>
                         </div>
 
+
                         <div id="form2" className={"form-block "+scrolling}>
                             <FormControl sx={{ width: "calc(50% - 2px)" }}>
                                 <InputLabel>Gender</InputLabel>
@@ -221,7 +220,7 @@ function Signup() {
                                 <MenuItem value={"Other"}>Other</MenuItem>
                                 </Select>
                             </FormControl>
-                            
+
                             <TextField
                                 label="Date of Birth"
                                 type="date"
@@ -232,7 +231,6 @@ function Signup() {
                                 onChange={handleDOB}
                                 error={errors.birthdayError.status}
                             />
-
                             <TextField label="Bio" 
                                 placeholder="Tell us about yourself" 
                                 onChange={handleBio} 
@@ -243,6 +241,7 @@ function Signup() {
                             <Button name="prev" variant="contained" onClick={handleScroll}>Back</Button>
                             <Button type="submit" name="signup" variant="contained">Sign Up</Button>
                         </div>
+
                     </form>
                 </Box>
             </div>

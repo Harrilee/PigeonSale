@@ -23,12 +23,8 @@ function Logout() {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            handleLogout();
-        }, 1500);
+        handleLogout();
     });
-
-
 
     if (localStorage.isLoggedIn === "false") {
         window.location.href = "./";
