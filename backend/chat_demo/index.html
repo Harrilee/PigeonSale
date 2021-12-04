@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Demo</title>
+    <script src="https://unpkg.com/react@latest/umd/react.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@mui/material@latest/umd/material-ui.development.js"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/babel-standalone@latest/babel.min.js" crossorigin="anonymous"></script>
+    <!-- Fonts to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+    <!-- Icons to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="icon" href="./favicon.png">
+    <style>
+        html, body {
+            background: #0a1929;
+            margin: 0;
+            pading: 0;
+        }
+
+        .msg_container {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            margin: 0.5em 0;
+        }
+
+        .my_msg_container {
+            justify-content: right;
+        }
+
+        .others_msg_container {
+            justify-content: left;
+        }
+
+        .msg_style {
+            display: inline-block;
+            background: white;
+            max-width: 50%;
+            padding: 0.5em;
+            border-radius: 0.3em;
+            margin: 0 1em;
+        }
+
+        .my_msg_style:before {
+            position: absolute;
+            right: 0.2em;
+            border-width: 0.4em 0.4em;
+            border-color: transparent transparent transparent lightblue;
+            border-style: solid;
+            content: " ";
+
+        }
+
+        .my_msg_style {
+            right: 0;
+            background: lightblue;
+        }
+
+        .others_msg_style:before {
+            position: absolute;
+            left: 0.2em;
+            border-width: 0.4em 0.4em;
+            border-color: transparent lightgray transparent transparent;
+            border-style: solid;
+            content: " ";
+        }
+
+        .others_msg_style {
+            left: 0;
+            background: lightgray;
+        }
+
+        .chat_box {
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 1em;
+            margin: 1em;
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            background: #333333;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    const {
+        colors,
+        Button,
+        IconButton,
+        styled,
+        Stack,
+        ImageList,
+        ImageListItem
+    } = MaterialUI;
+
+    const Input = styled('input')({
+        display: 'none',
+    });
+
+    const MyMessage = (props) => {
+        const {msg} = props
+        return (
+            <div className="msg_container my_msg_container">
+                <div className="msg_style my_msg_style">
+                    {msg}
+                </div>
+            </div>
+        )
+    }
+
+    const OthersMessage = (props) => {
+        const {msg} = props
+        return (
+            <div className="msg_container others_msg_container">
+                <div className="msg_style others_msg_style">
+                    {msg}
+                </div>
+            </div>
+        )
+    }
+
+    const ChatBox = () => {
+        return (
+            <div className="chat_box">
+                <MyMessage msg={'你好'}/>
+                <OthersMessage msg={'啊哈哈哈哈哈啊哈你是个傻逼'}/>
+                <MyMessage msg={'啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊对我是个傻逼'}/>
+                <OthersMessage msg={'啊哈哈哈你好瓜'}/>
+                <MyMessage msg={'啊哈哈哈你说得对'}/>
+                <OthersMessage msg={'？？'}/>
+            </div>
+        )
+    }
+
+
+    const App = () => {
+        const [loggedIn, setLoggedIn] = React.useState(false)
+
+
+        const login = () => {
+            fetch("http://localhost:5000/auth/user/login", {
+                mode: 'cors',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    "email": "hl3794+tom@nyu.edu",
+                    "password": "001"
+                })
+            }).then(response => {
+                return response.json()
+            }).then(data => {
+                console.log(data)
+                if (data.status === 1) {
+                    setLoggedIn(true)
+                }
+            });
+        }
+
+        return (<div>
+                <Button onClick={() => {
+                    login()
+                }}>
+                    {loggedIn ? "Logged in as Tom (user_id: 1)" : "Click to login as Tom (user_id: 1)"}
+                </Button>
+                <ChatBox/>
+            </div>
+
+
+        )
+    }
+    ReactDOM.render(<App/>, document.getElementById("root"))
+</script>
+</body>
+</html>
