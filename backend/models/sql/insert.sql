@@ -28,10 +28,10 @@ Insert into deal values(NULL, 2, 2, 1, 25, "Jerry's Home Sweet Home", "188202035
 Insert into deal values(NULL, 3, 3, 2, 100, "Pigeonland", "66886688", "Lalalala", TRUE, 0,"JD655132198653", '2021-08-18 09:00:30', NULL, NULL, NULL, FALSE, NULL, NULL);
 Insert into deal values(NULL, 4, 4, 3, 200, "Piccadilly", "9985036", "This is my name", FALSE, 1,"SF551313385", '2021-08-18 09:00:30', NULL, NOW(), NULL, TRUE, "Cancel reason***", "staff");
 
-Insert into rate values(NULL, 3, 5, "The catfood is great! Topsy loves it!");
-Insert into rate values(NULL, 3, 4, "The cheese is nice. Unfortunately it seems I'm a bit allergic to it.");
-Insert into rate values(NULL, 2, 5, "Why is the package full of feathers?");
-Insert into rate values(NULL, 4, 3, "*compliment with satisfication, in pigeon language*");
+Insert into rate values(NULL, 3, 5, "The catfood is great! Topsy loves it!", TRUE);
+Insert into rate values(NULL, 3, 4, "The cheese is nice. Unfortunately it seems I'm a bit allergic to it.", TRUE);
+Insert into rate values(NULL, 2, 5, "Why is the package full of feathers?", FALSE);
+Insert into rate values(NULL, 4, 3, "*compliment with satisfication, in pigeon language*", FALSE);
 
 Insert into staff values(NULL, "Roy","I_Work_in_IT!", "e27ef5ef5ff1d3d09225887f5e2a0b07", "hl3794+staff1@nyu.edu", "https://pickaface.net/gallery/avatar/unr_tomcruise_170202_2128_r2nwsnv.png",1, "2003-05-28"); -- password 001
 Insert into staff values(NULL, "Ben","I_Work_in_IT!", "e27ef5ef5ff1d3d09225887f5e2a0b07", "hl3794+staff2@nyu.edu", "https://pickaface.net/gallery/avatar/unr_tomcruise_170202_2128_r2nwsnv.png",1, "2003-05-22"); -- password 001

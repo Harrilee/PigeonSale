@@ -104,10 +104,11 @@ CREATE TABLE deal
 
 CREATE TABLE rate
 (
-    rate_id INT AUTO_INCREMENT,
-    deal_id INT,
-    rate    INT,
-    comment VARCHAR(512),
+    rate_id        INT AUTO_INCREMENT,
+    deal_id        INT,
+    rate           INT,
+    comment        VARCHAR(512),
+    rate_to_seller BOOL,
     PRIMARY KEY (rate_id),
     FOREIGN KEY (deal_id) REFERENCES deal (deal_id)
         ON DELETE CASCADE
