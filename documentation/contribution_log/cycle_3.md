@@ -1,5 +1,5 @@
 # Contribution Log - Cycle 1
-Oct 17 to Oct 30.
+Nov 15 to Nov 22.
 
 ## Harry Lee
 * ...
@@ -8,4 +8,4 @@ Oct 17 to Oct 30.
 * ...
 
 ## Justin Chen
-* ...
+* Added an event that automatically sets a package as "received" approximately 10 days after it's sent

@@ -689,7 +689,200 @@
 				],
 				"status": 1
 			}
+./deal
+	Method 'GET' without logging in:
+		{
+			"code": "009",
+			"msg": "check_login: not logged in or logged in as a different role",
+			"status": 0
+		}
+	Method 'GET' used correctly:
+		{
+			"data": {
+				"buyer_address": "Pine's Road",
+				"buyer_id": 4,
+				"buyer_phone": "3336658221",
+				"deal_id": "1",
+				"order_trace": [
+					{
+						"status": "Buyer paid 50.00$.",
+						"time": "2021-08-18 09:00:30"
+					},
+					{
+						"status": "Seller sent out package, tracking number: YT65351321353.",
+						"time": "2021-11-21 21:16:40"
+					}
+				],
+				"post_id": 1,
+				"price": "50.00",
+				"seller_id": 1,
+				"status": "Delivering"
+			},
+			"status": 1
+		}
+	Method 'GET' but unqualified:
+		{
+			"code": "009",
+			"msg": "You do not have access to this deal",
+			"status": 0
+		}
 
+	Method 'GET' with no argument:
+		{
+			"code": "000",
+			"msg": "Missing arguments",
+			"status": 0
+		}
+
+	Method 'POST' without logging in:
+		{
+			"code": "009",
+			"msg": "check_login: not logged in or logged in as a different role",
+			"status": 0
+		}
+	
+	Method 'POST' used correctly:
+		{
+			"data": "",
+			"status": 1
+		}
+	
+	Method 'POST' with missing post_id:
+		{
+			"code": "000",
+			"msg": "Missing argument: post_id",
+			"status": 0
+		}
+	
+	Method 'POST' with missing buyer_address:
+		{
+			"code": "000",
+			"msg": "Missing argument: buyer_address",
+			"status": 0
+		}
+	
+	Method 'POST' with missing buyer phone:
+		{
+			"code": "000",
+			"msg": "Missing argument: buyer_phone",
+			"status": 0
+		}
+	
+	Method 'POST' with missing buyer name:
+		{
+			"code": "000",
+			"msg": "Missing argument: buyer_name",
+			"status": 0
+		}
+	
+	Method 'POST' with post already hidden:
+		{
+			"code": "011",
+			"msg": "The post does not exist or is hidden",
+			"status": 0
+		}
+
+	Method 'POST' with unqualified post status:
+		{
+			"code": "021",
+			"msg": "Post status does not allow itself be turned into a deal. It might be already sold out.",
+			"status": 0
+		}
+	
+	Method 'PUT' entering "express" without logging in:
+		{
+			"code": "009",
+			"msg": "check_login: not logged in or logged in as a different role",
+			"status": 0
+		}
+	
+	Method 'PUT' entering "express" correctly:
+		{
+			"data": "",
+			"status": 1
+		}
+
+	Method 'PUT' without "action" argument:
+		{
+			"code": "000",
+			"msg": "Missing argument: action",
+			"status": 0
+		}
+	
+	Method 'PUT' without deal_id:
+		{
+			"code": "000",
+			"msg": "Missing argument: deal_id",
+			"status": 0
+		}
+	
+	Method 'PUT' with invalid action:
+		{
+			"code": "022",
+			"msg": "Invalid action attribute, action must be 'express' or 'confirm'",
+			"status": 0
+		}
+	
+	Method 'PUT' entering "express" but without express code:
+		{
+			"code": "000",
+			"msg": "Missing argument: code",
+			"status": 0
+		}
+	
+	Method 'PUT' entering "express" without being the valid seller:
+		{
+			"code": "009",
+			"msg": "Not logged in as the seller or staff",
+			"status": 0
+		}
+	
+	Method 'PUT' entering "express" with deal that doesn't exist:
+		{
+			#####################################
+		}
+	
+	Method 'PUT' entering "confirmed" with deal already confirmed:
+		{
+			"code": "018",
+			"msg": "Receipt already confirmed",
+			"status": 0
+		}
+	
+	Method 'PUT' entering "confirmed" with deal that doesn't exist:
+		{
+			#####################################
+		}
+	
+	Method 'PUT' entering "confirmed" correctly:
+		{
+			"data": "",
+			"status": 1
+		}
+	
+	Method 'PUT' entering "confirmed" without being the valid buyer:
+		{
+			"code": "009",
+			"msg": "Not logged in as the buyer",
+			"status": 0
+		}
 	
 
 
+./image
+	Method 'Post' without logging in:
+		{
+			"code": "009",
+			"msg": "check_login: not logged in or logged in as a different role",
+			"status": 0
+		}
+	
+	Method 'Post' without file found:
+		{
+			"code": "000",
+			"msg": "No file found, getting 0 pictures",
+			"status": 0
+		}
+
+./image/{image sub url}
+	Method 'GET':

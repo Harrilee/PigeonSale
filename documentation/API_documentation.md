@@ -442,7 +442,7 @@ In the following stats, each role has different permissions to cancel the order 
             * `000`: Missing arguments
             * `009`: Do not have access to this feature
             * `018`: Receipt already confirmed
-            * `023`: Invalid action attribute
+            * `022`: Invalid action attribute
             * `024`: Deal does not exist
     * Method `DELETE`: cancel the order
         * Request
