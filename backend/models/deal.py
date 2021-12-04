@@ -291,3 +291,39 @@ class DealController:
             else:
                 return -8
         return -9
+
+    def get_my_deal(self, sell=True, bought=True):
+        if sell == True and bought == True:
+            with db.db.cursor() as cursor:
+                cursor.execute("""
+                    SELECT deal_id
+                    FROM deal
+                    WHERE buyer_id=%s OR seller_id=%s
+                """, (self.uid, self.uid))
+                result = cursor.fetchall()
+        elif sell == True and bought == False:
+            with db.db.cursor() as cursor:
+                cursor.execute("""
+                    SELECT deal_id
+                    FROM deal
+                    WHERE seller_id=%s
+                """, [self.uid])
+                result = cursor.fetchall()
+        elif sell == False and bought == True:
+            with db.db.cursor() as cursor:
+                cursor.execute("""
+                    SELECT deal_id
+                    FROM deal
+                    WHERE buyer_id=%s
+                """, [self.uid])
+                result = cursor.fetchall()
+        else:
+            result = None
+        if result is None:
+            return []
+        deals = []
+        for deal in result:
+            deal = Deal(deal['deal_id'])
+            deal.get_from_db()
+            deals.append(deal.get_order_detail())
+        return deals

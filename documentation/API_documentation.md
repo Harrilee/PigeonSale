@@ -212,14 +212,17 @@ For test purpose
         * Error code
             * `000`: Missing arguments
             * `009`: Not logged in or not qualified
-* Method `DELETE`: delete an existing address
-    * Request
-        * `address_id`: String, key (ID) of this address
-    * Response
-        * `data`: an empty string
-    * Error code
-        * `000`: Missing arguments
-        * `009`: Not logged in or not qualified
+    * Method `DELETE`: delete an existing address
+        * Request
+            * `address_id`: String, key (ID) of this address
+        * Response
+            * `data`: an empty string
+        * Error code
+            * `000`: Missing arguments
+            * `009`: Not logged in or not qualified
+
+* `./account/user/rates`
+  * Method: `GET`
 
 * `./account/staff`: add new staff
     * Method `POST`
@@ -456,7 +459,30 @@ In the following stats, each role has different permissions to cancel the order 
             * `026`: Deal already finished, seller cannot cancel
             * `027`: Deal already finished, buyer cannot cancel
             * `028`: Deal in delivering, buyer cannot cancel
-
+* `/deal/rate`
+  * Method `GET`
+  * Method `POST`
+* `/deal/my`
+  * Method `GET`: Get my sold and bought deals
+  * Request: None
+  * Response:
+    * `data`: a list of dictionaries with the same format of `GET ./deal`
+  * Error Code:
+    * `009`: Not logged in as a user
+* `/deal/my/sold`
+  * Method `GET`: Get my sold deals
+  * Request: None
+  * Response:
+    * `data`: a list of dictionaries with the same format of `GET ./deal`
+  * Error Code:
+    * `009`: Not logged in as a user
+* `/deal/my/bought`
+  * Method `GET`: Get my bought deals
+  * Request: None
+  * Response:
+    * `data`: a list of dictionaries with the same format of `GET ./deal`
+  * Error Code:
+    * `009`: Not logged in as a user
 ### ./image
 
 #### How does an image work?
@@ -494,7 +520,6 @@ For image upload demo, see [image_demo](../backend/image_demo) in directory `bac
         * Error code
             * `021`: image doesn't exist
             * `009`: Not qualified to delete this image
-
 
 
 

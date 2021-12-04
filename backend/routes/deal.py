@@ -114,3 +114,22 @@ def cancel_deal():
         return api_fail("", "Unexpected error: failed to get a response (-9)")
     else:
         return api_fail("", "Unexpected error: failed to get a response (-10)")
+
+
+@bp.route('/my', methods=['GET'])
+@check_login_user
+def get_my_deal():
+    dealController = DealController('user', get_uid())
+    return api_success(dealController.get_my_deal())
+
+@bp.route('/my/sold', methods=['GET'])
+@check_login_user
+def get_my_deal_sell():
+    dealController = DealController('user', get_uid())
+    return api_success(dealController.get_my_deal(bought=False))
+
+@bp.route('/my/bought', methods=['GET'])
+@check_login_user
+def get_my_deal_bought():
+    dealController = DealController('user', get_uid())
+    return api_success(dealController.get_my_deal(sell=False))
