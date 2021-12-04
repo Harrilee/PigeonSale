@@ -13,6 +13,15 @@ const sendImages = (images) => {
     });
 }
 
+const deleteImage = (url) => {
+    return fetch(url, {
+        mode: 'cors',
+        method: 'DELETE',
+        credentials: 'include'
+    });
+}
+
 export default {
-    sendImages
+    sendImages,
+    deleteImage
 }
