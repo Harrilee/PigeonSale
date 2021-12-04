@@ -4,7 +4,7 @@
 @date: 12/4/2021 4:31 PM
 """
 from models.deal import *
-
+import numpy as np
 
 class Rate:
     def __init__(self, deal_id):
@@ -113,3 +113,35 @@ class RateController:
             result = rate_.buyer_post(rate, comment)
         if result == -1:
             return -3  # Already rated
+
+    def get_user_rates(self, uid):
+        with db.db.cursor() as cursor:
+            cursor.execute("""
+            -- As buyer
+            (
+                SELECT seller_rate as rate, seller_comment as comment, seller_rate_time as time
+                FROM rate JOIN deal
+                ON rate.deal_id = deal.deal_id
+                WHERE buyer_rate IS NOT NULL AND seller_rate IS NOT NULL AND deal.buyer_id=%s
+            )       
+            UNION
+            (
+            -- as seller
+                SELECT buyer_rate as rate, buyer_comment as comment, buyer_rate_time as time
+                FROM rate JOIN deal
+                ON rate.deal_id = deal.deal_id
+                WHERE buyer_rate IS NOT NULL AND seller_rate IS NOT NULL AND deal.seller_id=%s
+            )
+            ORDER BY time DESC
+            """, [uid, uid])
+            result = cursor.fetchall()
+        if result is None:
+            return {
+                'average_rate': -1,
+                'details': []
+            }
+        average_rating = np.average([x['rate'] for x in result])
+        return {
+            'average_rate': average_rating,
+            'details': result
+        }

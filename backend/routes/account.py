@@ -253,3 +253,12 @@ def delete_an_address():
         return api_fail("009", "Access is denied to this address")
     addressController.delete_address(req['address_id'])
     return api_success()
+
+
+@bp.route('/user/rates', methods=['GET'])
+def get_ratings():
+    req = get_data()
+    if 'user_id' not in req:
+        return api_fail("000", "Missing arguments, user_id")
+    rateController = RateController('user', -1)
+    return api_success(rateController.get_user_rates(req['user_id']))

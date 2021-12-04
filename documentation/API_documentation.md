@@ -222,12 +222,12 @@ For test purpose
             * `009`: Not logged in or not qualified
 
 * `./account/user/rates`
-    * Method: `GET`
+    * Method: `GET`: Get a summary of user's ratings, only visible ratings will show
     * Request:
         * `user_id`: int
     * Response:
         * `data`
-          * `average_rate`: float, or -1 for no rates
+          * `average_rate`: float, or NaN for no rates
           * `details`
             * A list of rate-comment-time pairs
               * `rate`: int
