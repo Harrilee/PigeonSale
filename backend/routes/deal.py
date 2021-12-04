@@ -122,14 +122,54 @@ def get_my_deal():
     dealController = DealController('user', get_uid())
     return api_success(dealController.get_my_deal())
 
+
 @bp.route('/my/sold', methods=['GET'])
 @check_login_user
 def get_my_deal_sell():
     dealController = DealController('user', get_uid())
     return api_success(dealController.get_my_deal(bought=False))
 
+
 @bp.route('/my/bought', methods=['GET'])
 @check_login_user
 def get_my_deal_bought():
     dealController = DealController('user', get_uid())
     return api_success(dealController.get_my_deal(sell=False))
+
+
+@bp.route('/rate', methods=['GET'])
+@check_login_user_or_staff
+def get_one_rate():
+    req = get_data()
+    if 'deal_id' not in req:
+        return api_fail('000', "Missing argument, deal_id")
+    rateController = RateController(session['role'], get_uid())
+    result = rateController.get_rate(req['deal_id'])
+    if result == -1:
+        return api_fail("029", "This is not your deal")
+    if result == -2:
+        return api_fail("030", "Seller and buyer haven't both finished rating, rate not visible")
+    return api_success(result)
+
+
+@bp.route('/rate', methods=['POST'])
+@check_login_user
+def post_rate():
+    req = post_data()
+    if 'deal_id' not in req:
+        return api_fail('000', "Missing argument, deal_id")
+    if 'rate' not in req:
+        return api_fail('000', "Missing argument, rate")
+    if 'comment' not in req:
+        return api_fail('000', "Missing argument, comment")
+    if req['rate'] not in [1, 2, 3, 4, 5]:
+        return api_fail("032", 'Rate not valid, should be a integer in [1,5]')
+    rateController = RateController(session['role'], get_uid())
+    result = rateController.post_rate(req['deal_id'], req['rate'], req['comment'])
+    if result == -1:
+        return api_fail('009', "Staff cannot post")
+    if result == -2:
+        return api_fail("029", "Not your deal, cannot post")
+    if result == -3:
+        return api_fail("031", "Rate already exists")
+    return api_success()

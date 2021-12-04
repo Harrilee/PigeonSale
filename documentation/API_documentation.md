@@ -222,8 +222,20 @@ For test purpose
             * `009`: Not logged in or not qualified
 
 * `./account/user/rates`
-  * Method: `GET`
-
+    * Method: `GET`
+    * Request:
+        * `user_id`: int
+    * Response:
+        * `data`
+          * `average_rate`: float, or -1 for no rates
+          * `details`
+            * A list of rate-comment-time pairs
+              * `rate`: int
+              * `comment`: String
+              * `time`: String, %Y-%m-%d %H:%M
+    * Error Code:
+      * `000`: Missing arguments
+      * `008`: No such user
 * `./account/staff`: add new staff
     * Method `POST`
         * Request
@@ -385,7 +397,6 @@ In the following stats, each role has different permissions to cancel the order 
 | Deal finished    | TRUE  | FALSE  | FALSE |
 | Cancelled        | FALSE | FALSE  | FALSE |
 
-
 #### APIs
 
 * `./deal`
@@ -399,7 +410,8 @@ In the following stats, each role has different permissions to cancel the order 
                 * `seller_id`: int, user_id of the seller
                 * `buyer_id`: int, user_id of the buyer
                 * `price`: float (.2f), the price paid, which cannot be modified once the deal is created
-                * `ststus`: String, one from {"Unpaid", "Shipment pending", "Delivering","Deal finished", "Cancelled by ***" (seller, buyer, staff)}
+                * `ststus`: String, one from {"Unpaid", "Shipment pending", "Delivering","Deal finished", "Cancelled
+                  by ***" (seller, buyer, staff)}
                 * `buyer_address`: where the package sent to
                 * `buyer_phone`
                 * `buyer_name`
@@ -460,29 +472,57 @@ In the following stats, each role has different permissions to cancel the order 
             * `027`: Deal already finished, buyer cannot cancel
             * `028`: Deal in delivering, buyer cannot cancel
 * `/deal/rate`
-  * Method `GET`
-  * Method `POST`
+    * Method `GET`
+        * Request:
+            * `deal_id`: int
+        * Response
+            * `data`:
+                * `buyer_rate`: int
+                * `buyer_comment`: String
+                * `buyer_rate_time`: String, %Y-%m-%d %H:%M
+                * `seller_rate`: int
+                * `seller_comment`: int
+                * `seller_rate_time`: String, %Y-%m-%d %H:%M
+        * Error Code
+          * `000`: Missing arguments
+          * `009`: Not logged in
+          * `029`: Not your deal, cannot view
+          * `030`: Seller and buyer haven't both finished rating, rate not visible
+    * Method `POST`
+        * Request:
+            * `deal_id`: int
+            * `rate`: int, from {1, 2, 3, 4, 5}
+            * `comment`: String
+        * Response
+            * `data`: `""`
+        * Error Code
+          * `000`: Missing arguments
+          * `009`: Not logged in
+          * `029`: Not your deal, cannot view
+          * `031`: Rate already exists
+          * `032`: rate not valid
 * `/deal/my`
-  * Method `GET`: Get my sold and bought deals
-  * Request: None
-  * Response:
-    * `data`: a list of dictionaries with the same format of `GET ./deal`
-  * Error Code:
-    * `009`: Not logged in as a user
+    * Method `GET`: Get my sold and bought deals
+    * Request: None
+    * Response:
+        * `data`: a list of dictionaries with the same format of `GET ./deal`
+    * Error Code:
+        * `009`: Not logged in as a user
 * `/deal/my/sold`
-  * Method `GET`: Get my sold deals
-  * Request: None
-  * Response:
-    * `data`: a list of dictionaries with the same format of `GET ./deal`
-  * Error Code:
-    * `009`: Not logged in as a user
+    * Method `GET`: Get my sold deals
+    * Request: None
+    * Response:
+        * `data`: a list of dictionaries with the same format of `GET ./deal`
+    * Error Code:
+        * `009`: Not logged in as a user
 * `/deal/my/bought`
-  * Method `GET`: Get my bought deals
-  * Request: None
-  * Response:
-    * `data`: a list of dictionaries with the same format of `GET ./deal`
-  * Error Code:
-    * `009`: Not logged in as a user
+    * Method `GET`: Get my bought deals
+    * Request: None
+    * Response:
+        * `data`: a list of dictionaries with the same format of `GET ./deal`
+    * Error Code:
+        * `009`: Not logged in as a user
+
 ### ./image
 
 #### How does an image work?

@@ -19,5 +19,6 @@ from models.image import Image, ImageController
 from models.post import Post, PostController
 from models.address import Address, AddressController
 from models.deal import Deal, DealController
+from models.rate import Rate, RateController
 
 
