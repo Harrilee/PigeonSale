@@ -3,8 +3,9 @@ import { Box, Button, TextField, InputLabel, MenuItem, FormControl, Select } fro
 import AlertCard from "../components/AlertCard";
 import "./ProfileSettings.scss";
 import AccountService from "../services/account.service";
+import AvatarImageEditor from '../avatar-editor/AvatarImageEditor';
 
-function ProfileSettings() {
+function ProfileSettings(props) {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState(localStorage.email);
@@ -49,6 +50,16 @@ function ProfileSettings() {
         setGender(gender);
     }
 
+    const handleAvatar = (link) => {
+        console.log(link);
+        if (link.length === 0) {
+            setAvatar("/default/empty-icon.png");
+        }
+        else {
+            setAvatar(link);
+        }
+    }
+
     const getProfile = () => {
         const email = localStorage.email;
         setEmail(email)
@@ -71,6 +82,9 @@ function ProfileSettings() {
                 if (result.data.birthday.length !== 0) {
                     setBirthday(result.data.birthday);
                 }
+                if (result.data.avatar.length !== 0) {
+                    setAvatar(result.data.avatar);
+                }
             }
             else {
                 if (result.code === "000" 
@@ -79,7 +93,6 @@ function ProfileSettings() {
                         setAlertCard({ type: "error", status: true, msg: result.msg });
                 } 
             }
-            
         })
         .catch(err => {
             console.log(err);
@@ -110,8 +123,12 @@ function ProfileSettings() {
         if (gender.length !== 0 && gender !== prevValues.gender) {
             values.gender = gender;
         }
-
-        console.log("Values submitted: ", values);
+        if (avatar !== "/default/empty-icon.png") {
+            values.avatar = avatar;
+        }
+        else {
+            values.avatar = "";
+        }
 
         AccountService.updateProfile(values)
         .then(res => {
@@ -119,7 +136,7 @@ function ProfileSettings() {
         })
         .then(result => {
             if (result.status === 1) {
-                setAlertCard({ type: "success", status: true, msg: "Update success" });
+                setAlertCard({ type: "success", status: true, msg: "Updated successfully" });
                 if (values.username) {
                     localStorage.setItem("username", values.username);
                 }
@@ -130,7 +147,7 @@ function ProfileSettings() {
                     localStorage.setItem("avatar", values.avatar);
                 }
                 else {
-                    localStorage.setItem("avatar", "/default/empty-icon.png");
+                    localStorage.setItem("avatar",avatar);
                 }
             }
             if (result.status === 0) {
@@ -140,26 +157,28 @@ function ProfileSettings() {
         .catch(err => {
             console.log(err);
         });
-
     }
 
     useEffect(() => {
-        if (prevValues && Object.keys(prevValues).length === 0 && Object.getPrototypeOf(prevValues) === Object.prototype) {
+        if (prevValues 
+            && Object.keys(prevValues).length === 0 
+            && Object.getPrototypeOf(prevValues) === Object.prototype) {
             getProfile();
         }
-    });
+    }, []);
 
 
     return ( 
         <div id="tab-settings-wrapper" name="profile">
             <AlertCard severity={alertCard.type} id="profile-alert" 
-                    display={alertCard.status} 
-                    message={alertCard.msg} />
+                    display={alertCard.status}
+                    message={alertCard.msg}
+                    static={false} />
             <Box id="tab-settings-container">
             <h1>Profile Settings</h1>
-            <div id="avatar">
-                <div id="avatar-image" style={{ backgroundImage: "url('"+ avatar + "')", backgroundSize: "100%" }}></div>
-            </div>
+
+            <AvatarImageEditor avatar={avatar} handleAvatar={handleAvatar} />
+
             <form onSubmit={handleSubmit}>
                     <TextField 
                         label="Email"
@@ -177,7 +196,7 @@ function ProfileSettings() {
                         helperText={errors.usernameError.msg} 
                         fullWidth />
 
-                    <FormControl  sx={{ width: "calc(33.333% - 0.725em - 2px)" }} disabled>
+                    <FormControl sx={{ width: "calc(33.333% - 0.725em - 2px)" }} disabled>
                         <InputLabel>User Type</InputLabel>
                         <Select
                             value={localStorage.usertype}

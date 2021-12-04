@@ -7,16 +7,17 @@
     margin:1em 0em;
 }
 
-#tab-settings-wrapper #avatar {
-    margin:1.5em 0em;
-}
-
 #tab-settings-wrapper[name=profile] .MuiFormControl-root:nth-child(3),
 #tab-settings-wrapper[name=profile] .MuiFormControl-root:nth-child(4) {
     margin-right:calc(1.5em - 4px);
 }
 
 #tab-settings-wrapper[name=resetPassword] .MuiFormControl-root:nth-child(1) {
+    margin-right:1.5em;
+}
+
+#tab-settings-wrapper[name=addressBook] .MuiFormControl-root:nth-child(3),
+#tab-settings-wrapper[name=addressBook] .MuiFormControl-root:nth-child(6) {
     margin-right:1.5em;
 }
 
@@ -30,9 +31,12 @@
     margin:1em 0.5em;
 }
 
-
 #tab-settings-wrapper[name=profile] {
     margin-bottom:25vh;
+}
+
+#tab-settings-wrapper[name=profile] #avatar-image-editor {
+    margin-top:1.5em;
 }
 
 #profile-alert {

@@ -1,0 +1,27 @@
+#address-grid {
+    margin-top:0em;
+    margin-bottom:1.5em;
+}
+
+.address-card {
+    padding:1.5em;
+    min-width:100%;
+}
+
+.selected-address {
+    border-color:black!important;
+}
+
+div[name=editaddr], div[name=deladdr] {
+    font-size:0.65em;
+    float:right;
+}
+
+#address-editor-buttons {
+    float:right;
+    margin:1em;
+}
+
+#address-editor-buttons button {
+    margin-left:1em;
+}
