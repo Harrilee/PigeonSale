@@ -206,7 +206,7 @@ class Deal:
         with db.db.cursor() as cursor:
             cursor.execute("""
                 UPDATE deal
-                SET cancel_role=%s,cancel_reason=%s,cancel_time=NOW()
+                SET cancel_role=%s,cancel_reason=%s,cancel_time=NOW(), cancelled=TRUE
                 WHERE deal_id=%s
             """, (role, reason, self.deal_id))
         db.db.commit()
