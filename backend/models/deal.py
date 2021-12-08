@@ -208,7 +208,7 @@ class Deal:
                 UPDATE deal
                 SET cancel_role=%s,cancel_reason=%s,cancel_time=NOW()
                 WHERE deal_id=%s
-            """, (role, reason))
+            """, (role, reason, self.deal_id))
         db.db.commit()
 
 
