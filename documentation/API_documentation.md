@@ -504,7 +504,7 @@ In the following stats, each role has different permissions to cancel the order 
     * Method `DELETE`
         * Request:
             * `deal_id`: int
-         * Response
+        * Response
             * `data`: `""`
 * `/deal/my`
     * Method `GET`: Get my sold and bought deals
@@ -575,14 +575,14 @@ Administration managements
         * Request: None
         * Response
             * `data`
-              * `staffs`: `<list of staff information>`
-                * username
-                * user_id
-                * bio
-                * email
-                * avatar
-                * gender
-                * birthday
+                * `staffs`: `<list of staff information>`
+                    * username
+                    * user_id
+                    * bio
+                    * email
+                    * avatar
+                    * gender
+                    * birthday
     * Method `DELETE`
         * Request
             * `staff_id`: int
@@ -593,16 +593,48 @@ Administration managements
         * Request: None
         * Response
             * `data`
-              * `users`: `<list of user information>`
-                * username
-                * user_id
-                * bio
-                * email
-                * avatar
-                * gender
-                * birthday
+                * `users`: `<list of user information>`
+                    * username
+                    * user_id
+                    * bio
+                    * email
+                    * avatar
+                    * gender
+                    * birthday
     * Method `DELETE`
         * Request
             * `user_id`: int
         * Response
             * `data`: `""`
+
+### ./msg
+
+Chat message operations
+
+* `./msg`: **Only corresponding user/staff get msg, others can't**
+    * Method: `GET`
+    * Request:
+        * r_role: receiver role (user/staff)
+        * r_uid: staff_id or user_id
+        * post_id: optional, specific post this chat is related to
+    * Response:
+        * message: a list containing
+            * key: int, order of message
+            * msg: String, message content
+            * receiver
+              * avatar
+              * bio
+              * birthday
+              * gender
+              * user_id
+              * username
+            * receiver_role: String, staff/user
+            * sender
+              * avatar
+              * bio
+              * birthday
+              * gender
+              * user_id
+              * username
+            * sender_role: String, staff/user
+            * post_id

@@ -3,7 +3,7 @@
 @email: harrylee@nyu.edu
 @date: 12/4/2021 4:31 PM
 """
-from models.deal import *
+from models import *
 import numpy as np
 
 class Rate:

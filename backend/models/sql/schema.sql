@@ -49,12 +49,14 @@ CREATE TABLE image
 
 CREATE TABLE message
 (
-    msg_id      INT AUTO_INCREMENT,
-    sender_id   INT,
-    receiver_id INT,
-    post_id     INT,
-    send_time   TIMESTAMP,
-    msg         VARCHAR(256),
+    msg_id        INT AUTO_INCREMENT,
+    sender_id     INT,
+    sender_role   VARCHAR(10),
+    receiver_id   INT,
+    receiver_role VARCHAR(10),
+    post_id       INT,
+    send_time     DATETIME,
+    msg           VARCHAR(256),
     PRIMARY KEY (msg_id),
     FOREIGN KEY (receiver_id) REFERENCES post (post_author_id)
         ON DELETE CASCADE,

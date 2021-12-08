@@ -50,3 +50,9 @@ def del_user():
     if result == 0:
         return api_success()
     return api_fail("-1", "Unknown Error")
+
+@bp.route('/all_deal', methods=['GET'])
+@check_login_admin_or_staff
+def get_all_deal():
+    dealController = DealController('admin', -1)
+    return api_success(dealController.get_all_deals())

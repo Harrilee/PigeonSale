@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script crossorigin="anonymous" integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA==" src="https://lib.baomitu.com/socket.io/4.2.0/socket.io.js"></script>
+</head>
+<body>
+
+<script>
+  var socket = io('http://localhost:5000');
+  socket.on('connect', (data)=>{
+    console.log(data);
+    socket.emit('my_other_event', { my: 'data' });
+  });
+  socket.on("event2", (data)=>{
+      console.log("event2", data)
+  })
+</script>
+</body>
+</html>

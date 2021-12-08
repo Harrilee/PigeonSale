@@ -4,6 +4,7 @@
 @Author  : Harry Lee
 @Email   : harrylee@nyu.edu
 """
+from models.rate import RateController
 from models.post import *
 
 
@@ -218,10 +219,8 @@ class DealController:
         self.uid = uid
 
     def get_deal(self, deal_id):
-        if self.role == 'staff':
-            return True
         deal = Deal(deal_id=deal_id)
-        if int(self.uid) in [deal.seller_id, deal.buyer_id]:
+        if int(self.uid) in [deal.seller_id, deal.buyer_id] or self.role == 'staff':
             return deal
         return False
 
@@ -326,4 +325,27 @@ class DealController:
             deal = Deal(deal['deal_id'])
             deal.get_from_db()
             deals.append(deal.get_order_detail())
+        return deals
+
+    def get_all_deals(self):
+        with db.db.cursor() as cursor:
+            cursor.execute("""
+                SELECT deal_id
+                FROM deal
+            """, )
+            result = cursor.fetchall()
+        if result is None:
+            return []
+        deals = []
+        for deal in result:
+            deal_info = {}
+            deal = Deal(deal['deal_id'])
+            deal.get_from_db()
+            deal_info = deal.get_order_detail()
+
+            rateController = RateController('admin', -1)
+            rate_info = rateController.get_rate(deal_info['deal_id'])
+            rate_info = None if rate_info == -2 else rate_info
+            deal_info['rate'] = rate_info
+            deals.append(deal_info)
         return deals
