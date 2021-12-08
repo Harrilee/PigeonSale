@@ -227,15 +227,15 @@ For test purpose
         * `user_id`: int
     * Response:
         * `data`
-          * `average_rate`: float, or NaN for no rates
-          * `details`
-            * A list of rate-comment-time pairs
-              * `rate`: int
-              * `comment`: String
-              * `time`: String, %Y-%m-%d %H:%M
+            * `average_rate`: float, or NaN for no rates
+            * `details`
+                * A list of rate-comment-time pairs
+                    * `rate`: int
+                    * `comment`: String
+                    * `time`: String, %Y-%m-%d %H:%M
     * Error Code:
-      * `000`: Missing arguments
-      * `008`: No such user
+        * `000`: Missing arguments
+        * `008`: No such user
 * `./account/staff`: add new staff
     * Method `POST`
         * Request
@@ -484,10 +484,10 @@ In the following stats, each role has different permissions to cancel the order 
                 * `seller_comment`: int
                 * `seller_rate_time`: String, %Y-%m-%d %H:%M
         * Error Code
-          * `000`: Missing arguments
-          * `009`: Not logged in
-          * `029`: Not your deal, cannot view
-          * `030`: Seller and buyer haven't both finished rating, rate not visible
+            * `000`: Missing arguments
+            * `009`: Not logged in
+            * `029`: Not your deal, cannot view
+            * `030`: Seller and buyer haven't both finished rating, rate not visible
     * Method `POST`
         * Request:
             * `deal_id`: int
@@ -496,11 +496,11 @@ In the following stats, each role has different permissions to cancel the order 
         * Response
             * `data`: `""`
         * Error Code
-          * `000`: Missing arguments
-          * `009`: Not logged in
-          * `029`: Not your deal, cannot view
-          * `031`: Rate already exists
-          * `032`: rate not valid
+            * `000`: Missing arguments
+            * `009`: Not logged in
+            * `029`: Not your deal, cannot view
+            * `031`: Rate already exists
+            * `032`: rate not valid
 * `/deal/my`
     * Method `GET`: Get my sold and bought deals
     * Request: None
@@ -561,5 +561,43 @@ For image upload demo, see [image_demo](../backend/image_demo) in directory `bac
             * `021`: image doesn't exist
             * `009`: Not qualified to delete this image
 
+### ./admin
 
+Administration managements
 
+* `./admin/staff`: **Only admin can access**
+    * Method `GET`
+        * Request: None
+        * Response
+            * `data`
+              * `staffs`: `<list of staff information>`
+                * username
+                * user_id
+                * bio
+                * email
+                * avatar
+                * gender
+                * birthday
+    * Method `DELETE`
+        * Request
+            * `staff_id`: int
+        * Response
+            * `data`: `""`
+* `./admin/user`: **Only admin and staff can access**
+    * Method `GET`
+        * Request: None
+        * Response
+            * `data`
+              * `users`: `<list of user information>`
+                * username
+                * user_id
+                * bio
+                * email
+                * avatar
+                * gender
+                * birthday
+    * Method `DELETE`
+        * Request
+            * `user_id`: int
+        * Response
+            * `data`: `""`

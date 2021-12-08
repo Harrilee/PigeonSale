@@ -119,6 +119,7 @@ def get_staff():
 
 
 @bp.route('/staff', methods=['POST'])
+@check_login_admin
 def add_staff():
     req = post_data()
     staffController = StaffController()

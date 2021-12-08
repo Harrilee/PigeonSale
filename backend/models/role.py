@@ -167,3 +167,30 @@ class RoleController:
         if password is not None:
             user.update_pwd(pwd=password)
         return True
+
+    def get_all_user(self):
+        with db.db.cursor() as cursor:
+            cursor.execute("""
+                SELECT * FROM {}
+            """.format(self.role))
+            result = cursor.fetchall()
+        if result is None:
+            result = []
+        output = []
+        for each in result:
+            if each['birthday']:
+                each['birthday'] = each['birthday'].strftime("%Y-%m-%d")
+            user = self.role_class(user_id=each['user_id'], username=each['username'], bio=each['bio'],
+                                   password_encrypted=each['password'], avatar=each['avatar'], email=each['email'],
+                                   birthday=each['birthday'], gender=each['gender'])
+            output.append(user.get_info())
+        return output
+
+    def del_user(self, uid):
+        with db.db.cursor() as cursor:
+            cursor.execute("""
+                DELETE FROM {}
+                WHERE user_id = %s
+            """.format(self.role), [uid])
+            db.db.commit()
+        return 0

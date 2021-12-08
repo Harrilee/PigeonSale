@@ -10,6 +10,11 @@ from . import db
 
 class AdminController():
     def check_password(self, pwd):
+        """
+        Check password for admin login
+        :param pwd:
+        :return: correct pwd: True; else False
+        """
         with db.db.cursor() as cursor:
             cursor.execute("""
                 SELECT password

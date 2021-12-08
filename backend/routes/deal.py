@@ -84,6 +84,7 @@ def update_deal():
 
 
 @bp.route('', methods=['DELETE'])
+@check_login_user_or_staff
 def cancel_deal():
     req = post_data()
     if 'deal_id' not in req:
