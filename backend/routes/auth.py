@@ -14,8 +14,10 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 @bp.route('/admin/logout', methods=['POST'])
 @bp.route('/logout', methods=['POST'])
 def logout():
-    del session['uid']
-    del session['role']
+    if "uid" in session:
+        del session['uid']
+    if "role" in session:
+        del session['role']
     return api_success()
 
 @bp.route('/user/login', methods=['POST'])
