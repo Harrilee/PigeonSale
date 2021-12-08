@@ -13,10 +13,10 @@ Insert into image values(NULL, 2,"https://pbs.twimg.com/media/EbxSrOUX0AMs3U3.jp
 Insert into image values(NULL, 3,"https://i.pinimg.com/736x/34/23/98/34239816d1ec942aabbbe4da6f53f3fb.jpg","Alt Text",3);
 Insert into image values(NULL, 4,"https://avatarfiles.alphacoders.com/226/thumb-22680.jpg","Alt Text",4);
 
-Insert into message values(NULL, 1,1,1,'2021-08-15 09:00:30',"I'm interested with you-I mean, your cheese. Looking forward to hearing from you!");
-Insert into message values(NULL, 2,2,3,'2021-08-01 09:00:30',"I can't understand a word you're talking about");
-Insert into message values(NULL, 3,4,4,'2021-06-01 07:00:30',"*Pigeon's murmuring voice*");
-Insert into message values(NULL, 4,1,1,'2021-06-03 08:00:30',"Are you really that Tom, from Tom and Jerry? I've been your fan since I was 4 years old!");
+Insert into message values(NULL, 1, 'user',1, 'user', 1,'2021-08-15 09:00:30',"I'm interested with you-I mean, your cheese. Looking forward to hearing from you!");
+Insert into message values(NULL, 2, 'user',2, 'user', 3,'2021-08-01 09:00:30',"I can't understand a word you're talking about");
+Insert into message values(NULL, 3, 'user',4, 'user', 4,'2021-06-01 07:00:30',"*Pigeon's murmuring voice*");
+Insert into message values(NULL, 4, 'user',1, 'user', 1,'2021-06-03 08:00:30',"Are you really that Tom, from Tom and Jerry? I've been your fan since I was 4 years old!");
 
 Insert into address values(NULL, "tom's address",1234567,"Pine's Road",1);
 Insert into address values(NULL, "jer_address",142857,"Jerry's Home Sweet Home",2);

@@ -11,6 +11,7 @@ import routes.posts
 import routes.image
 import routes.deal
 import routes.admin
+import routes.message
 
 def init_app(app):
     app.register_blueprint(hello.bp)
@@ -20,3 +21,4 @@ def init_app(app):
     app.register_blueprint(image.bp)
     app.register_blueprint(deal.bp)
     app.register_blueprint(admin.bp)
+    app.register_blueprint(message.bp)
