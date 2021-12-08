@@ -1,5 +1,5 @@
 # Contribution Log - Cycle 4
-Nov 23 to Nov 30.
+Nov 23 to Dec. 11.
 
 ## Harry Lee
 * ...

@@ -1,5 +1,5 @@
-# Contribution Log - Cycle 1
-Nov 30 to Dec 6.
+# Contribution Log - Cycle 5
+Dec 12 to Dec 18.
 
 ## Harry Lee
 * ...
