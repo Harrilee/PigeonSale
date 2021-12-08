@@ -1,0 +1,77 @@
+@import "../_theme.scss";
+
+#mini-editor-modal {
+    position:fixed;
+    width:100%;
+    height:100%;
+}
+
+#mini-editor-container .text-form {
+    padding:1.5em;
+    border-top:1px solid $mainBorderColor;
+    border-bottom:1px solid $mainBorderColor;
+}
+
+#mini-editor-container .text-form .MuiInputBase-root {
+    padding:0.5em;
+}
+
+#mini-editor-container .borderless {
+    border-top:0;
+}
+
+#mini-editor-container .borderless input {
+    border-bottom:0;
+}
+
+
+#mini-editor-container {
+    position:absolute;
+    background:$mainBoxColor;
+    width:40%;
+    border-radius:0.3em;
+    left:calc(50% - 20%);
+}
+
+.rating-editor-container, .cancel-editor-container {
+    height:360px;
+    top:calc(50% - 360px/2);
+}
+
+.tracking-editor-container {
+    height:250px;
+    top:calc(50% - 250px/2);
+}
+
+#mini-editor-container button[name=close] {
+    background:#d5d5d5;
+    color:black;
+}
+
+#mini-editor-container button[name=post] {
+    float:right;
+}
+
+#mini-editor-container button, #upload-button {
+    margin:1.5em;
+}
+
+#mini-editor-container h1 {
+    padding-top:1.2em;
+    font-size:2em;
+}
+
+.MuiDialog-container {
+    background:$mainBoxColor;
+    width:100%;
+    height:100%;
+    text-align:center;
+}
+
+.MuiDialog-root .MuiPaper-root {
+    box-shadow:none;
+}
+
+#deal-starter-modal {
+    width:50%;
+}
