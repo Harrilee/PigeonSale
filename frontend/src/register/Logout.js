@@ -9,16 +9,12 @@ function Logout() {
         .then(res => {
             console.log(res);
             console.log("Logged out");
-            localStorage.setItem("isLoggedIn", "false");
-            localStorage.removeItem("usertype");
-            localStorage.removeItem("email");
-            localStorage.removeItem("username");
-            localStorage.removeItem("type");
-            localStorage.removeItem("user_id");
-            window.location.href = "./";
+            AuthService.clearStorage();
+            window.location.href="/";
         })
         .catch(err => {
             console.log(err);
+            window.location.href = "./";
         });
     }
 

@@ -67,10 +67,10 @@ function Signup() {
         setValues({ ...values, gender: gender });
     }
 
-    // const handleUserType = (e) => {
-    //     let usertype = e.target.value;
-    //     setUserType(usertype);
-    // }
+    const handleUserType = (e) => {
+        let usertype = e.target.value;
+        setUserType(usertype);
+    }
 
     const handleScroll = () => {
         setErrors(resetErrors);
@@ -114,7 +114,7 @@ function Signup() {
 
         setErrors(resetErrors);
         
-        AccountService.signup(values, "user")
+        AccountService.signup(values, usertype)
         .then(res => {
             console.log(res)
             return res.json();
@@ -186,18 +186,19 @@ function Signup() {
                                 helperText={errors.password2Error.msg}
                             />
                             
-                            {/* <FormControl fullWidth>
+                            <FormControl fullWidth>
                                 <InputLabel>Login As</InputLabel>
                                 <Select
-                                value={"User"}
+                                value={usertype}
                                 label="Login As"
                                 onChange={handleUserType}
                                 error={errors.usertypeError.status}
-                                disabled={true}
                                 >
                                 <MenuItem value={"user"}>User</MenuItem>
+                                <MenuItem value={"staff"}>Staff</MenuItem>
+                                <MenuItem value={"admin"}>Admin</MenuItem>
                                 </Select>
-                            </FormControl> */}
+                            </FormControl>
                             <Button name="next" variant="contained" onClick={handleScroll}>Next</Button>
                             <p>
                                 <small>Have an account? <a href="./login">Log in</a></small>
