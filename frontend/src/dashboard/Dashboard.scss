@@ -58,6 +58,11 @@
 
 #deals-container .order-tracking {
     border-top:1px solid $mainBorderColor;
+    background:rgb(235, 235, 235);
+    transition:0.5s;
+}
+
+#deals-container .order-tracking:hover {
     background:$mainBackground;
 }
 

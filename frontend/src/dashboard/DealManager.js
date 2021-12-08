@@ -34,10 +34,7 @@ function a11yProps(index) {
 function MyDeals(props) {
 
     const [value, setValue] = useState(0);
-    const [myDeals, setMyDeals] = useState(-1);
-    const [bought, setBought] = useState(-1);
-    const [sold, setSold] = useState(-1);
-    const [disabled, setDisabled] = useState(false);
+    const [deals, setDeals] = useState(-1);
 
     const handleChange = (event, newValue) => {
         if (!disabled) {
@@ -48,42 +45,6 @@ function MyDeals(props) {
             props.setDisabled(true);
         }
     };
-
-    const getMyDeals = () => {
-        DealService.getMyDeals()
-        .then(res => {
-            return res.json();
-        })
-        .then(result => {
-            if (result.status === 1) {
-                setMyDeals(result.data);
-            }
-            else {
-                setMyDeals([]);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    }
-
-    const getBought = () => {
-        DealService.getBought()
-        .then(res => {
-            return res.json();
-        })
-        .then(result => {
-            if (result.status === 1) {
-                setBought(result.data);
-            }
-            else {
-                setBought([]);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    }
 
     const getSold = () => {
         DealService.getSold()
@@ -127,21 +88,15 @@ function MyDeals(props) {
                     float: "left" }}
                 disabled={disabled}
             >
-                <Tab label="All" {...a11yProps(0)} />
-                <Tab label="Sold" {...a11yProps(1)} />
-                <Tab label="Bought" {...a11yProps(2)} />
+                <Tab label="All Deals" {...a11yProps(0)} />
+                <Tab label="All Rates" {...a11yProps(1)} />
             </Tabs>
             <TabPanel value={value} index={0}>
                 <h1 className="title"> All Deals </h1>
                 <DealCards deals={myDeals} variant="all" setDisabled={setDisabled} setDisabledParent={props.setDisabled}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <h1 className="title"> Sold Deals </h1>
-                <DealCards deals={sold} variant="sold" setDisabled={setDisabled} setDisabledParent={props.setDisabled} />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <h1 className="title"> Bought Deals </h1>
-                <DealCards deals={bought} variant="bought" setDisabled={setDisabled} setDisabledParent={props.setDisabled} />
+
             </TabPanel>
         </Box>
     )

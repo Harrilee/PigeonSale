@@ -10,14 +10,32 @@
     padding-top:1.5em;
 }
 
-.order-tracking {
-    margin-top:1.5em;
+.order-tracking svg {
+    font-size:1.5em;
 }
 
 .order-tracking li {
+    padding-bottom:1.5em;
     margin-bottom:1.5em;
+    border-bottom:1px solid #d5d5d5;
     color:#2120ba;
-    list-style-type:disc;
+    list-style-type:none;
+    transition:0.3s;
+} 
+
+.order-tracking li:hover {
+    padding:0.4em 0em 1.9em 0em;
+} 
+
+.order-tracking li:last-child {
+    border-bottom:0;
+    margin-bottom:0;
+} 
+
+.order-tracking li:before {
+    content:"●";
+    font-size:1em;
+    padding-right:1em;
 }
 
 .order-tracking .order-date {
@@ -39,6 +57,7 @@
 .deal-card-left {
     min-width:40%;
     max-width:100%;
+    margin-bottom:1.5em;
 }
 
 .deal-card-right {
@@ -51,6 +70,38 @@
     max-width:100%;
 }
 
+.deal-status li {
+    list-style-type:none;
+}
+
+.deal-status li:before {
+    content:"●";
+    vertical-align:top;
+    font-size:2em;
+}
+
+.deal-status li h2 {
+    color:$mainTextColor;
+    margin-left:1em;
+    vertical-align:middle;
+    display:inline-block;
+}
+
+.status-done {
+    color:green;
+}
+
+.status-in-prog {
+    color:gold;
+}
+
+.status-start {
+    color:red;
+}
+
+.status-unknown {
+    color:gray;
+}
 
 .deal-user-bar {
     padding:1.5em 0em;
@@ -59,20 +110,146 @@
 .deal-post {
     width:100%;
     padding-bottom:70%;
-    margin-bottom:1.5em;
     background:$mainBackground;
+    border:1px solid $mainBorderColor;
+    background-position:center;
     position:relative;
 }
 
+.deal-post:hover .deal-post-content {
+    opacity:1;
+}
+
 .deal-post-content {
+    background:rgba(255,255,255,0.6);
     position:absolute;
-    right:1.5em;
-    top:1.5em;
+    border-radius:0.3em;
+    padding:1.5em 2em;
+    text-align:right;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    opacity:0;
+    transition:0.5s;
+}
+
+.deal-post-content::after {
+    content:"→";
+    margin-left:1em;
+    animation:bounce 1s infinite;
+}
+
+.deal-notif {
+    padding:1.5em;
+    position:relative;
+    transition:0.2s;
+}
+
+.deal-notif:hover {
+    padding-top:1.8em;
+    padding-bottom:1.8em;
+    position:relative;
+}
+
+.notif-done {
+    background:rgb(209, 235, 209);
+    color:rgb(49, 83, 49);
+}
+
+.notif-start {
+    background:#ecdada;
+    color:rgb(104, 37, 37);
+}
+
+.notif-cancel {
+    background:rgb(216, 216, 216);
+    color:#444;;
+}
+
+.deal-button {
+    position:absolute;
+    top:-0.5em;
+    float:right;
+}
+
+.notif-done .deal-button {
+    color:rgb(49, 83, 49);
+}
+
+.notif-start .deal-button {
+    color:rgb(104, 37, 37);
+}
+
+.notif-cancel .deal-button {
+    color:#7a7a7a;
+}
+
+.deal-status {
+    position:relative;
+    width:100%;
+}
+
+.deal-bar {
+    width:100%;
+    padding-top:1em;
+}
+
+.deal-bar .deal-button {
+    float:right;
+    margin:1em 1.5em;
+}
+
+.deal-bar .deal-button {
+    background:none;
+    color:inherit;
+}
+
+.deal-bar .cancel-button {
+    background:#eee;
+}
+
+.deal-bar .confirm-button {
+    border-color:#ccc;
+}
+
+.deal-bar .cancel-button:hover {
+    background:#d5d5d5;
+}
+
+.deal-bar .confirm-button:hover {
+    border-color:#555;
+}
+
+
+@keyframes bounce {
+    0% {
+        padding-right:0em;
+    }
+    50% {
+        padding-right:0.5em;
+    }
+    100% {
+        padding-right:0em;
+    }
 }
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .deal-card-left,.deal-card-right,.deal-card-right > div  {
       width:100%;
+    }
+    .deal-card-left {
+        margin-top:1.5em;
+        margin-bottom:0;
+    }
+
+    .deal-notif {
+        margin-top:3em;
+    }
+
+    .deal-notif .deal-button {
+        margin-top:1.5em;
+        float:none;
     }
   }

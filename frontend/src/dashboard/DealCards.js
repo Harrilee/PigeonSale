@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import "./DealCard.scss";
-import { Stack, Box,Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { Stack, Box, Button,Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import AlertCard from '../components/AlertCard';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AccountService from '../services/account.service';
+import PostService from '../services/post.service';
+import RateEditor from '../deal-editor/RateEditor';
+import TrackingNumEditor from '../deal-editor/TrackingNumEditor';
+import CancelEditor from '../deal-editor/CancelEditor';
+import ConfirmReceipt from '../deal-editor/ConfirmReceipt';
 
 function OrderAccordion(props) {
 
@@ -40,6 +47,58 @@ function OrderAccordion(props) {
 function DealCard(props) {
 
     const [item, setItem] = useState(-1);
+    const [rateButton, setRateButton] = useState(false);
+    const [trackingButton, setTrackingButton] = useState(false);
+
+    function DealStatus() {
+        if (item.status.includes("finished") > 0) {
+            return <li className="status-done"><h2>{item.status}</h2></li>;
+        }
+        else if (item.status.includes("Delivering") > 0) {
+            return <li className="status-in-prog"><h2>{item.status}</h2></li>;
+        }
+        else if (item.status.includes("pending") > 0) {
+            return <li className="status-start"><h2>{item.status}</h2></li>;
+        }
+        else {
+            return <li className="status-unknown"><h2>{item.status}</h2></li>
+        }
+    }
+
+    function DealNotif() {
+        if (item.status.includes("finished") > 0 && item.buyer_id === parseInt(localStorage.user_id)) {
+            return <div className="deal-notif notif-done">
+                    Your deal has been completed!
+                    <RateEditor deal_id={item.deal_id} />
+                </div>
+        }
+        else if (item.status.includes("pending") > 0 && item.seller_id === parseInt(localStorage.user_id)) {
+            return <div className="deal-notif notif-start">
+                    Your item is pending. Please add a tracking number. 
+                    <TrackingNumEditor name={"Set"} deal_id={item.deal_id} />
+                </div>
+        }
+        return <React.Fragment/>
+    }
+
+    function CancelButton() {
+        if (item.seller_id === parseInt(localStorage.user_id) 
+        && (item.status.includes("finished") <= 0
+        && item.status.includes("Cancelled") <= 0)) {
+            return <CancelEditor deal_id={item.deal_id} />
+        }
+        else if (item.buyer_id === parseInt(localStorage.user_id) 
+        && (item.status.includes("Unpaid") > 0
+        || item.status.includes("pending") > 0)) {
+            return <CancelEditor deal_id={item.deal_id} />
+        }
+        else if (localStorage.usertype === "staff"
+        && item.status.includes("Cancelled") > 0) {
+            return <CancelEditor deal_id={item.deal_id} />
+        }
+        return <React.Fragment />
+        
+    }
 
     useEffect(()=> {
         if (item === -1) {
@@ -48,17 +107,17 @@ function DealCard(props) {
     }, [props, item]);
 
     if (item === -1) {
-        return <React.Fragment />
+        return <React.Fragment />;
     }
     return (
             <Box className="deal-card">
-                <div className="deal-content">
-                    <h2>{item.status}</h2>
-                </div>
+                <ul className="deal-status deal-content">
+                    <DealStatus/>
+                </ul>
                 <div className="deal-card-left">
                     <div className="deal-content">
                     <a href={"/post/"+item.post_id}>
-                        <div className="deal-post" style={{ backgroundImage: "url('" + "')", backgroundSize: "100%" }}>
+                        <div className="deal-post" style={{ backgroundImage: "url('" + item.post_image + "')", backgroundSize: "100%" }}>
                         <div className="deal-post-content">
                         Go to post
                         </div>
@@ -71,9 +130,9 @@ function DealCard(props) {
                 <h3>Seller</h3>
                 <div className="deal-user-bar">
                     <a href={"./user/" + item.seller_id}>
-                        <div className="post-avatar" style={{ backgroundImage: "url('" + "')", backgroundSize: "100%" }}></div>
+                        <div className="post-avatar" style={{ backgroundImage: "url('" + item.seller_avatar + "')", backgroundSize: "100%" }}></div>
                         <div className="post-author">
-                                User
+                                {item.seller_name}
                         </div>
                     </a>
                 </div>
@@ -85,9 +144,9 @@ function DealCard(props) {
                 <h3>Buyer</h3>
                 <div className="deal-user-bar">
                     <a href={"./user/" + item.buyer_id}>
-                        <div className="post-avatar" style={{ backgroundImage: "url('" + "')", backgroundSize: "100%" }}></div>
+                        <div className="post-avatar" style={{ backgroundImage: "url('" + item.buyer_avatar + "')", backgroundSize: "100%" }}></div>
                         <div className="post-author">
-                            User
+                            {item.buyer_name}
                         </div>
                     </a>
                 </div>
@@ -96,38 +155,96 @@ function DealCard(props) {
                 </div>
                 </div>
                 <OrderAccordion tracker={item.order_trace} />
+                <DealNotif />
+                <div className="deal-bar">
+                    
+                    {item.status.includes("Delivering") > 0 && item.buyer_id === parseInt(localStorage.user_id)
+                    ? <ConfirmReceipt deal_id={item.deal_id} /> : <React.Fragment/>}
+                     
+                     <CancelButton />
+
+                     {item.status.includes("Delivering") > 0 && item.seller_id === parseInt(localStorage.user_id)
+                     ? <TrackingNumEditor name={"Reset"} /> : <React.Fragment/>}
+                </div>
             </Box>                   
     )
 }
 
 function DealCards(props) {
 
-    const [deals, setDeals] = useState(-1);
     const [loadedDeals, setLoadedDeals] = useState(false);
+    const [items, setItems] = useState(-1);
+    let loadedCards = [];
+
+    async function loadDealCards(deals,i) {
+        if (i < deals.length) {
+            let item = deals[i];
+            let extra_values = {};
+
+            PostService.getOnePost(item.post_id)
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === 1 && result.data.post_images.length > 0) {
+                    extra_values.post_image = result.data.post_images.length > 0 ? result.data.post_images[0] : "";
+                }
+                else {
+                    extra_values.post_image = "/default/empty-image.png";
+                }
+                if (parseInt(localStorage.user_id) !== item.seller_id) {
+                    return AccountService.getProfile({ user_id : item.seller_id }, "user")
+                }
+                else {
+                    return AccountService.getProfile({ user_id : item.buyer_id }, "user")
+                }
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.status === 1) {
+                    if (result.data.avatar === "") {
+                        result.data.avatar= "/default/empty-icon.png";
+                    }
+                    extra_values.seller_name = parseInt(localStorage.user_id) !== item.seller_id ? result.data.username : localStorage.username;
+                    extra_values.seller_avatar = parseInt(localStorage.user_id) !== item.seller_id ? result.data.avatar : localStorage.avatar;
+                    extra_values.buyer_name = parseInt(localStorage.user_id) !== item.buyer_id ? result.data.username : localStorage.username;
+                    extra_values.buyer_avatar = parseInt(localStorage.user_id) !== item.buyer_id ? result.data.avatar : localStorage.avatar;
+                }
+            })
+            .then(() => {
+                loadedCards.push({ ...item, ...extra_values });
+                loadDealCards(deals,i+1);
+            })
+        }
+        else {
+            setItems(loadedCards);
+            props.setDisabled(false);
+            props.setDisabledParent(false);
+            return;
+        }
+    }
 
 
     useEffect(() => {
         if (!loadedDeals && props.deals !== -1) {
-            setDeals(props.deals);
+            props.setDisabled(true);
+            props.setDisabledParent(true);
+            loadDealCards(props.deals,0);
             setLoadedDeals(true);
         }
     }, [props.deals, loadedDeals]);
 
-    if (deals === -1) {
+    if (items === -1) {
         return ( 
             <Stack spacing={3}>
                     {"Loading..."}
             </Stack>
         )
     }
-    else if (deals.length > 0) {
+    else if (items.length > 0) {
         return ( 
             <Stack spacing={3}>
-                    {deals.map((item,i) => {
-                        return (
-                            <DealCard item={item} key={i}/>
-                        )
-                    })}
+                {items.map((item,i) => {
+                    return  <DealCard variant={props.variant} item={item} key={i}/>
+                })}
             </Stack>
         )
     }

@@ -38,13 +38,16 @@ function a11yProps(index) {
 function Dashboard() {
 
     const [value, setValue] = useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
     const [profile, setProfile] = useState("");
     const [loaded, setLoaded] = useState(false);
+    const [disabled, setDisabled] = useState(true);
+
+    const handleChange = (event, newValue) => {
+        if (!disabled) {
+            setValue(newValue);
+            setDisabled(true);
+        }
+    };
 
     const getProfile = () => {
         const email = localStorage.email;
@@ -78,7 +81,7 @@ function Dashboard() {
         return ( 
             <div id="profile-wrapper">
                 <Box id="profile-container">
-                    <ProfileCard data={profile} usertype={localStorage.usertype} />
+                    <ProfileCard data={profile} usertype={localStorage.usertype} user_id={localStorage.user_id} />
                     <Box id="tabs-container">
                         <Tabs
                             orientation="horizontal"
@@ -89,16 +92,16 @@ function Dashboard() {
                         >
                             <Tab label="My Shop" {...a11yProps(0)} />
                             <Tab label="My Deals" {...a11yProps(1)} />
-                            <Tab label="My Ratings" {...a11yProps(1)} />
+                            <Tab label="My Ratings" {...a11yProps(2)} />
                         </Tabs>
                         <TabPanel value={value} index={0}>
-                            <MyPosts isProfileLoaded={loaded} />
+                            <MyPosts isProfileLoaded={loaded} setDisabled={setDisabled} />
                         </TabPanel>
                         <TabPanel value={value} index={1}>
-                            <MyDeals/>
+                            <MyDeals setDisabled={setDisabled}/>
                         </TabPanel>
                         <TabPanel value={value} index={2}>
-                            <Ratings user_id={localStorage.user_id} isProfileLoaded={loaded} />
+                            <Ratings user_id={localStorage.user_id} isProfileLoaded={loaded} setDisabled={setDisabled} />
                         </TabPanel>
                     </Box>
                 </Box>
@@ -109,7 +112,26 @@ function Dashboard() {
         return ( 
             <div id="staff-profile profile-wrapper">
                 <Box id="profile-container">
-                    <ProfileCard data={profile} usertype={localStorage.usertype} />
+                    <ProfileCard data={profile} usertype={localStorage.usertype} user_id={localStorage.user_id} />
+                    <Box id="tabs-container">
+                        <Tabs
+                            orientation="horizontal"
+                            value={value}
+                            onChange={handleChange}
+                            sx={{ borderBottom: 1, borderColor: 'divider' }}
+                            centered
+                        >
+                            <Tab label="User Manager" {...a11yProps(0)} />
+                            <Tab label="Post Manager" {...a11yProps(1)} />
+                        </Tabs>
+
+                        <TabPanel value={value} index={0}>
+                            Users
+                        </TabPanel>
+                        <TabPanel value={value} index={1}>
+                            <MyDeals setDisabled={setDisabled} />
+                        </TabPanel>
+                    </Box>
                 </Box>
             </div>
         )
