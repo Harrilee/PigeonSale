@@ -5,7 +5,6 @@ import AccountService from "../services/account.service";
 import PublicPosts from '../posts/PublicPosts';
 import ProfileCard from './ProfileCard';
 import Ratings from './Ratings';
-import { Redirect } from 'react-router';
 
 
 function TabPanel(props) {
@@ -41,15 +40,17 @@ function Profile(props) {
     const { params: { user_id } } = props.match;
     const [profile, setProfile] = useState("");
     const [loaded, setLoaded]= useState(false);
+    const [disabled, setDisabled] = useState(false);
 
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        if (!disabled) {
+            setValue(newValue);
+        }
     };
 
     const getProfile = () => {
-        console.log(props.type)
         const request = {
             user_id : user_id
         };
@@ -60,14 +61,16 @@ function Profile(props) {
         .then(result => {
             if (result.status === 1) {
                 setProfile(result.data);
-                setLoaded(true);
             }
+            else {
+                window.location.href="/404";
+            }
+            setLoaded(true);
         })
         .catch(err => {
             console.log(err); 
         });
     }
-
 
     useEffect(() => {
         if (profile.length === 0) {
@@ -80,7 +83,7 @@ function Profile(props) {
             return ( 
                     <div id="profile-wrapper">
                     <Box id="profile-container">
-                        <ProfileCard data={profile} usertype={props.type} />
+                        <ProfileCard data={profile} usertype={props.type} user_id={user_id} />
                         <Box id="tabs-container">
                             <Tabs
                                 orientation="horizontal"
@@ -93,10 +96,10 @@ function Profile(props) {
                                 <Tab label="Ratings" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
-                                <PublicPosts isProfileLoaded={loaded} user_id={user_id} />
+                                <PublicPosts isProfileLoaded={loaded} user_id={user_id} setDisabled={setDisabled} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
-                                <Ratings user_id={user_id} isProfileLoaded={loaded} />
+                                <Ratings user_id={user_id} isProfileLoaded={loaded}  setDisabled={setDisabled} />
                             </TabPanel>
                         </Box>
                     </Box>

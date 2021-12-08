@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AccountService from '../services/account.service';
-import { Stack, Box, Rating, Card } from "@mui/material";
+import { Stack, Box, Rating } from "@mui/material";
 import "./Ratings.scss";
 
 function Ratings(props) {
@@ -9,7 +9,6 @@ function Ratings(props) {
     const [avg, setAvg] = useState(0);
 
     const getRatings = () => {
-        console.log(props.user_id)
         AccountService.getRatings(props.user_id)
         .then(res => {
             return res.json();
@@ -21,10 +20,12 @@ function Ratings(props) {
                     setAvg(result.data.average_rate);
                 }
             }
+            props.setDisabled(false);
         })
         .catch(err => {
             console.log(err);
             setRatings([]);
+            props.setDisabled(false);
         });
     }
 
@@ -37,18 +38,24 @@ function Ratings(props) {
             )
         }
         if (ratings.length > 0) {
-            return ( 
-                <Stack spacing={3}>
-                        {ratings.map((item,i) => {
+            return ratings.map((item,i) => {
                             return (
                                 <Box className="rating-wrapper" key={i}>
+                                    <div className="rating-name">
+                                        <div className="post-avatar" style={{ backgroundImage: "url('/default/empty-icon.png')", backgroundSize: "100%" }}></div>
+                                        <div className="post-author">
+                                            Anon
+                                        </div>
+                                    </div>
+                                    <div className="rating-rater">
+                                        {item.time}
+                                    </div>
                                     <h2><Rating name="read-only" precision={0.5} value={item.rate} readOnly /></h2>
                                     <div className="rating-comment">{item.comment}</div>
                                 </Box>
                             )
-                        })}
-                </Stack>
-            )
+                        })
+            
         }
         else {
             return ( 
@@ -62,7 +69,7 @@ function Ratings(props) {
 
     useEffect(() => {
         if (ratings === -1 && props.isProfileLoaded) {
-            console.log("initialize");
+            props.setDisabled(true);
             getRatings();
         }
     }, [props.isProfileLoaded, ratings, getRatings]);
@@ -71,8 +78,8 @@ function Ratings(props) {
 
     return (
         <Box id="ratings-container">
-        <h1 className="center title">{avg}<br></br>
-        <Rating name="read-only" precision={0.5} value={avg} readOnly /> 
+        <h1 className="title center">{avg}<br></br>
+        <Rating name="read-only" precision={0.5} value={avg} readOnly />
         </h1>
             {renderRatings()}
         </Box>

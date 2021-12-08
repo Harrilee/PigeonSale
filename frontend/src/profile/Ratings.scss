@@ -8,9 +8,9 @@
 
 .rating-wrapper {
     padding:1.5em;
-}
-
-.rating-wrapper {
+    width:calc(50% - 1.5em);
+    float:left;
+    margin-right:1.5em;
     border:1px solid $mainBorderColor;
     border-radius:0.3em;
 }
@@ -19,4 +19,12 @@
     padding:1.5em;
     margin-top:0.5em;
     background:$mainBackground;
+}
+
+.rating-name {
+    margin-bottom:1.5em;
+}
+
+.rating-rater {
+    float:right;
 }
