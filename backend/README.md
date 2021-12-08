@@ -2,7 +2,7 @@
 
 ## Start the application
 ### Using Python
-Launch `app.py` directly, or use`python3 app.py` in terminal.
+Launch `app.py` directly, or use `python3 app.py` in terminal.
 ### From terminal
 You can directly start the backend using the following command
 
