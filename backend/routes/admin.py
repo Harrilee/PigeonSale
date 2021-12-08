@@ -33,7 +33,7 @@ def del_staff():
 
 @bp.route('/user', methods=['GET'])
 @check_login_admin_or_staff
-def get_staff():
+def get_user():
     userController = UserController()
     users = userController.get_all_user()
     return api_success({"users": users})
@@ -41,7 +41,7 @@ def get_staff():
 
 @bp.route('/user', methods=['DELETE'])
 @check_login_admin_or_staff
-def del_staff():
+def del_user():
     req = post_data()
     if "user_id" not in req:
         return api_fail("000", "Missing arguments: user_id")
