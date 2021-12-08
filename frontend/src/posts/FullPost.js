@@ -5,6 +5,7 @@ import "./FullPost.scss";
 import TimeAgo from "../components/TimeAgo";
 import UpdatePost from "../post-editor/UpdatePost";
 import DeletePost from "../post-editor/DeletePost";
+import ChatButton from "../chat/ChatButton";
 
 function FullPost({ match }) {
 
@@ -28,6 +29,7 @@ function FullPost({ match }) {
             }
             else {
                 setPost(0);
+                window.location.href = "/404";
             }
         })
         .catch(err => {
@@ -60,9 +62,11 @@ function FullPost({ match }) {
             return <Button variant="contained" fullWidth disabled >Sold</Button>
         }
         else {
-            return (<React.Fragment>
-                <Button variant="contained" fullWidth>Buy</Button>
-                <Button variant="outlined" fullWidth>Deal</Button></React.Fragment>
+            return (
+            <React.Fragment>
+                <Button variant="contained" fullWidth onClick={() => window.location.href+="/buy/user/"+localStorage.user_id}>Buy</Button>
+                <ChatButton type="post" post_id={post_id} receiver_id={post.post_author_id} receiver_role="user" />
+            </React.Fragment>
             )
         }
     }
@@ -91,9 +95,9 @@ function FullPost({ match }) {
 
 
     return (
-        <Box id="full-post-container">
+        <Box id="full-post-container" className="center">
             <PostImages/>
-            <div id="right-full-post-block">
+            <div id="right-full-post-block" className="left">
                 <div className="post-title">
                 <h1>{post.post_title}</h1>
                 </div>
