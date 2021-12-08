@@ -47,6 +47,7 @@ function AvatarImageEditor(props) {
 
     useEffect(() => {
         if (props.avatar !== uploadedAvatar) {
+            document.getElementById("contained-button-file").value="";
             setUploadedAvatar([props.avatar]);
         }
     }, [props]);
