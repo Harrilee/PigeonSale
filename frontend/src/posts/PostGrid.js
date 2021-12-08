@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PostCard from './PostCard';
-import { Grid } from "@mui/material";
+import { Masonry } from "@mui/lab";
+import { Box,Grid } from "@mui/material"
 
 function PostGrid(props) {
     
@@ -9,24 +10,28 @@ function PostGrid(props) {
     const renderPosts = () => {
         if (postList.length > 0) {
             return postList.map((post,i) => {
-                return <Grid item xs={2} sm={4} md={4} key={i}>
-                        <PostCard data={post} /> 
-                    </Grid>
+                return <PostCard data={post} />
             });
         }
         else if (postList.length === 0) {
-            return <Grid item xs={2} sm={4} md={4} key={1}>
-                    No posts
-                </Grid>
+            return <React.Fragment>
+                    <div className="center">&nsbp;</div>
+                    <div className="center">
+                        No posts
+                    </div>
+                    </React.Fragment>
         }
         else if (postList === 0) {
-            return <Grid item xs={2} sm={4} md={4} key={1}>
+            return <div className="center">
                     Hm, something went wrong...
-                </Grid>
+                </div>
         }
-        return <Grid item xs={2} sm={4} md={4} key={1}>
+        return <React.Fragment>
+            <div className="center"></div>
+            <div className="center">
                 Loading...
-            </Grid>    
+            </div>
+        </React.Fragment>  
     }
 
     useEffect(() => {
@@ -37,16 +42,9 @@ function PostGrid(props) {
 
     
     return (
-        <Grid container 
-        id="post-grid"
-        spacing={{ xs: 2, md: 4 }} 
-        columns={{ xs: 4, sm: 8, md: 13 }}
-        flow="column wrap"
-        justifyContent="center"
-        alignItems="justify"
-        >
+        <div id="post-grid">
             {renderPosts()}
-        </Grid> 
+        </div> 
     )
 
 }

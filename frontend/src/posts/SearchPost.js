@@ -21,6 +21,7 @@ function SearchPosts({ match }) {
                 setSearchText(result.data.length + " result(s) found for ");
             }
             else {
+                setSearchText(0 + " result(s) found for ");
                 setSearchPosts(0);
             }
         })

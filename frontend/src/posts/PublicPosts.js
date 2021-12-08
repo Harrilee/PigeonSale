@@ -9,17 +9,17 @@ function PublicPosts(props) {
     const getPublicPosts = () => {
         AccountService.getPublicPosts(props.user_id)
         .then(res => {
-            console.log(res);
             return res.json();
         })
         .then(result => {
             console.log(result);
             if (result.status === 1) {
-                setPublicPosts(result.data.reverse())
+                setPublicPosts(result.data.reverse());
             }
             else {
                 setPublicPosts(0);
             }
+            props.setDisabled(false);
         })
         .catch(err => {
             console.log(err);
@@ -28,7 +28,7 @@ function PublicPosts(props) {
 
     useEffect(() => {
         if (publicPosts === -1 && props.isProfileLoaded) {
-            console.log("initialize");
+            props.setDisabled(true);
             getPublicPosts();
         }
     });
