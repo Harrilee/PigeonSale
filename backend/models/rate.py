@@ -145,3 +145,12 @@ class RateController:
             'average_rate': average_rating,
             'details': result
         }
+
+    def del_rate(self, deal_id):
+        with db.db.cursor() as cursor:
+            cursor.execute("""
+            DELETE FROM rate
+            WHERE deal_id=%s
+            """, [deal_id])
+            db.db.commit()
+        return 0

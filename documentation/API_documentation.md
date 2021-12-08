@@ -501,6 +501,11 @@ In the following stats, each role has different permissions to cancel the order 
             * `029`: Not your deal, cannot view
             * `031`: Rate already exists
             * `032`: rate not valid
+    * Method `DELETE`
+        * Request:
+            * `deal_id`: int
+         * Response
+            * `data`: `""`
 * `/deal/my`
     * Method `GET`: Get my sold and bought deals
     * Request: None

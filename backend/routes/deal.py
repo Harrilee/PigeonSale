@@ -174,3 +174,15 @@ def post_rate():
     if result == -3:
         return api_fail("031", "Rate already exists")
     return api_success()
+
+@bp.route('/rate', methods=['DELETE'])
+@check_login_admin_or_staff
+def del_rate():
+    req = post_data()
+    if 'deal_id' not in req:
+        return api_fail('000', "Missing argument, deal_id")
+    rateController = RateController(session['role'] if "role" in session is None else "guest", get_uid())
+    result = rateController.del_rate(req['deal_id'])
+    if result == 0:
+        return api_success()
+    return api_fail("-1", "Unknown Error")
