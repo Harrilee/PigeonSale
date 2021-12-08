@@ -15,7 +15,7 @@ from flask_session import Session
 
 app = Flask(__name__, instance_relative_config=True)
 CORS(app, resources=r'/*', supports_credentials=True)
-app.config['SESSION_TYPE'] = 'filesystem'
+# app.config['SESSION_TYPE'] = 'filesystem'
 app.config["SECRET_KEY"] = "SECRET"
 Session(app)
 app.config.from_mapping(
