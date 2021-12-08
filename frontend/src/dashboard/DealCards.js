@@ -9,6 +9,7 @@ import RateEditor from '../deal-editor/RateEditor';
 import TrackingNumEditor from '../deal-editor/TrackingNumEditor';
 import CancelEditor from '../deal-editor/CancelEditor';
 import ConfirmReceipt from '../deal-editor/ConfirmReceipt';
+import DealService from '../services/deal.service';
 
 function OrderAccordion(props) {
 
@@ -66,13 +67,7 @@ function DealCard(props) {
     }
 
     function DealNotif() {
-        if (item.status.includes("finished") > 0 && item.buyer_id === parseInt(localStorage.user_id)) {
-            return <div className="deal-notif notif-done">
-                    Your deal has been completed!
-                    <RateEditor deal_id={item.deal_id} />
-                </div>
-        }
-        else if (item.status.includes("pending") > 0 && item.seller_id === parseInt(localStorage.user_id)) {
+        if (item.status.includes("pending") > 0 && item.seller_id === parseInt(localStorage.user_id)) {
             return <div className="deal-notif notif-start">
                     Your item is pending. Please add a tracking number. 
                     <TrackingNumEditor name={"Set"} deal_id={item.deal_id} />
@@ -98,6 +93,16 @@ function DealCard(props) {
         }
         return <React.Fragment />
         
+    }
+
+    function RateButton() {
+        if (item.status.includes("finished") > 0 && item.buyer_id === parseInt(localStorage.user_id)) {
+            return  <RateEditor deal_id={item.deal_id} canrate={item.canrate} name={"Rate Seller"} />
+        }
+        else if (item.status.includes("finished") > 0 && item.seller_id === parseInt(localStorage.user_id)) {
+            return  <RateEditor deal_id={item.deal_id} canrate={item.canrate} name={"Rate Buyer"} />
+        }
+        return <React.Fragment />
     }
 
     useEffect(()=> {
@@ -163,6 +168,8 @@ function DealCard(props) {
                      
                      <CancelButton />
 
+                     <RateButton />
+
                      {item.status.includes("Delivering") > 0 && item.seller_id === parseInt(localStorage.user_id)
                      ? <TrackingNumEditor name={"Reset"} /> : <React.Fragment/>}
                 </div>
@@ -207,6 +214,17 @@ function DealCards(props) {
                     extra_values.seller_avatar = parseInt(localStorage.user_id) !== item.seller_id ? result.data.avatar : localStorage.avatar;
                     extra_values.buyer_name = parseInt(localStorage.user_id) !== item.buyer_id ? result.data.username : localStorage.username;
                     extra_values.buyer_avatar = parseInt(localStorage.user_id) !== item.buyer_id ? result.data.avatar : localStorage.avatar;
+                }
+                return DealService.getDealRating(item.deal_id)
+            })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result)
+                if (result.status === 1) {
+                    extra_values.canrate = false;
+                }
+                else {
+                    extra_values.canrate = true;
                 }
             })
             .then(() => {

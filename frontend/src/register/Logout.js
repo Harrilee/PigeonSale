@@ -9,7 +9,7 @@ function Logout() {
         .then(res => {
             console.log(res);
             console.log("Logged out");
-            AuthService.clearStorage();
+            localStorage.clear();
             window.location.href="/";
         })
         .catch(err => {
