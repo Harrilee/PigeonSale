@@ -45,12 +45,10 @@ def my_other_event(msg):
     emit("event2", "kakaakk")
     session['abc'] = 'abc'
     print('session:', session)
-    print(request.user)
 
 @app.route("/", methods=['GET'])
 def hello():
     print(session)
-    print(request.user)
     return ""
 
 if __name__ == '__main__':

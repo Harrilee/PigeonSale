@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Demo</title>
+    <!-- Socket IO -->
+    <script crossorigin="anonymous"
+            integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA=="
+            src="https://lib.baomitu.com/socket.io/4.2.0/socket.io.js"></script>
     <script src="https://unpkg.com/react@latest/umd/react.development.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@mui/material@latest/umd/material-ui.development.js"
@@ -102,6 +106,15 @@
         display: 'none',
     });
 
+    var socket = io('http://localhost:5000');
+    socket.on('connect', (data) => {
+        console.log(data);
+        socket.emit('my_other_event', {my: 'data'});
+    });
+    socket.on("event2", (data) => {
+        console.log("event2", data)
+    })
+
     const MyMessage = (props) => {
         const {msg} = props
         return (
@@ -128,15 +141,14 @@
         return (
             <div className="chat_box">
                 <MyMessage msg={'你好'}/>
-                <OthersMessage msg={'啊哈哈哈哈哈啊哈你是个傻逼'}/>
-                <MyMessage msg={'啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊对我是个傻逼'}/>
-                <OthersMessage msg={'啊哈哈哈你好瓜'}/>
+                <OthersMessage msg={'啊哈哈哈哈哈啊哈'}/>
+                <MyMessage msg={'啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈'}/>
+                <OthersMessage msg={'啊哈哈哈'}/>
                 <MyMessage msg={'啊哈哈哈你说得对'}/>
                 <OthersMessage msg={'？？'}/>
             </div>
         )
     }
-
 
     const App = () => {
         const [loggedIn, setLoggedIn] = React.useState(false)
