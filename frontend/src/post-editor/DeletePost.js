@@ -32,7 +32,7 @@ function DeletePost(props) {
        <div className="editor-button" id="delete-button"><DeleteIcon onClick={handleOpen} /></div>
        <Modal open={openModal} id="delete-modal">
            <Box id="delete-modal-container">
-            <h2>Are you sure you want to delete this post?</h2>
+            <h1>Are you sure you want to delete this post?</h1>
             <Button name="yes" variant="outlined" onClick={deletePost}>Yes</Button>
             <Button name="no" variant="contained" onClick={() => { handleOpen(false) }}>No</Button>
            </Box>

@@ -17,7 +17,7 @@ function PostEditor(props) {
     const [checked, setChecked] = useState(false);
     const [postStatus, setPostStatus] = useState(1);
     const [disabled, setDisabled] = useState(false);
-    const [alertCard, setAlertCard] = useState({ type: "info", status: false, msg: "" })
+    const [alertCard, setAlertCard] = useState({ type: "info", status: false, msg: "" });
 
     const handleTitle = (e) => {
         let title = e.target.value;
@@ -64,6 +64,7 @@ function PostEditor(props) {
         e.preventDefault();
 
         setDisabled(true);
+        setAlertCard({ type: "info", status: false, msg: "" });
 
         console.log(images);
         console.log(images !== -1 ? images : []);
@@ -77,17 +78,34 @@ function PostEditor(props) {
         };
 
         let condition = price.length === 0;
-        let condition2 = (body.length === 0 && price.length === 0) || images.length === 0;
+        let condition2 = title.length === 0 || body.length === 0;
+        let condition3 = images === -1 || images.length === 0;
+        let condition4 = parseFloat(price).toString() !== price.toString();
+
+        let msg = "";
 
         if (condition) {
-            setAlertCard({ type: "error", status: true, msg: "Price required" });
+            msg +=  "Price ";
         }
         if (condition2) {
-            setAlertCard({ type: "error", status: true, msg: "Input and images required" });
+            msg += (msg.length > 0 ? ", " : "") + "Title or body ";
         }
+        if (condition3) {
+            msg += (msg.length > 0 ? ", " : "") + "Images ";
+        }
+        msg += msg.length > 0 ? "required" : "";
+
+        if (!condition && condition4) {
+            msg += (msg.length > 0 ? ", " : "") + "Price is not a number";
+        }
+        if (msg.length > 0) {
+            setAlertCard({ type: "error", status: true, msg: msg });
+        }
+        
 
         setTimeout(() => {
-            if (!condition && !condition2) {
+            console.log((msg.length > 0));
+            if (!(msg.length > 0)) {
                 if (props.variant === "create") {
                     PostService.createPost(values)
                     .then(res => {
@@ -107,6 +125,7 @@ function PostEditor(props) {
                     })
                     .catch(err => {
                         console.log(err);
+                        setAlertCard({ type: "error", status: true, msg: "Something went wrong."});
                     });
                 }
                 else if (props.variant === "update") {
@@ -128,12 +147,11 @@ function PostEditor(props) {
                     })
                     .catch(err => {
                         console.log(err);
+                        setAlertCard({ type: "error", status: true, msg: "Something went wrong."});
                     });
                 }
             }
-            else {
-                setDisabled(false);
-            }
+            setDisabled(false);
         },3000);
     }
 

@@ -61,7 +61,9 @@ function ImageEditor(props) {
     }
 
     useEffect(() => {
+        console.log(props.images);
         if (uploadedImages === -1 || props.images !== uploadedImages) {
+            document.getElementById("contained-button-file").value = "";
             setUploadedImages(props.images);
         }
     }, [props, uploadedImages]);
