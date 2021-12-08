@@ -14,6 +14,7 @@ body {
   color:$mainTextColor;
 }
 
+.left {text-align:left;}
 .center {text-align:center;}
 
 a {
@@ -82,9 +83,22 @@ h3 {
   background:black;
 }
 
+#post-grid-wrapper .post-masonry-wrapper {
+  display:flex;
+  align-items: center;
+  justify-content:center;
+}
+
 .staff-card .staff-badge ,.admin-card .admin-badge {
   font-size:0.8em;
   margin-left:2em;
+}
+
+@media only screen and (max-width: 1100px) {
+  #post-grid {
+    column-count:2;
+    column-gap:1.5em;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -93,5 +107,17 @@ h3 {
     width:100%;
     padding:2em 1em;
     padding-top:8em;
+  }
+
+  #post-grid {
+    column-count:1;
+    column-gap:0em;
+    width:calc(100vw - 2em);
+  }
+
+  #post-grid .post-container {
+    margin:0;
+    margin-bottom:1.5em;
+    display:block;
   }
 }

@@ -10,7 +10,7 @@ const fonts = [
 const theme = createTheme({
     palette: {
         primary: {
-            main: "#2120ba"
+            main: "#8a9cd4"
         },
         secondary: {
             main: "#eee"
@@ -27,6 +27,13 @@ const theme = createTheme({
             styleOverrides: {
                 root : {
                     fontWeight:"300"
+                }
+            }
+        },
+        MuiRating: {
+            styleOverrides : {
+                root: {
+                    color : "#8a9cd4"
                 }
             }
         },

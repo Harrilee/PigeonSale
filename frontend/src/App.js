@@ -13,6 +13,7 @@ import Login from './register/Login';
 import Signup from './register/Signup';
 import Logout from './register/Logout';
 import NotFound from './layout/NotFound';
+import DealStarter from './deal-editor/DealStarter';
 import './App.scss';
 
 import { ThemeProvider } from '@mui/material/styles';
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path="/user/:user_id"  component={(matchProps) => <Profile {...matchProps} type="user"/>}/>
                 <Route exact path="/staff/:user_id"  component={(matchProps) => <Profile {...matchProps} type="staff"/>}/>  
                 <Route exact path="/post/:post_id"  component={FullPost}/> 
+                <Route exact path="/post/:post_id/buy/user/:user_id"  component={DealStarter}/> 
                 <Route exact path="/search/:keyword"  component={SearchPosts}/>   
                 <Route exact path="/dashboard"  component={Dashboard}/>  
                 <Route exact path="/settings" component={Settings}/>  
@@ -41,7 +43,6 @@ function App() {
               </Switch>
           </div>
         <Footer />
-        <Route component={NotFound} />
       </Router>
       </div>
       </ThemeProvider>
