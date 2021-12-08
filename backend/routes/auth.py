@@ -20,6 +20,7 @@ def logout():
 
 @bp.route('/user/login', methods=['POST'])
 def user_login():
+    print('auth', session)
     req = post_data()
     userController = UserController()
     if 'email' not in req or 'password' not in req:

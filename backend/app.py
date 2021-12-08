@@ -6,35 +6,55 @@
 """
 import os
 
-from flask import Flask, g
+from flask import Flask, g, session, request
 from flask_cors import CORS
 import config
+from flask_socketio import SocketIO, emit
+from flask_session import Session
 
 
-def create_app(test_config=None):
-    app = Flask(__name__, instance_relative_config=True)
-    CORS(app, resources=r'/*', supports_credentials=True)
-    app.config.from_mapping(
-        SECRET_KEY=config.SECRET_KEY,
-    )
+app = Flask(__name__, instance_relative_config=True)
+CORS(app, resources=r'/*', supports_credentials=True)
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config["SECRET_KEY"] = "SECRET"
+Session(app)
+app.config.from_mapping(
+    SECRET_KEY=config.SECRET_KEY,
+)
+socketio = SocketIO(app, cors_allowed_origins='*', manage_session=False)
 
-    if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        app.config.from_mapping(test_config)
+try:
+    os.makedirs(app.instance_path)
+except OSError:
+    pass
+try:
+    os.makedirs(config.IMAGE_STORAGE_PATH)
+except OSError:
+    pass
+import routes, models
+with app.app_context():
+    routes.init_app(app)
 
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
-    try:
-        os.makedirs(config.IMAGE_STORAGE_PATH)
-    except OSError:
-        pass
-    import routes, models
-    with app.app_context():
-        routes.init_app(app)
-    return app
+@socketio.event
+def connect(sid):
+    pass
+
+@socketio.event
+def my_other_event(msg):
+    print('my_other_event ', msg)
+    emit("event2", "kakaakk")
+    session['abc'] = 'abc'
+    print('session:', session)
+    print(request.user)
+
+@app.route("/", methods=['GET'])
+def hello():
+    print(session)
+    print(request.user)
+    return ""
 
 if __name__ == '__main__':
-    create_app().run(debug=True, port=config.FLASK_PORT)
+    socketio.run(app)
+
+
+
