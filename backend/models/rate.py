@@ -4,6 +4,7 @@
 @date: 12/4/2021 4:31 PM
 """
 from models import *
+from models.deal import Deal
 import numpy as np
 
 class Rate:
@@ -96,7 +97,7 @@ class RateController:
             if deal.seller_id != self.uid and deal.buyer_id != self.uid:
                 return -1  # Not your deal
         rate = Rate(deal_id)
-        if rate.buyer_rate is None or rate.seller_rate is None and self.role == 'user':
+        if (rate.buyer_rate is None or rate.seller_rate is None) and self.role == 'user':
             return -2  # Rate not available
         return rate.get_rate()
 
