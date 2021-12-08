@@ -26,7 +26,7 @@ const signup = (values, usertype) => {
 const getProfile = (values, usertype) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
-    }).join("?");
+    }).join("&");
     return fetch(ACCOUNT_URL + "/" + usertype + "?" + uri, {
         mode: 'cors',
         method: 'GET',
@@ -53,7 +53,7 @@ const getPublicPosts = (id) => {
     const values = { user_id : id };
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + values[k];
-    }).join("?");
+    }).join("&");
     return fetch(ACCOUNT_URL + "/user/posts?" + uri, {
         mode: 'cors',
         method: 'GET',
@@ -117,7 +117,7 @@ const getRatings = (id) => {
     const values = { user_id : id };
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + values[k];
-    }).join("?");
+    }).join("&");
     console.log(ACCOUNT_URL +  "/user/rates?" + uri);
     return fetch(ACCOUNT_URL +  "/user/rates?" + uri, {
         mode: 'cors',

@@ -41,7 +41,7 @@ const getOnePost = (id) => {
     const values = { post_id : id };
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
-    }).join("?");
+    }).join("&");
     return fetch(POST_URL + "?" + uri, {
         mode: 'cors',
         method: 'GET',
@@ -56,7 +56,7 @@ const searchPost = (keyword) => {
     const values = { search : keyword };
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
-    }).join("?");
+    }).join("&");
     return fetch(POST_URL + "?" + uri, {
         mode: 'cors',
         method: 'GET',

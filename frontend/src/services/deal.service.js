@@ -105,7 +105,7 @@ const getDealRating = (id) => {
     const values = { deal_id : id };
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
-    }).join("?");
+    }).join("&");
     return fetch(DEAL_URL + "/rate?" + uri, {
         mode: 'cors',
         method: 'GET',
