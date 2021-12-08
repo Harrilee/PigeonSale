@@ -48,7 +48,6 @@ function ResetPassword() {
             else if (result.status === 0) {
                 setAlertCard({ type: "error", status: true, msg: "Something went wrong..." });
             }
-            
         })
         .catch(err => {
             console.log(err);
@@ -59,7 +58,6 @@ function ResetPassword() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(e);
         let values = {};
         setErrors(resetErrors);
         let hasError=false;
@@ -77,7 +75,6 @@ function ResetPassword() {
         }
 
         if (!hasError) {
-            console.log("Values submitted: ", values);
             values = {
                 password: password,
                 verification_code : verification

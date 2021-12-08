@@ -129,6 +129,10 @@ function AddressEditor() {
     const setSelectAction = (variant, i) => {
         if (variant === "selecting") {
             setSelectedInd(i);
+            setName(addresses[i].name);
+            setAddress(addresses[i].address);
+            setPhone(addresses[i].phone);
+            setSubmitType("select");
         }
         else if (variant === "editing") {
             setSelectedInd(i);

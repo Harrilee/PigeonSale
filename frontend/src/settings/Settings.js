@@ -37,7 +37,7 @@ function Settings() {
     const [value, setValue] = useState(0);
 
     const handleChange = (e, newValue) => {
-        setValue(newValue);
+      setValue(newValue);
     };
 
     return ( 
@@ -52,16 +52,18 @@ function Settings() {
             >
                 <Tab label="Edit Profile" {...a11yProps(0)} />
                 <Tab label="Reset Password" {...a11yProps(1)} />
+                {localStorage.usertype === "user" ?
                 <Tab label="Edit Addresses" {...a11yProps(2)} />
+                : <React.Fragment />}
             </Tabs>
             <TabPanel value={value} index={0}>
                 <ProfileSettings />
             </TabPanel>
-            <TabPanel value={value} index={1}>
-                <ResetPassword />
+            <TabPanel value={value} index={1} >
+                <ResetPassword/>
             </TabPanel>
-            <TabPanel value={value} index={2}>
-                <AddressEditor />
+            <TabPanel value={value} index={2} >
+                <AddressEditor/>
             </TabPanel>
             </Box>
         </div>

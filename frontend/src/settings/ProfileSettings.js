@@ -5,7 +5,7 @@ import "./ProfileSettings.scss";
 import AccountService from "../services/account.service";
 import AvatarImageEditor from '../avatar-editor/AvatarImageEditor';
 
-function ProfileSettings(props) {
+function ProfileSettings() {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState(localStorage.email);
@@ -103,9 +103,6 @@ function ProfileSettings(props) {
         e.preventDefault();
 
         setErrors(resetErrors);
-
-        console.log("Form submitted");
-
         let values = {};
 
         if (birthday.length !== 0 && birthday !== prevValues.birthday) {
