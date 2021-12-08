@@ -606,6 +606,27 @@ Administration managements
             * `user_id`: int
         * Response
             * `data`: `""`
+* './admin/all_deal'
+    * Method `GET`
+        * Request: None * Response * `data`
+            * buyer_address
+            * buyer_id
+            * buyer_phone
+            * order_trace: a list of order trace
+              * status
+              * time
+            * post_id
+            * price
+            * rate: null is not rated, else
+              * buyer_comment: String
+              * buyer_rate: int
+              * buyer_rate_time
+              * deal_id
+              * seller_comment
+              * seller_rate
+              * seller_rate_time
+            * seller_id
+            * status: status of deal
 
 ### ./msg
 
@@ -622,19 +643,19 @@ Chat message operations
             * key: int, order of message
             * msg: String, message content
             * receiver
-              * avatar
-              * bio
-              * birthday
-              * gender
-              * user_id
-              * username
+                * avatar
+                * bio
+                * birthday
+                * gender
+                * user_id
+                * username
             * receiver_role: String, staff/user
             * sender
-              * avatar
-              * bio
-              * birthday
-              * gender
-              * user_id
-              * username
+                * avatar
+                * bio
+                * birthday
+                * gender
+                * user_id
+                * username
             * sender_role: String, staff/user
             * post_id

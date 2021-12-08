@@ -13,6 +13,7 @@ bp = Blueprint('msg', __name__, url_prefix='/msg')
 @check_login_user_or_staff
 def get_msg():
     req = get_data()
+    print(req)
     if 'r_role' not in req:
         return api_fail("000", "Missing argument: r_role")
     if 'r_uid' not in req:
