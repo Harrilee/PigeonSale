@@ -19,13 +19,11 @@ server. When backend starts, it will automatically connect to the cloud.
 For more information, see [config.py](./backend/config.py) [Although it's not safe to do so].
 ## Get Started
 * Admin password: `pigeon` (pleas use this password to login via Frontend)
-* [Launch backend](./backend/README.md)
-* [Launch frontend](./frontend/README.md)
+* [Launch backend](./backend/README.md): notes on how to establish backend server
+* [Launch frontend](./frontend/README.md): notes on how to establish frontend and general maintenance
 
 ## Documentation
 * [API documentation](./documentation/API_documentation.md): list of APIs
-  * [Backend documentation](./backend/README.md): notes on how to establish backend server
-  * [Frontend documentation](./frontend/README.md) : notes on how to establish frontend and general maintenance
 * Contribution log: working record of each group member
   * [Cycle 1](./documentation/contribution_log/cycle_1.md)
   * [Cycle 2](./documentation/contribution_log/cycle_2.md)
