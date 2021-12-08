@@ -19,7 +19,8 @@ server. When backend starts, it will automatically connect to the cloud.
 For more information, see [config.py](./backend/config.py) [Although it's not safe to do so].
 ## Get Started
 * Admin password: `pigeon` (pleas use this password to login via Frontend)
-
+* [Launch backend](./backend/README.md)
+* [Launch frontend](./frontend/README.md)
 
 ## Documentation
 * [API documentation](./documentation/API_documentation.md): list of APIs
