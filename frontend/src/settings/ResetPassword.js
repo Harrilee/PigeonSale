@@ -89,7 +89,7 @@ function ResetPassword() {
             })
             .then(result => {
                 if (result.status === 1) {
-                    setAlertCard({ type: "success", status: true, msg: "Update success" });
+                    setAlertCard({ type: "success", status: true, msg: "Updated successfully" });
                     setPassword("");
                     setPassword2("");
                     setVerification("");
@@ -110,11 +110,12 @@ function ResetPassword() {
         <div id="tab-settings-wrapper" name="resetPassword">
             <AlertCard severity={alertCard.type} id="profile-alert" 
                     display={alertCard.status} 
-                    message={alertCard.msg} />
+                    message={alertCard.msg}
+                    static={false} />
             <Box id="tab-settings-container">
             <h1>Reset Password</h1>
             <form onSubmit={handleSubmit}>
-                    <TextField sx={{ width: "calc(50% - 0.725em - 2px)" }}
+                    <TextField sx={{ width: "calc(50% - 0.75em - 2px)" }}
                         label="Password"
                         type="password"
                         onChange={handlePassword} 
@@ -122,7 +123,7 @@ function ResetPassword() {
                         error={errors.passwordError.status}
                         helperText={errors.passwordError.msg}
                         />
-                    <TextField sx={{ width: "calc(50% - 0.725em - 2px)" }}
+                    <TextField sx={{ width: "calc(50% - 0.75em - 2px)" }}
                         label="Confirm Password"
                         type="password"
                         onChange={handlePassword2} 

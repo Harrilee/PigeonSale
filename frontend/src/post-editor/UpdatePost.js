@@ -21,7 +21,7 @@ function UpdatePost(props) {
 
     return (
        <React.Fragment>
-       <div name="open" onClick={handleOpen} name="updatepost" id="edit-button"><EditIcon /></div>
+       <div className="editor-button" id="edit-button"><EditIcon onClick={handleOpen} /></div>
        <PostEditor 
        openModal={openModal} 
        handleOpen={handleOpen} 

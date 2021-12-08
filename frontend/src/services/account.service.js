@@ -23,11 +23,11 @@ const signup = (values, usertype) => {
     });
 }
 
-const getProfile = (values) => {
+const getProfile = (values, usertype) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + encodeURIComponent(values[k]);
     }).join("?");
-    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "?" + uri, {
+    return fetch(ACCOUNT_URL + "/" + usertype + "?" + uri, {
         mode: 'cors',
         method: 'GET',
         headers : {
@@ -54,7 +54,72 @@ const getPublicPosts = (id) => {
     const uri = Object.keys(values).map((k)=> {
         return k + "=" + values[k];
     }).join("?");
-    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/posts?" + uri, {
+    return fetch(ACCOUNT_URL + "/user/posts?" + uri, {
+        mode: 'cors',
+        method: 'GET',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include'
+    });
+}
+
+const getAddresses = () => {
+    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/addresses", {
+        mode: 'cors',
+        method: 'GET',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include'
+    });
+}
+
+const addAddress = (values) => {
+    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/addresses", {
+        mode: 'cors',
+        method: 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(values)
+    });
+}
+
+const updateAddress = (values) => {
+    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/addresses", {
+        mode: 'cors',
+        method: 'PUT',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(values)
+    });
+}
+
+const deleteAddress = (id) => {
+    const values = { address_id : id };
+    return fetch(ACCOUNT_URL + "/" + localStorage.usertype + "/addresses", {
+        mode: 'cors',
+        method: 'DELETE',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(values)
+    });
+}
+
+
+const getRatings = (id) => {
+    const values = { user_id : id };
+    const uri = Object.keys(values).map((k)=> {
+        return k + "=" + values[k];
+    }).join("?");
+    console.log(ACCOUNT_URL +  "/user/rates?" + uri);
+    return fetch(ACCOUNT_URL +  "/user/rates?" + uri, {
         mode: 'cors',
         method: 'GET',
         headers : {
@@ -68,5 +133,10 @@ export default {
     signup,
     getProfile,
     updateProfile,
-    getPublicPosts
+    getPublicPosts,
+    getAddresses,
+    addAddress,
+    updateAddress,
+    deleteAddress,
+    getRatings
 }

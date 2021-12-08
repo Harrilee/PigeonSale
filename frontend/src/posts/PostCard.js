@@ -38,7 +38,7 @@ function PostCard(props) {
     }
 
     function EditorButtons() {
-        if (window.location.href.includes("dashboard")) {
+        if (window.location.href.includes("dashboard") && props.data.post_product_status !== 0) {
             return (
                 <React.Fragment>
                 <UpdatePost post_id={props.data.post_id} />
@@ -85,20 +85,52 @@ function PostCard(props) {
         return <React.Fragment/>
     }
 
+    function PostImage() {
+        if (props.data.post_images.length !== 0) {
+            if (props.data.post_product_status === 0) {
+                return (<div className="image-wrapper">
+                <div className="sold"><h2>SOLD</h2></div>
+                <img src={props.data.post_images[0]} alt={"post-card-"+props.data.post_id} />
+            </div>)
+            }
+            return (<div className="image-wrapper">
+                <img src={props.data.post_images[0]} alt={"post-card-"+props.data.post_id} />
+            </div>)
+        }
+        if (props.data.post_images.length === 0) {
+            if (props.data.post_product_status === 0) {
+                return (<div className="image-wrapper">
+                <div className="sold"><h3>SOLD</h3></div>
+            </div>)
+            }
+            return <React.Fragment/>
+        }
+    }
+
+    function PostPrice() {
+        if (props.data.post_product_status === 0) {
+            return <span><strike>${props.data.post_product_price}</strike></span>
+        }
+        return <span>${props.data.post_product_price}</span>
+    }
+
     return (
         <Box className="post-container" id={"post-"+props.data.post_id}>
             <PrivacyNotif/>
             <a href={"/post/"+props.data.post_id}>
                 <div className="post-images">
-                    <img src="https://www.acnestudios.com/on/demandware.static/-/Sites-acne-product-catalog/default/dweaaf3b70/images/C9/C90086-/1500x/C90086-++M_A.jpg" />
+                <PostImage/>
                 </div>
             </a>
+
+            <a href={"/post/"+props.data.post_id}>
             <PostTitle/>
             <PostBody />
+            </a>
             <UserBar />
             <div className="post-bottom-bar">
                 <div className="post-price">
-                    ${props.data.post_product_price}
+                    <PostPrice />
                 </div>
                 <EditorButtons />
             </div>

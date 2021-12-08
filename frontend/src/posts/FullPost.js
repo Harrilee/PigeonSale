@@ -9,6 +9,7 @@ import DeletePost from "../post-editor/DeletePost";
 function FullPost({ match }) {
 
     const [avatar, setAvatar] = useState("/default/empty-icon.png");
+    const [images, setImages] = useState([]);
     const [post, setPost] = useState(-1);
     const { params: { post_id } } = match;
 
@@ -23,6 +24,7 @@ function FullPost({ match }) {
                 if (result.data.post_author_avatar.length !== 0) {
                     setAvatar(result.data.post_author_avatar);
                 }
+                setImages(result.data.post_images);
             }
             else {
                 setPost(0);
@@ -37,10 +39,10 @@ function FullPost({ match }) {
         if (post === -1) {
             getPost();
         }
-    }, [getPost]);
+    }, [getPost, post]);
 
     function EditorButtons() {
-        if (localStorage.username === post.post_author_username) {
+        if (localStorage.username === post.post_author_username && post.post_product_status !== 0) {
             return (
                 <React.Fragment>
                 <UpdatePost post_id={post.post_id} />
@@ -53,13 +55,44 @@ function FullPost({ match }) {
         )
     }
 
-    return (
-        <Box id="full-post-container">
+    function DealButtons() {
+        if (post.post_product_status === 0) {
+            return <Button variant="contained" fullWidth disabled >Sold</Button>
+        }
+        else {
+            return (<React.Fragment>
+                <Button variant="contained" fullWidth>Buy</Button>
+                <Button variant="outlined" fullWidth>Deal</Button></React.Fragment>
+            )
+        }
+    }
+
+    function PostPrice() {
+        if (post.post_product_status === 0) {
+            return <span><strike>${post.post_product_price}</strike></span>
+        }
+        return <span>${post.post_product_price}</span>
+    }
+
+    function PostImages() {
+        if (images.length !== 0) {
+            return (
             <div id="left-full-post-block"> 
                 <div className="post-images">
-                    <img src="https://www.acnestudios.com/on/demandware.static/-/Sites-acne-product-catalog/default/dweaaf3b70/images/C9/C90086-/1500x/C90086-++M_A.jpg" />
+                {images.map((item, i) => {
+                    return <img src={item} alt={"image"+1}/>
+                })}
                 </div>
             </div>
+            )
+        }
+        return <React.Fragment/>
+    }
+
+
+    return (
+        <Box id="full-post-container">
+            <PostImages/>
             <div id="right-full-post-block">
                 <div className="post-title">
                 <h1>{post.post_title}</h1>
@@ -69,7 +102,7 @@ function FullPost({ match }) {
                 </div>
 
                 <div className="post-price">
-                    ${post.post_product_price}
+                    <PostPrice />
                 </div>
                 <div className="post-user-bar">
                     <div className="post-author-card">
@@ -83,8 +116,7 @@ function FullPost({ match }) {
                     <TimeAgo time={ { creation: post.post_creation_time, modified: post.post_modification_time } }/>
                 </div>
                 <div className="post-buttons">
-                    <Button variant="contained" fullWidth>Buy</Button>
-                    <Button variant="outlined" fullWidth>Deal</Button>
+                    <DealButtons />
                     <EditorButtons />
                 </div>
             </div>

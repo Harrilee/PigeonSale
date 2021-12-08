@@ -5,6 +5,7 @@
     height:100%;
     width:100%;
     background:$mainBackground;
+    z-index:2;
 }
 
 #register-container {
@@ -54,10 +55,6 @@
 #register-wrapper[name=signup] #form1 .MuiFormControl-root:nth-child(3),
 #form2 .MuiFormControl-root:first-child {
     margin-right:calc(1.5em - 6px);
-}
-
-#register-container button {
-    font-size:1.05em;
 }
 
 .multiform {

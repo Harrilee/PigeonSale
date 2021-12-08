@@ -1,0 +1,78 @@
+@import '../_theme.scss';
+
+.deal-card {
+    border:1px solid $mainBorderColor;
+    border-radius:0.3em;
+}
+
+.deal-card .deal-content {
+    padding:0em 1.5em;
+    padding-top:1.5em;
+}
+
+.order-tracking {
+    margin-top:1.5em;
+}
+
+.order-tracking li {
+    margin-bottom:1.5em;
+    color:#2120ba;
+    list-style-type:disc;
+}
+
+.order-tracking .order-date {
+    color:$mainTextColor;
+    font-weight:400;
+    margin-right:1.5em;
+}
+
+.deal-label {
+    font-weight:400;
+    margin-right:1.5em;
+}
+
+.deal-card-left,.deal-card-right, .deal-card-right > div {
+    display:inline-block;
+    vertical-align:top;
+}
+
+.deal-card-left {
+    min-width:40%;
+    max-width:100%;
+}
+
+.deal-card-right {
+    min-width:60%;
+    max-width:100%;
+}
+
+.deal-card-right > div {
+    min-width:35%;
+    max-width:100%;
+}
+
+
+.deal-user-bar {
+    padding:1.5em 0em;
+}
+
+.deal-post {
+    width:100%;
+    padding-bottom:70%;
+    margin-bottom:1.5em;
+    background:$mainBackground;
+    position:relative;
+}
+
+.deal-post-content {
+    position:absolute;
+    right:1.5em;
+    top:1.5em;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .deal-card-left,.deal-card-right,.deal-card-right > div  {
+      width:100%;
+    }
+  }

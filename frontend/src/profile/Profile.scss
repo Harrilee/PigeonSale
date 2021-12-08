@@ -10,13 +10,6 @@
     margin-bottom:2em;
 }
 
-#avatar-image {
-    width:calc(2em + 5vw);
-    height:calc(2em + 5vw);
-    border-radius:100%;
-    border:1px solid $mainBorderColor;
-}
-
 #gender {
     width:0.8em;
     height:0.8em;
@@ -31,4 +24,20 @@
     display:block;
     border-bottom:1px solid $mainBorderColor;
     padding-bottom:1.5em;
+}
+
+#username h1 {
+    display:inline-block;
+    vertical-align:middle;
+}
+
+#username .optional-info {
+    display:block;
+    margin-top:1em;
+}
+
+#username .optional-info svg {
+   font-size:1.5em;
+   vertical-align:middle;
+   margin-right:1em;
 }

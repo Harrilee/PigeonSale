@@ -18,14 +18,24 @@ function Navigation() {
         else if (localStorage.usertype === "staff") {
                 return (
                     <nav>
+                        <div className="staff-badge">Staff</div>
                         <AccountMenu />
                     </nav>
                     
                 )
         }
+        else if (localStorage.usertype === "admin") {
+            return (
+                <nav>
+                    <div className="admin-badge">Admin</div>
+                    <AccountMenu />
+                </nav>
+                
+            )
+    }
     }
     return (
-       <nav>
+       <nav id="guest-nav">
             <NavLink to="/login">Log in</NavLink>
             <NavLink to="/signup">Sign up</NavLink>
         </nav>

@@ -24,11 +24,9 @@ function Logout() {
 
     useEffect(() => {
         setTimeout(() => {
-            handleLogout();
-        }, 1500);
+             handleLogout();
+        },1000);
     });
-
-
 
     if (localStorage.isLoggedIn === "false") {
         window.location.href = "./";
@@ -39,9 +37,6 @@ function Logout() {
             <div id="register-wrapper" name="logout">
                 <Box id="logout-container">
                     <h2>Logging out... </h2>
-                    {/* <p>
-                        <small>If you're not immediately redirected, <a href="/">click here</a></small>
-                    </p> */}
                 </Box>
             </div>
         )

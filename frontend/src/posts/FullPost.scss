@@ -22,6 +22,7 @@
 
 #full-post-container .post-price, #full-post-container .time-ago, #full-post-container .post-buttons {
     padding:1em;
+    margin-top:1.5em;
 }
 
 #full-post-container .post-buttons button:nth-child(1) {
@@ -49,6 +50,11 @@
 #full-post-container .post-price {
     font-size:1.4em;
 }
+
+#left-full-post-block img {
+    width:100%;
+}
+
 
 @media only screen and (max-width: 1000px) {
     /* For mobile phones: */

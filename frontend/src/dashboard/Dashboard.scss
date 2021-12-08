@@ -23,21 +23,44 @@
     opacity:0.5;
 }
 
-#dashboard-container div[role=tabpanel] {
+#tabs-container > div[role=tabpanel] {
     margin-top:1em;
 }
 
-#dashboard-container .MuiTab-root {
+#deals-container > div[role=tabpanel] {
+    margin-left:1em;
+    width:calc(90% - 2em);
+    margin-left:calc(15% + 2em);
+}
+
+#tabs-container .MuiTab-root {
     text-transform:capitalize;
     font-family:$mainFont;
     font-size:1em;
     padding:1em 3em;
 }
 
-#dashboard-container .Mui-selected {
+#tabs-container .Mui-selected {
     color:#000;
 }
 
-#dashboard-container .MuiTabs-indicator {
+#tabs-container .MuiTabs-indicator {
     background-color:#000;
+}
+
+#deals-container .Mui-selected {
+    color:$mainLinkColor;
+}
+
+#deals-container .MuiTabs-indicator {
+    background-color:$mainLinkColor;
+}
+
+#deals-container .order-tracking {
+    border-top:1px solid $mainBorderColor;
+    background:$mainBackground;
+}
+
+.staff-card #avatar-image {
+    border:2px solid #2120ba;
 }

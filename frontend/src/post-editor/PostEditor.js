@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, Button, InputBase, InputAdornment, Modal, Checkbox } from "@mui/material";
 import LockOpenIcon from '../icons/LockOpenIcon';
 import LockCloseIcon from '../icons/LockCloseIcon';
 import "./PostEditor.scss";
 import PostService from "../services/post.service";
 import AlertCard from '../components/AlertCard';
-import ImageUploader from './ImageUploader';
+import ImageEditor from './ImageEditor';
 
 function PostEditor(props) {
 
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [price, setPrice] = useState("");
+    const [images, setImages] = useState(-1);
     const [postButton, setPostButton] = useState("Post");
     const [checked, setChecked] = useState(false);
     const [postStatus, setPostStatus] = useState(1);
@@ -38,6 +39,11 @@ function PostEditor(props) {
         setTitle("");
         setBody("");
         setPrice("");
+        setImages([]);
+    }
+
+    const handleImageLinks = (links) => {
+        setImages(links);
     }
 
     const handlePrivacy = (e) => {
@@ -58,22 +64,30 @@ function PostEditor(props) {
         e.preventDefault();
 
         setDisabled(true);
+
+        console.log(images);
+        console.log(images !== -1 ? images : []);
+
         let values = {
             post_title: title,
             post_content: body,
             post_status: postStatus,
+            post_images: images !== -1 ? images : [],
             post_product_price: parseFloat(price)
         };
 
-        if (price.length === 0) {
+        let condition = price.length === 0;
+        let condition2 = (body.length === 0 && price.length === 0) || images.length === 0;
+
+        if (condition) {
             setAlertCard({ type: "error", status: true, msg: "Price required" });
         }
-        if (title.length === 0 && body.length === 0 && price.length === 0) {
-            setAlertCard({ type: "error", status: true, msg: "Input required" });
+        if (condition2) {
+            setAlertCard({ type: "error", status: true, msg: "Input and images required" });
         }
-        
+
         setTimeout(() => {
-            if (alertCard.status == false) {
+            if (!condition && !condition2) {
                 if (props.variant === "create") {
                     PostService.createPost(values)
                     .then(res => {
@@ -82,11 +96,13 @@ function PostEditor(props) {
                     .then(result => {
                         if (result.status === 1) {
                             console.log("Posted");
+                            setAlertCard({ type: "success", status: true, msg: "Posted successfully" });
                             handleClose();
                             window.location.reload();
                         }
                         if (result.status === 0) {
-                            setAlertCard({ type: "error", status: true, msg: result.data });
+                            setAlertCard({ type: "error", status: true, msg: result.msg });
+                            setDisabled(false);
                         }
                     })
                     .catch(err => {
@@ -101,12 +117,13 @@ function PostEditor(props) {
                     .then(result => {
                         if (result.status === 1) {
                             console.log("Updated");
-                            console.log(result);
+                            setAlertCard({ type: "success", status: true, msg: "Updated successfully" });
                             handleClose();
                             window.location.reload();
                         }
                         if (result.status === 0) {
-                            setAlertCard({ type: "error", status: true, msg: result.data });
+                            setAlertCard({ type: "error", status: true, msg: result.msg });
+                            setDisabled(false);
                         }
                     })
                     .catch(err => {
@@ -114,11 +131,15 @@ function PostEditor(props) {
                     });
                 }
             }
-        },1000);
-        
+            else {
+                setDisabled(false);
+            }
+        },3000);
     }
 
-    const getPost = (id) => {
+    const msg = "Post retrieved";
+
+    const getPost = useCallback((id) => {
         PostService.getOnePost(id)
         .then(res => {
             return res.json();
@@ -128,6 +149,12 @@ function PostEditor(props) {
                 setTitle(result.data.post_title);
                 setBody(result.data.post_content);
                 setPrice(result.data.post_product_price);
+                if (result.data.post_images) {
+                    setImages(result.data.post_images);
+                }
+                else {
+                    setImages([]);
+                }
                 if (result.data.post_status === 1) {
                     setChecked(false);
                     setPostButton("Post");
@@ -143,26 +170,27 @@ function PostEditor(props) {
         .catch(err => {
             console.log(err);
         });
-    }
+    }, [msg]);
 
     useEffect(() => {
         if (props.loadDraft === 1 && props.variant === "update") {
             getPost(props.post_id);
         }
-    }, [props.loadDraft, props.variant,props.post_id, getPost]);
+    }, [props, getPost]);
 
 
     return (
        <div id="post-editor-wrapper">
            <AlertCard severity={alertCard.type} id="editor-alert" 
                     display={alertCard.status} 
-                    message={alertCard.msg} />
+                    message={alertCard.msg}
+                    static={false} />
            <Modal id="post-editor-modal"
             open={props.openModal}
             >
            <Box id="post-editor-container">
                <form onSubmit={handleSubmit}>
-               <ImageUploader />
+               <ImageEditor images={images} handleImageLinks={handleImageLinks} loadDraft={props.loadDraft} />
                <div id="text-form">
                <InputBase id="title-input"
                     placeholder="Title" 
@@ -193,7 +221,7 @@ function PostEditor(props) {
                     <Button type="submit" variant="contained" name="post"
                     disabled={disabled}>{postButton}</Button>
 
-                    <div id="post-privacy">
+                    <div id="post-privacy" className="editor-button">
                     <Checkbox
                         disabled={disabled}
                         icon={<LockOpenIcon />}

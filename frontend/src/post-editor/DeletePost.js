@@ -8,7 +8,6 @@ import PostService from '../services/post.service';
 function DeletePost(props) {
 
     const [openModal, setOpenModal] = useState(false);
-    const [deletingText, setDeletingText] = useState("");
 
     const handleOpen = (bool) => setOpenModal(bool);
 
@@ -18,14 +17,9 @@ function DeletePost(props) {
             return res.json();
         })
         .then(result => {
-            console.log(result);
             if (result.status === 1) {
-                setDeletingText("");
                 handleOpen(false);
                 window.location.reload();
-            }
-            else {
-                setDeletingText("Hm, something went wrong...");
             }
         })
         .catch(err => {
@@ -35,7 +29,7 @@ function DeletePost(props) {
 
     return (
        <React.Fragment>
-       <div name="open" onClick={handleOpen} name="deletePost" id="delete-button"><DeleteIcon /></div>
+       <div className="editor-button" id="delete-button"><DeleteIcon onClick={handleOpen} /></div>
        <Modal open={openModal} id="delete-modal">
            <Box id="delete-modal-container">
             <h2>Are you sure you want to delete this post?</h2>

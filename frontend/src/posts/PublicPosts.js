@@ -15,7 +15,7 @@ function PublicPosts(props) {
         .then(result => {
             console.log(result);
             if (result.status === 1) {
-                setPublicPosts(result.data)
+                setPublicPosts(result.data.reverse())
             }
             else {
                 setPublicPosts(0);

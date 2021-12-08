@@ -5,9 +5,10 @@ import LogoCard from '../components/LogoCard';
 function Footer() {
     return (
        <footer>
-          <LogoCard title="Pigeon Sale" size="small" position="left" />
-          <p>Pigeon Sale is a secondhand trading system created by Harry Lee, Justin Chen, and Robin Luo.</p>
-          <a href="https://github.com/Harrilee/PigeonSale">git</a>
+          <LogoCard title="" size="small" position="center" />
+          <p>Pigeon Sale is a secondhand trading system / e-commerce web application</p>
+          <p>Created by Harry Lee, Justin Chen, and Robin Luo</p>
+          <p><a href="https://github.com/Harrilee/PigeonSale">Github</a></p>
        </footer>
     )
 }

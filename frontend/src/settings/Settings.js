@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Tabs, Tab, Typography } from "@mui/material";
+import { Box, Tabs, Tab } from "@mui/material";
 import "./Settings.scss";
 import ProfileSettings from './ProfileSettings';
 import ResetPassword from './ResetPassword';
+import AddressEditor from './AddressEditor';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -17,7 +18,7 @@ function TabPanel(props) {
       >
         {value === index && (
           <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
+            {children}
           </Box>
         )}
       </div>
@@ -35,7 +36,7 @@ function Settings() {
 
     const [value, setValue] = useState(0);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (e, newValue) => {
         setValue(newValue);
     };
 
@@ -60,7 +61,7 @@ function Settings() {
                 <ResetPassword />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                <AddressEditor />
             </TabPanel>
             </Box>
         </div>

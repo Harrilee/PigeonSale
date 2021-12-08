@@ -60,6 +60,7 @@ function Login() {
         }
         else {
             console.log(values);
+            console.log(usertype);
             AuthService.login(values, usertype)
             .then(res => {
                 return res.json();
@@ -71,13 +72,13 @@ function Login() {
                     localStorage.setItem("email", values.email);
                     localStorage.setItem("username", result.data.username);
                     if (result.data.avatar.length !== 0) {
-                        localStorage.setItem("avatar", result.data.username);
+                        localStorage.setItem("avatar", result.data.avatar);
                     }
                     else {
                         localStorage.setItem("avatar", "/default/empty-icon.png");
                     }
                     console.log("Login success");
-                    return AccountService.getProfile({ email : values.email });
+                    return AccountService.getProfile({ email : values.email }, usertype);
                 }
                 else if (result.status === 0) {
                     if (result.code === "000" 
@@ -116,7 +117,8 @@ function Login() {
                 <Box id="register-container" >
                     <AlertCard severity="error" id="register-error" 
                     display={errors.loginError.status} 
-                    message={errors.loginError.msg} />
+                    message={errors.loginError.msg}
+                    static={true} />
 
                     <LogoCard title="Login" position="center" size="medium" />
 
