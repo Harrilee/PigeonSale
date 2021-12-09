@@ -13,7 +13,6 @@ bp = Blueprint('msg', __name__, url_prefix='/msg')
 @check_login_user_or_staff
 def get_msg():
     req = get_data()
-    print(req)
     if 'r_role' not in req:
         return api_fail("000", "Missing argument: r_role")
     if 'r_uid' not in req:
@@ -36,6 +35,8 @@ def post_msg():
     post_id = req['post_id'] if "post_id" in req else None
     if 'msg' not in req:
         return api_fail("000", "Missing argument: msg")
+    if req['msg']=='':
+        return api_fail("040", "Empty message not allowed")
     messageController = MessageController(get_uid(), session['role'], session['role'], get_uid(), req['r_role'],
                                           req['r_uid'], post_id)
     output = messageController.post_message(req['msg'])

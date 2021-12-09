@@ -21,6 +21,8 @@ class Message:
         self.r_role = r_role
         self.s_role = s_role
         self.s_uid = s_uid
+        if self.post_id == 'null':
+            self.post_id = None
 
     def parse_a_message(self, entry: dict, i=-1) -> dict:
         """
@@ -33,7 +35,7 @@ class Message:
         del entry['post_id']
         del entry['receiver_role']
         del entry['sender_role']
-        if i!=-1:
+        if i != -1:
             entry['key'] = i
             del entry['msg_id']
         entry['is_send'] = True if entry['sender_id'] == self.s_uid else False
@@ -46,14 +48,20 @@ class Message:
         :return: a message list correspond to sender and receiver
         """
         with db.db.cursor() as cursor:
-            cursor.execute("""
-                       SELECT * 
-                       FROM message
-                       WHERE (sender_id=%s AND receiver_id=%s)
-                       OR (sender_id=%s AND receiver_id=%s)
-                       AND post_id=%s
-                       ORDER BY send_time ASC 
-                   """, (self.s_uid, self.r_uid, self.r_uid, self.s_uid, self.post_id))
+            if self.post_id is None:
+                cursor.execute("""
+                   SELECT * 
+                   FROM message
+                   WHERE ((sender_id=%s AND receiver_id=%s) OR (sender_id=%s AND receiver_id=%s)) AND post_id is NULL
+                   ORDER BY send_time ASC 
+                       """, (self.s_uid, self.r_uid, self.r_uid, self.s_uid))
+            else:
+                cursor.execute("""
+                   SELECT * 
+                   FROM message
+                   WHERE ((sender_id=%s AND receiver_id=%s) OR (sender_id=%s AND receiver_id=%s)) AND post_id=%s
+                   ORDER BY send_time ASC 
+                       """, (self.s_uid, self.r_uid, self.r_uid, self.s_uid, self.post_id))
             result = cursor.fetchall()
         if result is None:
             result = []
