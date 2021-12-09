@@ -68,7 +68,7 @@ function DealManager(props) {
     }
 
     useEffect(() => {
-        if (deals === -1 && value == 0 && props.isProfileLoaded) {
+        if (deals === -1 && value === 0 && props.isProfileLoaded) {
             getDeals()
         }
     }, [deals, getDeals, value]);

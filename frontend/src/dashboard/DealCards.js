@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./DealCard.scss";
-import { Stack, Box, Button,Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import AlertCard from '../components/AlertCard';
+import { Stack, Box,Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountService from '../services/account.service';
 import PostService from '../services/post.service';
@@ -48,8 +47,6 @@ function OrderAccordion(props) {
 function DealCard(props) {
 
     const [item, setItem] = useState(-1);
-    const [rateButton, setRateButton] = useState(false);
-    const [trackingButton, setTrackingButton] = useState(false);
 
     function DealStatus() {
         if (item.status.includes("finished") > 0) {
@@ -248,7 +245,7 @@ function DealCards(props) {
             loadDealCards(props.deals,0);
             setLoadedDeals(true);
         }
-    }, [props.deals, loadedDeals]);
+    }, [props.deals, loadedDeals, loadDealCards]);
 
     if (items === -1) {
         return ( 

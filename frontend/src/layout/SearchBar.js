@@ -19,7 +19,7 @@ function Header() {
 
     return (
         <form id="search-bar" onSubmit={search}>
-          <InputBase
+          <InputBase 
             placeholder="Search" 
             onChange={handleSearch} 
             value={keyword}

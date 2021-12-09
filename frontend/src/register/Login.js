@@ -92,7 +92,9 @@ function Login() {
                     if (usertype !== "admin") {
                         return AccountService.getProfile({ email : values.email }, usertype);
                     }
-                    return;
+                    else {
+                        window.location.href="./";
+                    }
                 }
                 else if (result.status === 0) {
                     if (result.code === "000" 

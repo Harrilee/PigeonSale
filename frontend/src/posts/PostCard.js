@@ -46,6 +46,9 @@ function PostCard(props) {
                 </React.Fragment>
             )
         }
+        else if (window.location.href.includes("/user/") && props.data.post_product_status !== 0 && localStorage.usertype === "staff") {
+            return <DeletePost post_id={props.data.post_id} />
+        }
         return (
             <React.Fragment/>
         )

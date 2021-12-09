@@ -104,13 +104,13 @@ function MyDeals(props) {
     }
 
     useEffect(() => {
-        if (myDeals === -1 && value == 0) {
+        if (myDeals === -1 && value === 0) {
             getMyDeals()
         }
-        else if (bought === -1 && value == 2) {
+        else if (bought === -1 && value === 2) {
             getBought()
         }
-        else if (sold === -1 && value == 1) {
+        else if (sold === -1 && value === 1) {
             getSold()
         }
     }, [myDeals, getMyDeals, bought, getBought, sold, getSold, value]);
