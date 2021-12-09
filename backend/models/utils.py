@@ -94,6 +94,7 @@ def check_login_user_or_staff(func):
     wrapper_staff.__name__ = func.__name__
     return wrapper_staff
 
+
 def check_login_admin_or_staff(func):
     def wrapper_staff(*args):
         if session['role'] in ['staff', 'admin']:
@@ -102,6 +103,7 @@ def check_login_admin_or_staff(func):
 
     wrapper_staff.__name__ = func.__name__
     return wrapper_staff
+
 
 def check_login_admin(func):
     def wrapper_admin(*args):
@@ -120,6 +122,8 @@ def get_uid():
     if 'uid' in session:
         uid = session['uid']
     else:
+        uid = -1
+    if session['uid'] is None:
         uid = -1
     return int(uid)
 
