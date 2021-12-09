@@ -25,13 +25,18 @@ function AddressBook(props) {
                     </Card>
                     </Grid>
                 }
-                else if (props.variant === "selecting") {
+                else if (props.variant === "editing-selecting") {
                     if (i === props.selection.selectedInd) {
+                        console.log("selecte")
                         return <Grid item xs={2} sm={4} md={4} key={i}>
                         <Card className={"address-card selected-address"} variant="outlined" onClick={() => props.selection.setSelectAction(props.variant,i)}>
                         <h2>{addr.name}</h2>
                         {addr.address}<br/>
                         {addr.phone}
+                        <div>
+                        <div onClick={() => props.selection.setSelectAction("editing",i)} name="editaddr"><EditIcon/></div>
+                        <div onClick={() => props.selection.setSelectAction("deleting",i)} name="deladdr"><DeleteIcon/></div>
+                        </div>
                         </Card>
                         </Grid>
                     }
@@ -41,6 +46,10 @@ function AddressBook(props) {
                         <h2>{addr.name}</h2>
                         {addr.address}<br/>
                         {addr.phone}
+                        <div>
+                        <div onClick={() => props.selection.setSelectAction("editing",i)} name="editaddr"><EditIcon/></div>
+                        <div onClick={() => props.selection.setSelectAction("deleting",i)} name="deladdr"><DeleteIcon/></div>
+                        </div>
                         </Card>
                         </Grid>
                     }
