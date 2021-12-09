@@ -14,6 +14,7 @@ import Signup from './register/Signup';
 import Logout from './register/Logout';
 import NotFound from './layout/NotFound';
 import DealStarter from './deal-editor/DealStarter';
+import SignStaff from './register/SignStaff';
 import './App.scss';
 
 import { ThemeProvider } from '@mui/material/styles';
@@ -51,6 +52,8 @@ function App() {
         <Route exact path="/login" component={Login}/>
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/logout" component={Logout}/>
+        {localStorage.usertype === "admin" ? 
+              <Route exact path="/signup/staff" component={SignStaff} /> : ""}
         <Header />
           <div id="content">
                 {renderRoutes()}
