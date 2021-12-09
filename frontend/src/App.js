@@ -20,6 +20,29 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
 
 function App() {
+
+  const renderRoutes = () => {
+    if  (localStorage.usertype === "admin") {
+      return <Switch>
+              <Route exact path="/" component={Dashboard}/> 
+              <Route exact path="/dashboard"  component={Dashboard}/> 
+              <Route component={NotFound} />
+              </Switch>
+    }
+    else {
+      return <Switch>
+                <Route exact path="/" component={Index}/>
+                <Route exact path="/user/:user_id"  component={(matchProps) => <Profile {...matchProps} type="user"/>}/>
+                <Route exact path="/staff/:user_id"  component={(matchProps) => <Profile {...matchProps} type="staff"/>}/>  
+                <Route exact path="/post/:post_id"  component={FullPost}/> 
+                <Route exact path="/post/:post_id/buy/user/:user_id"  component={DealStarter}/> 
+                <Route exact path="/search/:keyword"  component={SearchPosts}/>  
+                <Route exact path="/settings" component={Settings}/>  
+                <Route exact path="/dashboard"  component={Dashboard}/> 
+                <Route component={NotFound} />
+      </Switch>
+    }
+  }
   
   return (
     <ThemeProvider theme={theme}>
@@ -30,17 +53,7 @@ function App() {
         <Route exact path="/logout" component={Logout}/>
         <Header />
           <div id="content">
-              <Switch>
-                <Route exact path="/" component={Index}/>
-                <Route exact path="/user/:user_id"  component={(matchProps) => <Profile {...matchProps} type="user"/>}/>
-                <Route exact path="/staff/:user_id"  component={(matchProps) => <Profile {...matchProps} type="staff"/>}/>  
-                <Route exact path="/post/:post_id"  component={FullPost}/> 
-                <Route exact path="/post/:post_id/buy/user/:user_id"  component={DealStarter}/> 
-                <Route exact path="/search/:keyword"  component={SearchPosts}/>   
-                <Route exact path="/dashboard"  component={Dashboard}/>  
-                <Route exact path="/settings" component={Settings}/>  
-                <Route component={NotFound} />
-              </Switch>
+                {renderRoutes()}
           </div>
         <Footer />
       </Router>
