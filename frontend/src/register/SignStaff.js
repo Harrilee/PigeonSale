@@ -16,7 +16,6 @@ function SignStaff() {
         bio: ""
     });
     
-    const [usertype,setUserType]=useState("");
     const [scrolling,setScroll]=useState("scroll1");
 
     let resetErrors = {
@@ -25,7 +24,6 @@ function SignStaff() {
         emailError: { status: false, msg: "" },
         passwordError: { status: false, msg: "" },
         password2Error: { status: false, msg: "" },
-        usertypeError: { status: false, msg: "" },
         birthdayError: { status: false, msg: "" },
         genderError: { status: false, msg: "" }
     }; // to show on form's error message
