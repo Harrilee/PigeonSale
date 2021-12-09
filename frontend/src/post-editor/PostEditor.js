@@ -78,7 +78,7 @@ function PostEditor(props) {
         };
 
         let condition = price.length === 0;
-        let condition2 = title.length === 0 || body.length === 0;
+        let condition2 = title.length === 0 && body.length === 0;
         let condition3 = images === -1 || images.length === 0;
         let condition4 = parseFloat(price).toString() !== price.toString();
 
