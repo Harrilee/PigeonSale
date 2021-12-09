@@ -46,10 +46,10 @@ function Login() {
         localStorage.setItem("isLoggedIn", false);
         console.log("Form submitted");
 
-        if (values.email.length === 0) {
+        if (usertype !== "admin" && values.email.length === 0) {
             setErrors({...errors, emailError: { status: true, msg: "Required field"} });
         }
-        else if (values.email.includes("@") === 0) {
+        else if (usertype !== "admin" && values.email.includes("@") === 0) {
             setErrors({...errors, emailError: { status: true, msg: "Not a valid email"} });
         }
         else if (values.password.length === 0) {
@@ -59,23 +59,34 @@ function Login() {
             setErrors({...errors, usertypeError: { status: true, msg: "Required field"} });
         }
         else {
-            console.log(values);
+            let sendValues = {};
+            if (usertype === "admin") {
+                sendValues = { password : values.password }
+            }
+            else {
+                sendValues = values;
+            }
+            console.log(sendValues);
             console.log(usertype);
-            AuthService.login(values, usertype)
+            AuthService.login(sendValues, usertype)
             .then(res => {
                 return res.json();
             })
             .then(result => {
+                console.log(result);
                 if (result.status === 1) {
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("usertype", usertype);
-                    localStorage.setItem("email", values.email);
-                    localStorage.setItem("username", result.data.username);
-                    if (result.data.avatar.length !== 0) {
-                        localStorage.setItem("avatar", result.data.avatar);
+                    localStorage.setItem("avatar", "/default/empty-icon.png");
+                    if (usertype !== "admin") {
+                        localStorage.setItem("email", values.email);
+                        localStorage.setItem("username", result.data.username);
+                        if (result.data.avatar.length !== 0) {
+                            localStorage.setItem("avatar", result.data.avatar);
+                        }
                     }
                     else {
-                        localStorage.setItem("avatar", "/default/empty-icon.png");
+                        localStorage.setItem("avatar", "/favicon.png");
                     }
                     console.log("Login success");
                     return AccountService.getProfile({ email : values.email }, usertype);
