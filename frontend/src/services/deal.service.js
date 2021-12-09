@@ -33,8 +33,8 @@ const getSold = () => {
     });
 }
 
-const createDeal = (id) => {
-    const values = { post_id : id };
+const createDeal = (id, address) => {
+    const values = { post_id : id, ...address };
     return fetch(DEAL_URL, {
         mode: 'cors',
         method: 'POST',
