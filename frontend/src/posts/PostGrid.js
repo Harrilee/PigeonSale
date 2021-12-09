@@ -8,14 +8,13 @@ function PostGrid(props) {
     const [postList, setPostList] = useState(-1);
 
     const renderPosts = () => {
-        if (postList.length > 0) {
+         if (postList.length > 0) {
             return postList.map((post,i) => {
                 return <PostCard data={post} />
             });
         }
         else if (postList.length === 0) {
             return <React.Fragment>
-                    <div className="center">&nsbp;</div>
                     <div className="center">
                         No posts
                     </div>
@@ -27,7 +26,6 @@ function PostGrid(props) {
                 </div>
         }
         return <React.Fragment>
-            <div className="center"></div>
             <div className="center">
                 Loading...
             </div>
@@ -40,12 +38,14 @@ function PostGrid(props) {
         }
     }, [props.posts, postList]);
 
-    
-    return (
-        <div id="post-grid">
-            {renderPosts()}
-        </div> 
-    )
+    if (postList !== -1) {
+        return <div id="post-grid" 
+                spacing={{ xs: 1, sm: 2, md: 3 }}
+                columns={{ xs: 1, sm: 2, md: 3 }}>
+                    {renderPosts()}
+            </div> 
+    }
+    return <React.Fragment/>
 
 }
 

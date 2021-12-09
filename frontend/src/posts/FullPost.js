@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import PostService from "../services/post.service";
 import "./FullPost.scss";
 import TimeAgo from "../components/TimeAgo";
@@ -44,10 +44,21 @@ function FullPost({ match }) {
     }, [getPost, post]);
 
     function EditorButtons() {
-        if (localStorage.username === post.post_author_username && post.post_product_status !== 0) {
+        if (parseInt(localStorage.user_id) === post.post_author_id && post.post_product_status !== 0) {
             return (
                 <React.Fragment>
+                <Divider/>
+                <br/>
                 <UpdatePost post_id={post.post_id} />
+                <DeletePost post_id={post.post_id} />
+                </React.Fragment>
+            )
+        }
+        else if (localStorage.usertype === "staff" && post.post_product_status !== 0) {
+            return (
+                <React.Fragment>
+                <Divider/>
+                <br/>
                 <DeletePost post_id={post.post_id} />
                 </React.Fragment>
             )
@@ -61,7 +72,7 @@ function FullPost({ match }) {
         if (post.post_product_status === 0) {
             return <Button variant="contained" fullWidth disabled >Sold</Button>
         }
-        else {
+        else if (parseInt(localStorage.user_id) !== post.post_author_id && localStorage.usertype !== "staff") { 
             return (
             <React.Fragment>
                 <Button variant="contained" fullWidth onClick={() => window.location.href+="/buy/user/"+localStorage.user_id}>Buy</Button>
@@ -69,6 +80,7 @@ function FullPost({ match }) {
             </React.Fragment>
             )
         }
+        return <React.Fragment/>
     }
 
     function PostPrice() {

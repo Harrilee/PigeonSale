@@ -1,8 +1,12 @@
 @import '../_theme.scss';
 
 #post-grid {
-    width:100%;
+    width:80vw;
+    margin:0px auto;
     text-align:center;
+}
+
+#post-grid {
     column-count:3;
     column-gap:1.5em;
 }
