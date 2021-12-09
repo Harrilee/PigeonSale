@@ -36,12 +36,16 @@ function AccountMenu() {
         }}
         PaperProps={{ sx: { width: 150 } }}
       >
+
         <MenuItem onClick={() => {
           window.location.href="/dashboard";
         }}>Dashboard</MenuItem>
+        {localStorage.usertype !== "admin"
+        ?
         <MenuItem onClick={() => {
           window.location.href="/settings";
         }}>Settings</MenuItem>
+        : <React.Fragment/>}
         <Divider/>
         <MenuItem onClick={() => {
           window.location.href="/logout";

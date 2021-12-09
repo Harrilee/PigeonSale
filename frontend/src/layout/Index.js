@@ -30,6 +30,9 @@ function Index() {
         }
     });
 
+    if (localStorage.usertype === "admin" && localStorage.isLoggedIn === "true") {
+        window.location.href="/dashboard";
+    }
     return (
         <div id="basic-grid-container">
             <h2 className="title center">Recent Activity</h2>
