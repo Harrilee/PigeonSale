@@ -115,6 +115,15 @@ function Profile(props) {
             </div>
             )
         }
+        else if (props.type === "admin") {
+            return ( 
+                <div id="profile-wrapper">
+                <Box id="profile-container">
+                    <ProfileCard data={{ }} usertype={props.type} />
+                </Box>
+            </div>
+            )
+        }
     }
 
     if (localStorage.user_id === user_id && props.type === localStorage.usertype) {

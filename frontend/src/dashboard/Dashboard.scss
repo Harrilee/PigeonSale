@@ -33,6 +33,10 @@
     margin-left:calc(15% + 2em);
 }
 
+#tabs-container > div[role=tabpanel] > .MuiBox-root {
+    padding:1.5em 0;
+}
+
 #tabs-container .MuiTab-root {
     text-transform:capitalize;
     font-family:$mainFont;
@@ -66,6 +70,40 @@
     background:$mainBackground;
 }
 
-.staff-card #avatar-image {
+.staff-card #avatar-image, .user-card .staff-avatar  {
     border:2px solid #2120ba;
+}
+
+.admin-card #avatar-image, .user-card .admin-avatar  {
+    border:2px solid #000;
+}
+
+#user-manager {
+    width:80%;
+    margin:0px auto;
+}
+
+#user-manager .user-card {
+    padding:1.5em;
+    border-radius:0.3em;
+    border:1px solid $mainBorderColor;
+}
+
+.user-card-name .post-avatar {
+    width:3em;
+    height:3em;
+}
+.user-card{
+    position:relative;
+}
+
+.user-card .optional-info div {
+    margin:0;
+    padding-right:1.5em;
+}
+
+.user-card button {
+    position:absolute;
+    right:1.5em;;
+    top:1.5em;;
 }

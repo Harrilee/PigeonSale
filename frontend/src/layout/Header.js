@@ -8,7 +8,7 @@ function Header() {
     return (
        <header>
           <LogoCard title="Pigeon Sale" size="small" position="left" />
-          <SearchBar/>
+          {localStorage.usertype !== "admin" ? <SearchBar/> : <React.Fragment/>}
           <Navigation />
        </header>
     )

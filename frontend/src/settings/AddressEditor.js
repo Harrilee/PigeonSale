@@ -7,7 +7,7 @@ import "./AddressBook.scss";
 import AddressBook from "./AddressBook";
 import DeleteAddress from './DeleteAddress';
 
-function AddressEditor() {
+function AddressEditor(props) {
 
     const [myName, setName] = useState("");
     const [address, setAddress] = useState("");
@@ -127,12 +127,9 @@ function AddressEditor() {
     }, [alertCard, setAlertCard]);
 
     const setSelectAction = (variant, i) => {
-        if (variant === "selecting") {
+        if (variant === "editing-selecting") {
             setSelectedInd(i);
-            setName(addresses[i].name);
-            setAddress(addresses[i].address);
-            setPhone(addresses[i].phone);
-            setSubmitType("select");
+            props.getSelectedAddress( { buyer_address : addresses[i].address, buyer_phone: addresses[i].phone, buyer_name: addresses[i].name })
         }
         else if (variant === "editing") {
             setSelectedInd(i);
@@ -205,7 +202,7 @@ function AddressEditor() {
             <h1>Address Book</h1>
             <AddressBook addresses={addresses} loaded={loaded} 
             selection={{selectedInd:selectedInd, setSelectAction:setSelectAction}} 
-            variant="editing" />
+            variant={props.variant} />
             <Divider/>
             <form onSubmit={handleSubmit}>
                     <TextField fullWidth

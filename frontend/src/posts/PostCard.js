@@ -89,7 +89,7 @@ function PostCard(props) {
         if (props.data.post_images.length !== 0) {
             if (props.data.post_product_status === 0) {
                 return (<div className="image-wrapper">
-                <div className="sold"><h2>SOLD</h2></div>
+                <div className="sold"><h3>SOLD</h3></div>
                 <img src={props.data.post_images[0]} alt={"post-card-"+props.data.post_id} />
             </div>)
             }

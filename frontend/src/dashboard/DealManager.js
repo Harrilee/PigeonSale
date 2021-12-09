@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Tabs, Tab  } from "@mui/material";
 import "./Dashboard.scss";
-import DealService from '../services/deal.service';
-import DealCards from './DealCards';
+import AdminService from '../services/admin.service';
+import SimpleDealCards from './SimpleDealCards';
+import Ratings from '../profile/Ratings';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -31,10 +32,11 @@ function a11yProps(index) {
     };
 }
 
-function MyDeals(props) {
+function DealManager(props) {
 
     const [value, setValue] = useState(0);
     const [deals, setDeals] = useState(-1);
+    const [disabled, setDisabled] = useState(false);
 
     const handleChange = (event, newValue) => {
         if (!disabled) {
@@ -46,35 +48,30 @@ function MyDeals(props) {
         }
     };
 
-    const getSold = () => {
-        DealService.getSold()
+    const getDeals = () => {
+        AdminService.getDeals()
         .then(res => {
             return res.json();
         })
         .then(result => {
             if (result.status === 1) {
-                setSold(result.data);
+                setDeals(result.data);
             }
             else {
-                setSold([])
+                setDeals([])
             }
         })
         .catch(err => {
             console.log(err);
+            setDeals(0)
         });
     }
 
     useEffect(() => {
-        if (myDeals === -1 && value == 0) {
-            getMyDeals()
+        if (deals === -1 && value == 0 && props.isProfileLoaded) {
+            getDeals()
         }
-        else if (bought === -1 && value == 2) {
-            getBought()
-        }
-        else if (sold === -1 && value == 1) {
-            getSold()
-        }
-    }, [myDeals, getMyDeals, bought, getBought, sold, getSold, value]);
+    }, [deals, getDeals, value]);
 
     return ( 
         <Box id="deals-container">
@@ -88,18 +85,24 @@ function MyDeals(props) {
                     float: "left" }}
                 disabled={disabled}
             >
-                <Tab label="All Deals" {...a11yProps(0)} />
-                <Tab label="All Rates" {...a11yProps(1)} />
+                <Tab label="Deals" {...a11yProps(0)} />
+                <Tab label="Cancellations" {...a11yProps(1)} />
+                <Tab label="All Rates" {...a11yProps(2)} />
             </Tabs>
             <TabPanel value={value} index={0}>
-                <h1 className="title"> All Deals </h1>
-                <DealCards deals={myDeals} variant="all" setDisabled={setDisabled} setDisabledParent={props.setDisabled}/>
+                <h1 className="title">Deals </h1>
+                <SimpleDealCards deals={deals} variant="all" setDisabled={setDisabled} setDisabledParent={props.setDisabled}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-
+                <h1 className="title">Cancellations </h1>
+                <SimpleDealCards deals={deals} variant="cancelled" setDisabled={setDisabled} setDisabledParent={props.setDisabled}/>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <h1 className="title">Rates </h1>
+                <Ratings deals={deals} setDisabledParent={props.setDisabled} setDisabled={setDisabled} />
             </TabPanel>
         </Box>
     )
 }
 
-export default MyDeals;
+export default DealManager;

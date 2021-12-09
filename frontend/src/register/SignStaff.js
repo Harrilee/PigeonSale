@@ -5,7 +5,7 @@ import AlertCard from "../components/AlertCard";
 import AccountService from "../services/account.service";
 import './Register.scss';
 
-function Signup() {
+function SignStaff() {
     const [values, setValues] = useState({
         email: "",
         username: "",
@@ -67,11 +67,6 @@ function Signup() {
         setValues({ ...values, gender: gender });
     }
 
-    const handleUserType = (e) => {
-        let usertype = e.target.value;
-        setUserType(usertype);
-    }
-
     const handleScroll = () => {
         setErrors(resetErrors);
         let hasError = false;
@@ -96,10 +91,6 @@ function Signup() {
                 setErrors({...errors, password2Error: { status: true, msg: "Passwords don't match"} });
                 hasError=true;
             }
-            else if (usertype.length === 0) {
-                setErrors({...errors, usertypeError: { status: true, msg: "Required field"} });
-                hasError=true;
-            }
             if (!hasError) {
                 setScroll("scroll2");
             }
@@ -114,7 +105,7 @@ function Signup() {
 
         setErrors(resetErrors);
         
-        AccountService.signup(values, usertype)
+        AccountService.signup(values, "staff")
         .then(res => {
             console.log(res)
             return res.json();
@@ -135,11 +126,11 @@ function Signup() {
 
     }
 
-    if (localStorage.isLoggedIn === "true") {
+    if (localStorage.isLoggedIn === "true" && localStorage.usertype !== "admin") {
         console.log("Already logged in");
         window.location.href="./";
     }
-    else {
+    else if (localStorage.isLoggedIn === "true" && localStorage.usertype === "admin") {
         return (
             <div id="register-wrapper" name="signup">
                 <Box id="register-container">
@@ -147,7 +138,7 @@ function Signup() {
                     display={errors.loginError.status} 
                     message={errors.loginError.msg} static={true} />
 
-                    <LogoCard title="Sign Up" position="center" size="medium" />
+                    <LogoCard title="Staff Sign Up" position="center" size="medium" />
 
                     <form className='multiform' onSubmit={handleSubmit}>
                         
@@ -185,24 +176,7 @@ function Signup() {
                                 error={errors.password2Error.status}
                                 helperText={errors.password2Error.msg}
                             />
-                            
-                            <FormControl fullWidth>
-                                <InputLabel>Login As</InputLabel>
-                                <Select
-                                value={usertype}
-                                label="Login As"
-                                onChange={handleUserType}
-                                error={errors.usertypeError.status}
-                                >
-                                <MenuItem value={"user"}>User</MenuItem>
-                                <MenuItem value={"staff"}>Staff</MenuItem>
-                                <MenuItem value={"admin"}>Admin</MenuItem>
-                                </Select>
-                            </FormControl>
                             <Button name="next" variant="contained" onClick={handleScroll}>Next</Button>
-                            <p>
-                                <small>Have an account? <a href="./login">Log in</a></small>
-                            </p>
                         </div>
 
 
@@ -249,4 +223,4 @@ function Signup() {
     }
 }
 
-export default Signup;
+export default SignStaff;

@@ -4,8 +4,10 @@ import "./Dashboard.scss";
 import AccountService from "../services/account.service";
 import MyPosts from '../dashboard/MyPosts';
 import ProfileCard from '../profile/ProfileCard';
+import DealManager from './DealManager';
 import MyDeals from './MyDeals';
 import Ratings from '../profile/Ratings';
+import UserManager from './UserManager';
 
 
 function TabPanel(props) {
@@ -50,6 +52,7 @@ function Dashboard() {
     };
 
     const getProfile = () => {
+        if (localStorage.usertype !== "admin") {
         const email = localStorage.email;
         const request = {
             email : email
@@ -68,6 +71,81 @@ function Dashboard() {
         .catch(err => {
             console.log(err);
         });
+        }
+        else {
+            setProfile({});
+            setLoaded(true);
+        }
+    }
+
+    const renderDash = () => {
+        if (localStorage.usertype === "user") {
+            console.log("yes!!!")
+        return (<Box id="tabs-container">
+            <Tabs
+                orientation="horizontal"
+                value={value}
+                onChange={handleChange}
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
+                centered
+            >
+                <Tab label="My Shop" {...a11yProps(0)} />
+                <Tab label="My Deals" {...a11yProps(1)} />
+                <Tab label="My Ratings" {...a11yProps(2)} />
+            </Tabs>
+            <TabPanel value={value} index={0}>
+                <MyPosts isProfileLoaded={loaded} setDisabled={setDisabled} />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <MyDeals setDisabled={setDisabled}/>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <Ratings user_id={localStorage.user_id} isProfileLoaded={loaded} setDisabled={setDisabled} />
+            </TabPanel>
+            </Box>)
+        }
+        else if (localStorage.usertype === "staff") {
+            return (<Box id="tabs-container">
+            <Tabs
+                orientation="horizontal"
+                value={value}
+                onChange={handleChange}
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
+                centered
+            >
+                <Tab label="User Manager" {...a11yProps(0)} />
+                <Tab label="Deal Manager" {...a11yProps(1)} />
+            </Tabs>
+
+            <TabPanel value={value} index={0}>
+                <UserManager type="user" isProfileLoaded={loaded} setDisabled={setDisabled} />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <DealManager isProfileLoaded={loaded} setDisabled={setDisabled} />
+            </TabPanel>
+            </Box>)
+        }
+        else if (localStorage.usertype === "admin") {
+            return (<Box id="tabs-container">
+            <Tabs
+                orientation="horizontal"
+                value={value}
+                onChange={handleChange}
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
+                centered
+            >
+                <Tab label="User Manager" {...a11yProps(0)} />
+                <Tab label="Staff Manager" {...a11yProps(1)} />
+            </Tabs>
+
+            <TabPanel value={value} index={0}>
+                <UserManager type="user" isProfileLoaded={loaded} setDisabled={setDisabled} />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <UserManager type="staff" isProfileLoaded={loaded} setDisabled={setDisabled} />
+            </TabPanel>
+            </Box>)
+        }
     }
 
     useEffect(() => {
@@ -77,65 +155,15 @@ function Dashboard() {
     });
 
 
-    if (localStorage.usertype === "user") {
-        return ( 
+   
+    return ( 
             <div id="profile-wrapper">
                 <Box id="profile-container">
                     <ProfileCard data={profile} usertype={localStorage.usertype} user_id={localStorage.user_id} />
-                    <Box id="tabs-container">
-                        <Tabs
-                            orientation="horizontal"
-                            value={value}
-                            onChange={handleChange}
-                            sx={{ borderBottom: 1, borderColor: 'divider' }}
-                            centered
-                        >
-                            <Tab label="My Shop" {...a11yProps(0)} />
-                            <Tab label="My Deals" {...a11yProps(1)} />
-                            <Tab label="My Ratings" {...a11yProps(2)} />
-                        </Tabs>
-                        <TabPanel value={value} index={0}>
-                            <MyPosts isProfileLoaded={loaded} setDisabled={setDisabled} />
-                        </TabPanel>
-                        <TabPanel value={value} index={1}>
-                            <MyDeals setDisabled={setDisabled}/>
-                        </TabPanel>
-                        <TabPanel value={value} index={2}>
-                            <Ratings user_id={localStorage.user_id} isProfileLoaded={loaded} setDisabled={setDisabled} />
-                        </TabPanel>
-                    </Box>
+                    {renderDash()}
                 </Box>
             </div>
-        )
-    }
-    else if (localStorage.usertype === "staff") {
-        return ( 
-            <div id="staff-profile profile-wrapper">
-                <Box id="profile-container">
-                    <ProfileCard data={profile} usertype={localStorage.usertype} user_id={localStorage.user_id} />
-                    <Box id="tabs-container">
-                        <Tabs
-                            orientation="horizontal"
-                            value={value}
-                            onChange={handleChange}
-                            sx={{ borderBottom: 1, borderColor: 'divider' }}
-                            centered
-                        >
-                            <Tab label="User Manager" {...a11yProps(0)} />
-                            <Tab label="Post Manager" {...a11yProps(1)} />
-                        </Tabs>
-
-                        <TabPanel value={value} index={0}>
-                            Users
-                        </TabPanel>
-                        <TabPanel value={value} index={1}>
-                            <MyDeals setDisabled={setDisabled} />
-                        </TabPanel>
-                    </Box>
-                </Box>
-            </div>
-        )
-    }
+    )
 }
 
 export default Dashboard;

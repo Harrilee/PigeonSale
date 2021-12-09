@@ -210,7 +210,8 @@
 }
 
 .deal-bar .rate-button {
-    background:#9ba2c9;
+    background:#000;
+    color:$mainBoxColor;
 }
 
 .deal-bar .confirm-button {
@@ -225,9 +226,6 @@
     border-color:#555;
 }
 
-.deal-bar .rate-button:hover {
-    border-color:#9298b9;
-}
 
 
 @keyframes bounce {

@@ -63,7 +63,7 @@ function Settings() {
                 <ResetPassword/>
             </TabPanel>
             <TabPanel value={value} index={2} >
-                <AddressEditor/>
+                <AddressEditor variant="editing"/>
             </TabPanel>
             </Box>
         </div>
