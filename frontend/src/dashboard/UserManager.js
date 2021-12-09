@@ -96,7 +96,7 @@ function UserCards(props) {
         return users.map((user,i) => {
             user.avatar = user.avatar.length > 0 ? user.avatar : "/default/empty-icon.png";
             return (
-                <Box className="user-card">
+                <Box className="user-card left">
                     <div className="user-card-name">
                         {props.type === "staff" 
                         ?
@@ -189,9 +189,12 @@ function UserManager(props) {
     }, [users, getUsers]);
 
     return (
+        <div className="center">
         <Stack id="user-manager" spacing={2}>
         <UserCards type={props.type} users={users} loaded={loaded} />
-        </Stack>
+        </Stack><br/>
+        {props.type === "staff" ? <Button variant="outlined" onClick={() => window.location.href="/signup/staff"}>Add Staff</Button> : ""}
+        </div>
     )
     
 }

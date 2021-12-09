@@ -89,7 +89,10 @@ function Login() {
                         localStorage.setItem("avatar", "/favicon.png");
                     }
                     console.log("Login success");
-                    return AccountService.getProfile({ email : values.email }, usertype);
+                    if (usertype !== "admin") {
+                        return AccountService.getProfile({ email : values.email }, usertype);
+                    }
+                    return;
                 }
                 else if (result.status === 0) {
                     if (result.code === "000" 
