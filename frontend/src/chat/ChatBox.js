@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button} from "@mui/material";
+import {Box, Button, Modal, InputBase } from "@mui/material";
 import "./Chat.scss";
 import moment from 'moment';
 
@@ -48,7 +48,9 @@ const Prompt = (props) => {
 
 const ChatBox = (props) => {
     const {r_id, r_role, post_id, setOpen, open} = props;
-    const [chatData, setChatData] = React.useState(null)
+    const [chatData, setChatData] = React.useState(null);
+    const [currentInterval,setCurrentInterval] = React.useState(null);
+
     const getData = (r_id, r_role, post_id) => {
         const values = {r_uid: r_id, r_role: r_role, post_id: post_id};
         const uri = Object.keys(values).map((k) => {
@@ -67,16 +69,25 @@ const ChatBox = (props) => {
             console.log(result)
             if (JSON.stringify(chatData) !== JSON.stringify(result.data)) {
                 setChatData(result.data)
+                const chatdiv = document.getElementById("chat_messages");
+                const chatdivwrap = document.getElementById("chat_body_wrap");
+                console.log(chatdiv.scrollHeight);
+                chatdivwrap.scrollTop = chatdiv.scrollHeight;
             }
         });
     }
+
     const handleClose = () => {
-        setOpen(false)
+        props.setOpen(false);
+        console.log("delete interval")
+        clearInterval(currentInterval);
+        setCurrentInterval(null);
     }
-    var getMsg
+
     const handleSend = () => {
         let msg = document.getElementById('msg2send').value
-        document.getElementById('msg2send').value = ''
+        document.getElementById('msg2send').value = '';
+
         fetch(CHAT_URL, {
                 mode: 'cors',
                 method: 'POST',
@@ -96,24 +107,29 @@ const ChatBox = (props) => {
             }
         });
     }
-    getData(r_id, r_role, post_id);
-    React.useState(()=>{
-        clearInterval(getMsg)
-        getMsg = setInterval(getData, 1000, r_id, r_role, post_id);
-    })
+
+    useEffect(() => {
+        if (props.open && !currentInterval) {
+            console.log("create interval");
+            const intervalId= setInterval(getData, 1000, r_id, r_role, post_id);
+            setCurrentInterval(intervalId);
+        }
+    }, [currentInterval, props.open]);
 
     if (!chatData)
         return <React.Fragment/>
     let rendered_dates = []
     let show_date = false;
     return (
+        <Modal open={props.open} >
         <div className={open ? "chat_border chat_border_show" : "chat_border chat_border_hide"}>
             <div className={'chat_title'}>
                 <span>{chatData.receiver.username}</span>
                 <span style={{fontWeight: 'bold'}}><a onClick={handleClose}>✕</a></span>
             </div>
             <hr className={'chat_separator'}/>
-            <div className={'chat_body'}>
+            <div id="chat_body_wrap" className={'chat_body'}>
+                <div id="chat_messages">
                 {chatData.message.map(d => {
                     let send_time = moment(d.send_time, "YYYY-MM-DD hh:mm:ss")
                     let cur_time = moment()
@@ -139,13 +155,15 @@ const ChatBox = (props) => {
                         </>
                     )
                 })}
+                </div>
             </div>
             <hr className={'chat_separator'}/>
             <div className={'chat_input_box'}>
-                <textarea id={'msg2send'} data-gramm="false"/>
+                <InputBase id={'msg2send'} data-gramm="false"/>
                 <Button className="send_button" onClick={handleSend} variant="contained">Send</Button>
             </div>
-        </div>
+            </div>
+        </Modal>
     )
 
 

@@ -24,22 +24,23 @@ function ChatButton(props) {
         return (
             <React.Fragment>
                 <Button id="chat-button" onClick={handleOpen} variant="contained"><ChatIcon/></Button>
-                <ChatBox
+                {open ? <ChatBox
                     r_id={props.receiver_id} r_role={props.receiver_role}
                     post_id={props.type === 'post' ? props.post_id : null}
                     setOpen={setOpen} open={open}
-                />
+                /> : ""}
             </React.Fragment>
         )
     } else if (props.type === "post") {
+        console.log(props)
         return (
             <React.Fragment>
                 <Button id="chat-button" onClick={handleOpen} variant="outlined" fullWidth>Inquire</Button>
-                <ChatBox
+                {open ? <ChatBox
                     r_id={props.receiver_id} r_role={props.receiver_role}
                     post_id={props.type === 'post' ? props.post_id : null}
                     setOpen={setOpen} open={open}
-                />
+                /> : ""}
             </React.Fragment>
         )
     }

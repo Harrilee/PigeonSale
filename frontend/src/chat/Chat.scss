@@ -43,7 +43,7 @@
   height: 48vh;
   padding: 10px;
   background: rgb(245, 245, 245);
-  overflow: scroll;
+  overflow:scroll;
 }
 
 .chat_input_box {
@@ -60,10 +60,15 @@
   .send_button {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 0.5em;
     height:auto;
     margin: 15px;
   }
+}
+
+.chat_input_box .MuiInputBase-root,
+#msg2send {
+    width:calc(100% - 5em);
 }
 
 .chat_separator {
