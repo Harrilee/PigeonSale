@@ -7,12 +7,15 @@ function ProfileCard(props) {
 
     const [avatar, setAvatar] = useState("/default/empty-icon.png");
     const [loaded, setLoaded] = useState(false);
+    const [title, setTitle] = useState("");
 
     function UserBadge() {
         if (props.usertype === "staff") {
             return <div className="staff-badge">Staff</div>
         }
         else if (props.usertype === "admin") {
+            setAvatar("./favicon.png");
+            setTitle("Pigeon Sale");
             return <div className="admin-badge">Admin</div>
         }
         return <React.Fragment/>
@@ -20,9 +23,9 @@ function ProfileCard(props) {
 
     useEffect(() => {
         if (!loaded) {
+            setTitle(props.data.username);
             if (props.data.avatar) {
                 setAvatar(props.data.avatar);
-                console.log(props.data)
                 setLoaded(true);
             }
         }
@@ -30,13 +33,14 @@ function ProfileCard(props) {
 
     return ( 
         <div className={props.usertype + "-card"}>
-                <ChatButton type="profile" receiver_id={props.user_id} receiver_role={props.usertype} />
+                {props.usertype !== "admin" ? <ChatButton type="profile" receiver_id={props.user_id} receiver_role={props.usertype} />
+                : <React.Fragment/>}
                 <div id="avatar-card">
                     <div id="avatar">
                         <div id="avatar-image" style={{ backgroundImage: "url('"+ avatar + "')", backgroundSize: "100%" }}></div>
                     </div>
                     <div id="username">
-                        <h1>{props.data.username}</h1> <UserBadge />
+                        <h1>{title}</h1> <UserBadge />
                         { props.data.gender !== "Other" || props.data.birthday ? <div className="optional-info">
                             <div className="big">
                             <GenderIcon type={props.data.gender} />
