@@ -36,7 +36,7 @@ For more information, see [config.py](./backend/config.py) [Although it's not sa
 ## Release History
 None
 
-## Project overview
+## Project Overview
 ![Pigeon Sale Front Page](./pigeon-sale-front-page.png)
 ![Pigeon Sale Overview](./pigeon-sale-overview.png)
 
