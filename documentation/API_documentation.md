@@ -410,7 +410,7 @@ In the following stats, each role has different permissions to cancel the order 
                 * `seller_id`: int, user_id of the seller
                 * `buyer_id`: int, user_id of the buyer
                 * `price`: float (.2f), the price paid, which cannot be modified once the deal is created
-                * `ststus`: String, one from {"Unpaid", "Shipment pending", "Delivering","Deal finished", "Cancelled
+                * `status`: String, one from {"Unpaid", "Shipment pending", "Delivering","Deal finished", "Cancelled
                   by ***" (seller, buyer, staff)}
                 * `buyer_address`: where the package sent to
                 * `buyer_phone`
