@@ -17,6 +17,7 @@ The following services are required to install on your machine:
 *Note: to simplify collaboration process, MySQL and Redis are already deployed on Harry's Tencent Cloud 
 server. When backend starts, it will automatically connect to the cloud.
 For more information, see [config.py](./backend/config.py) [Although it's not safe to do so].
+
 ## Get Started
 * Admin password: `pigeon` (pleas use this password to login via Frontend)
 * [Launch backend](./backend/README.md): notes on how to establish backend server
@@ -31,8 +32,13 @@ For more information, see [config.py](./backend/config.py) [Although it's not sa
   * [Cycle 4](./documentation/contribution_log/cycle_4.md)
   * [Post Cycle 4](./documentation/contribution_log/cycle_5.md)
 * [Project highlights](./documentation/highlights.md): a record of some excellent parts in this project
+
 ## Release History
 None
+
+## Project overview
+![Pigeon Sale Front Page](./pigeon-sale-front-page.png)
+![Pigeon Sale Overview](./pigeon-sale-overview.png)
 
 ## Iteration Goals
 
