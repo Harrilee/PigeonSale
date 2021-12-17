@@ -2,7 +2,13 @@
 Nov 23 to Dec. 11.
 
 ## Harry Lee
-* ...
+* Define all needed APIs needed in cycle 4
+* New classes
+ * Chat
+ * Rating
+* Implement the APIs defined in the document
+* Help with Chatting in front end
+* Set up socket for backend
 
 ## Robin Luo
 * Cleaning and updating to existing components
