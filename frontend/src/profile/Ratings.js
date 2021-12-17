@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AccountService from '../services/account.service';
 import { Stack, Box, Rating } from "@mui/material";
 import "./Ratings.scss";
@@ -9,8 +9,7 @@ function Ratings(props) {
     const [ratings, setRatings] = useState(-1);
     const [avg, setAvg] = useState(0);
 
-    const getRatings = () => {
-        console.log("getting!")
+    const getRatings = useCallback(() => {
         AccountService.getRatings(props.user_id)
         .then(res => {
             return res.json();
@@ -25,11 +24,10 @@ function Ratings(props) {
             props.setDisabled(false);
         })
         .catch(err => {
-            console.log(err);
             setRatings([]);
             props.setDisabled(false);
         });
-    }
+    },[props]);
 
     const renderRatings = () => {
         if (ratings === -1) {
@@ -92,7 +90,7 @@ function Ratings(props) {
             setRatings(dealRatings)
             props.setDisabled(false);
         }
-    }, [props.isProfileLoaded, ratings, getRatings]);
+    }, [props, ratings, getRatings]);
 
 
 
@@ -100,7 +98,7 @@ function Ratings(props) {
         <Box id="ratings-container">
         {localStorage.usertype !== "staff" ?
         <h1 className="title center">{avg} <br></br><Rating name="read-only" precision={0.5} value={avg} readOnly /> </h1>
-        : <h1></h1>}
+        : <React.Fragment/>}
             {renderRatings()}
         </Box>
     )

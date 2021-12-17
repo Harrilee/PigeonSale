@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, Stack , Divider, Modal,Button } from "@mui/material";
 import "./Dashboard.scss";
 import AdminService from '../services/admin.service';
@@ -15,7 +15,6 @@ function RemoveUser(props) {
             AdminService.deleteUser(id)
             .then(res => res.json())
             .then(result => {
-                console.log(result)
                 if (result.status === 1) {
                     setOpenDelete(false);
                     window.location.reload();
@@ -25,7 +24,6 @@ function RemoveUser(props) {
                 }
             })
             .catch(err => {
-                console.log(err);
                 setAlertCard({ type: "error", status: false, msg: "Could not delete" });
             });
         }
@@ -42,7 +40,6 @@ function RemoveUser(props) {
                 }
             })
             .catch(err => {
-                console.log(err);
                 setAlertCard({ type: "error", status: false, msg: "Could not delete" });
             });
         }
@@ -82,7 +79,6 @@ function UserCards(props) {
 
     useEffect(() => {
         if (users === -1 && props.loaded) {
-            console.log(props.users);
             setUsers(props.users);
         }
     }, [props, users]);
@@ -138,14 +134,13 @@ function UserManager(props) {
     const [users, setUsers] = useState(-1);
     const [loaded, setLoaded] = useState(false);
 
-    const getUsers = () => {
+    const getUsers = useCallback(() => {
         if (props.type === "user") {
                 AdminService.getUsers()
                 .then(res => {
                     return res.json();
                 })
                 .then(result => {
-                    console.log(result);
                     if (result.status === 1) {
                         setUsers(result.data.users);
                     }
@@ -154,7 +149,6 @@ function UserManager(props) {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
                     setUsers(0)
                 });
                 setLoaded(true);
@@ -165,7 +159,6 @@ function UserManager(props) {
                 return res.json();
             })
             .then(result => {
-                console.log(result);
                 if (result.status === 1) {
                     setUsers(result.data.staffs);
                 }
@@ -174,19 +167,18 @@ function UserManager(props) {
                 }
             })
             .catch(err => {
-                console.log(err);
                 setUsers(0)
             });
             setLoaded(true);
         }
-    }
+    },[props.type]);
 
     useEffect(() => {
         if (users === -1 && props.isProfileLoaded) {
             getUsers();
             props.setDisabled(false);
         }
-    }, [users, getUsers]);
+    }, [users, getUsers, props]);
 
     return (
         <div className="center">

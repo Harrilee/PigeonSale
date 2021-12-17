@@ -17,9 +17,8 @@ function TrackingNumEditor(props) {
     const handleClose = () => setOpenModal(false);
 
     const handleSubmit = () => {
-        console.log(tracking);
         if (tracking === tracking2) {
-            if (tracking.length > 0 || tracking.length > 0) {
+            if (tracking.length > 0 || tracking2.length > 0) {
                 setAlertCard(({ type: "error", status: true, msg: "No empty fields" }));
             }
             DealService.addTrackingNumber(props.deal_id, tracking)
@@ -36,7 +35,6 @@ function TrackingNumEditor(props) {
                 setDisabled(false);
             })
             .catch(err => {
-                console.log(err);
                 setAlertCard(({ type: "error", status: true, msg: "Something went wrong..." }));
                 setDisabled(false);
             });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Box, Tabs, Tab  } from "@mui/material";
 import "./Dashboard.scss";
 import AdminService from '../services/admin.service';
@@ -48,7 +48,7 @@ function DealManager(props) {
         }
     };
 
-    const getDeals = () => {
+    const getDeals = useCallback(() => {
         AdminService.getDeals()
         .then(res => {
             return res.json();
@@ -62,16 +62,15 @@ function DealManager(props) {
             }
         })
         .catch(err => {
-            console.log(err);
             setDeals(0)
         });
-    }
+    }, []);
 
     useEffect(() => {
         if (deals === -1 && value === 0 && props.isProfileLoaded) {
             getDeals()
         }
-    }, [deals, getDeals, value]);
+    }, [deals, getDeals, value, props.isProfileLoaded ]);
 
     return ( 
         <Box id="deals-container">

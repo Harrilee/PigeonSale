@@ -44,7 +44,6 @@ function Login() {
         setErrors(resetErrors);
 
         localStorage.setItem("isLoggedIn", false);
-        console.log("Form submitted");
 
         if (usertype !== "admin" && values.email.length === 0) {
             setErrors({...errors, emailError: { status: true, msg: "Required field"} });
@@ -66,14 +65,12 @@ function Login() {
             else {
                 sendValues = values;
             }
-            console.log(sendValues);
-            console.log(usertype);
+            
             AuthService.login(sendValues, usertype)
             .then(res => {
                 return res.json();
             })
             .then(result => {
-                console.log(result);
                 if (result.status === 1) {
                     localStorage.setItem("isLoggedIn", true);
                     localStorage.setItem("usertype", usertype);
@@ -88,7 +85,6 @@ function Login() {
                     else {
                         localStorage.setItem("avatar", "/favicon.png");
                     }
-                    console.log("Login success");
                     if (usertype !== "admin") {
                         return AccountService.getProfile({ email : values.email }, usertype);
                     }
@@ -111,19 +107,17 @@ function Login() {
                 }
             })
             .then(result => {
-                console.log(result);
                 localStorage.setItem("user_id", result.data.user_id);
                 localStorage.setItem("username", result.data.username);
                 window.location.href="./";
             })
             .catch(err => {
-                console.log(err);
+                return
             });
         }
     }
 
     if (localStorage.isLoggedIn === "true") {
-        console.log("Already logged in");
         window.location.href="./";
         return 
     }

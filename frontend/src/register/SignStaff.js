@@ -105,27 +105,23 @@ function SignStaff() {
         
         AccountService.signup(values, "staff")
         .then(res => {
-            console.log(res)
             return res.json();
         })
         .then(result => {
             if (result.status === 1) {
-                console.log("Sign up success");
                 window.location.href="./login";
             }
             if (result.status === 0) {
-                console.log(result);
                 setErrors({...errors, loginError: { status: true, msg: result.msg } });
             }
         })
         .catch(err => {
-            console.log(err);
+            return
         });
 
     }
 
     if (localStorage.isLoggedIn === "true" && localStorage.usertype !== "admin") {
-        console.log("Already logged in");
         window.location.href="./";
     }
     else if (localStorage.isLoggedIn === "true" && localStorage.usertype === "admin") {

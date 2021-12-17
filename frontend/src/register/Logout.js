@@ -7,13 +7,10 @@ function Logout() {
     const handleLogout  = () => {
         AuthService.logout()
         .then(res => {
-            console.log(res);
-            console.log("Logged out");
             localStorage.clear();
             window.location.href="/";
         })
         .catch(err => {
-            console.log(err);
             window.location.href = "./";
         });
     }

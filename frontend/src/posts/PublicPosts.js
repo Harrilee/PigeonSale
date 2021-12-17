@@ -12,7 +12,6 @@ function PublicPosts(props) {
             return res.json();
         })
         .then(result => {
-            console.log(result);
             if (result.status === 1) {
                 setPublicPosts(result.data.reverse());
             }
@@ -22,7 +21,7 @@ function PublicPosts(props) {
             props.setDisabled(false);
         })
         .catch(err => {
-            console.log(err);
+            setPublicPosts(0);
         });
     }
 

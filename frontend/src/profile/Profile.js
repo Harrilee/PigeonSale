@@ -68,7 +68,7 @@ function Profile(props) {
             setLoaded(true);
         })
         .catch(err => {
-            console.log(err); 
+            window.location.href="/404";
         });
     }
 

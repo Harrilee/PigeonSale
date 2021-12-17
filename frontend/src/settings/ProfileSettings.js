@@ -51,7 +51,6 @@ function ProfileSettings() {
     }
 
     const handleAvatar = (link) => {
-        console.log(link);
         if (link.length === 0) {
             setAvatar("/default/empty-icon.png");
         }
@@ -68,7 +67,6 @@ function ProfileSettings() {
         };
         AccountService.getProfile(request, localStorage.usertype)
         .then(res => {
-            console.log(res);
             return res.json();
         })
         .then(result => {
@@ -95,7 +93,7 @@ function ProfileSettings() {
             }
         })
         .catch(err => {
-            console.log(err);
+            setAlertCard({ type: "error", status: true, msg: "Something went wrong..." });
         });
     }
 
@@ -152,7 +150,7 @@ function ProfileSettings() {
             }
         })
         .catch(err => {
-            console.log(err);
+            return
         });
     }
 
@@ -162,7 +160,7 @@ function ProfileSettings() {
             && Object.getPrototypeOf(prevValues) === Object.prototype) {
             getProfile();
         }
-    }, []);
+    }, [prevValues]);
 
 
     return ( 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { RadioGroup, Radio, FormControlLabel  } from "@mui/material";
 import "../settings/AddressBook.scss";
 
@@ -15,8 +15,8 @@ function PaymentMethod() {
             {options.map((item) => {
             return <h2><FormControlLabel value={item} control={<Radio />} label={item} /></h2>
             })}
-  </RadioGroup>
-)
+        </RadioGroup>
+    )
 }
 
 export default PaymentMethod;

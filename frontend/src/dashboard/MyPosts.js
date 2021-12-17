@@ -25,7 +25,7 @@ function MyPosts(props) {
             props.setDisabled(false);
         })
         .catch(err => {
-            console.log(err);
+            setMyPosts(0);
         });
     }
 

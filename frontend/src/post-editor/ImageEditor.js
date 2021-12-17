@@ -19,12 +19,9 @@ function ImageEditor(props) {
                 setUploadedImages(-1);
                 props.handleImageLinks(result.data.urls);
             }
-            if (result.status === 0) {
-                console.log(result);
-            }
         })
         .catch(err => {
-            console.log(err);
+            return
         });
     }
 
@@ -34,14 +31,13 @@ function ImageEditor(props) {
             return res.json();
         })
         .then(result => {
-            console.log("deleted");
             let links = uploadedImages;
             links.splice(ind,1);
             setUploadedImages(-1);
             props.handleImageLinks(links);
         })
         .catch(err => {
-            console.log(err);
+            return
         });
     }
 
@@ -50,7 +46,7 @@ function ImageEditor(props) {
             return uploadedImages.map((item,i) => {
                 return (<ImageListItem key={item.img}>
                     <div className="image-options">
-                        <a href={item} target="_blank"><ExpandIcon /></a>
+                        <a href={item} target="_blank" rel="noopener noreferrer"><ExpandIcon /></a>
                         <DeleteIcon onClick={() => deleteImage(i)} />
                     </div>
                     <div className="upload-image" style={{ backgroundImage: "url('"+ item + "')", backgroundSize: "cover", backgroundPosition:"center center" }}>
@@ -61,7 +57,6 @@ function ImageEditor(props) {
     }
 
     useEffect(() => {
-        console.log(props.images);
         if (uploadedImages === -1 || props.images !== uploadedImages) {
             document.getElementById("contained-button-file").value = "";
             setUploadedImages(props.images);

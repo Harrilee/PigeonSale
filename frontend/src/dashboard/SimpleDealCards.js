@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./DealCard.scss";
 import { Stack, Box,Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import RateEditor from '../deal-editor/RateEditor';
 import CancelEditor from '../deal-editor/CancelEditor';
 
 function OrderAccordion(props) {
@@ -115,7 +114,7 @@ function SimpleDealCards(props) {
             props.setDisabledParent(false);
             setLoadedDeals(true);
         }
-    }, [props.deals, loadedDeals]);
+    }, [props, loadedDeals]);
 
     if (items === -1) {
         return ( 

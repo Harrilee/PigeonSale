@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {Box, Button, Modal, InputBase } from "@mui/material";
+import React, { useCallback, useEffect } from "react";
+import { Button, Modal, InputBase } from "@mui/material";
 import "./Chat.scss";
 import moment from 'moment';
 
@@ -15,7 +15,7 @@ const MyMessage = (props) => {
                     {msg}
                 </div>
             </div>
-            <img className={'avatar'} src={avatar}/>
+            <img alt="avatar_chatbox_my" className={'avatar'} src={avatar}/>
         </div>
     )
 }
@@ -25,7 +25,8 @@ const OthersMessage = (props) => {
     return (
         <div className="msg_container others_msg_container">
             <div className={'container_time_msg other_container_time_msg'}>
-                <img className={'avatar'} src={avatar}/>
+                <span className={"chat_time"}>{time}</span>
+                <img alt="avatar_chatbox_other" className={'avatar'} src={avatar}/>
                 <div className="msg_style others_msg_style">
                     {msg}
                 </div>
@@ -47,11 +48,11 @@ const Prompt = (props) => {
 }
 
 const ChatBox = (props) => {
-    const {r_id, r_role, post_id, setOpen, open} = props;
+    const {r_id, r_role, post_id } = props;
     const [chatData, setChatData] = React.useState(null);
     const [currentInterval,setCurrentInterval] = React.useState(null);
 
-    const getData = (r_id, r_role, post_id) => {
+    const getData = useCallback((r_id, r_role, post_id) => {
         const values = {r_uid: r_id, r_role: r_role, post_id: post_id};
         const uri = Object.keys(values).map((k) => {
             return k + "=" + encodeURIComponent(values[k]);
@@ -66,20 +67,21 @@ const ChatBox = (props) => {
         }).then(res => {
             return res.json()
         }).then(result => {
-            console.log(result)
             if (JSON.stringify(chatData) !== JSON.stringify(result.data)) {
                 setChatData(result.data)
-                const chatdiv = document.getElementById("chat_messages");
-                const chatdivwrap = document.getElementById("chat_body_wrap");
-                console.log(chatdiv.scrollHeight);
-                chatdivwrap.scrollTop = chatdiv.scrollHeight;
             }
         });
+    }, [chatData, setChatData]);
+
+    const scrollDown = () => {
+        const chatdiv = document.getElementById("chat_messages");
+        const chatdivwrap = document.getElementById("chat_body_wrap");
+        chatdivwrap.scrollTop = chatdiv.scrollHeight;
     }
 
     const handleClose = () => {
+        scrollDown();
         props.setOpen(false);
-        console.log("delete interval")
         clearInterval(currentInterval);
         setCurrentInterval(null);
     }
@@ -104,35 +106,35 @@ const ChatBox = (props) => {
         }).then(result => {
             if (JSON.stringify(chatData) !== JSON.stringify(result.data)) {
                 setChatData(result.data, Date())
+                scrollDown();
             }
         });
     }
 
     useEffect(() => {
         if (props.open && !currentInterval) {
-            console.log("create interval");
             const intervalId= setInterval(getData, 1000, r_id, r_role, post_id);
             setCurrentInterval(intervalId);
         }
-    }, [currentInterval, props.open]);
+    }, [currentInterval, props.open, getData, post_id, r_id, r_role ]);
 
     if (!chatData)
         return <React.Fragment/>
     let rendered_dates = []
     let show_date = false;
+
     return (
         <Modal open={props.open} >
-        <div className={open ? "chat_border chat_border_show" : "chat_border chat_border_hide"}>
+        <div className={props.open ? "chat_border chat_border_show" : "chat_border chat_border_hide"}>
             <div className={'chat_title'}>
                 <span>{chatData.receiver.username}</span>
-                <span style={{fontWeight: 'bold'}}><a onClick={handleClose}>✕</a></span>
+                <span style={{fontWeight: 'bold'}}><span onClick={handleClose}>✕</span></span>
             </div>
             <hr className={'chat_separator'}/>
             <div id="chat_body_wrap" className={'chat_body'}>
                 <div id="chat_messages">
                 {chatData.message.map(d => {
                     let send_time = moment(d.send_time, "YYYY-MM-DD hh:mm:ss")
-                    let cur_time = moment()
                     if (!rendered_dates.includes(send_time.format("YYYY-MM-DD"))) {
                         rendered_dates.push(send_time.format("YYYY-MM-DD"))
                         show_date = true
@@ -165,9 +167,6 @@ const ChatBox = (props) => {
             </div>
         </Modal>
     )
-
-
-    return <React.Fragment/>
 }
 
 export default ChatBox;

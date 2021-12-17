@@ -27,7 +27,6 @@ function AddressBook(props) {
                 }
                 else if (props.variant === "editing-selecting") {
                     if (i === props.selection.selectedInd) {
-                        console.log("selecte")
                         return <Grid item xs={2} sm={4} md={4} key={i}>
                         <Card className={"address-card selected-address"} variant="outlined" onClick={() => props.selection.setSelectAction(props.variant,i)}>
                         <h2>{addr.name}</h2>

@@ -81,7 +81,6 @@ function ResetPassword() {
             }
             AccountService.updateProfile(values)
             .then(res => {
-                console.log(res)
                 return res.json();
             })
             .then(result => {
@@ -92,12 +91,11 @@ function ResetPassword() {
                     setVerification("");
                 }
                 if (result.status === 0) {
-                    console.log(result);
                     setAlertCard({ type: "error", status: true, msg: result.msg });
                 }
             })
             .catch(err => {
-                console.log(err);
+                setAlertCard({ type: "error", status: true, msg: "Something went wrong..." });
             });
         }
     }

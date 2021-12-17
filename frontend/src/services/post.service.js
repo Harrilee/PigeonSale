@@ -91,7 +91,7 @@ const getMyPosts = () => {
     });
 }
 
-export default {
+const PostService = {
     getIndexPosts,
     createPost,
     updatePost,
@@ -100,3 +100,5 @@ export default {
     searchPost,
     getMyPosts
 }
+
+export default PostService;

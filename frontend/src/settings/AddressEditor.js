@@ -66,7 +66,7 @@ function AddressEditor(props) {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    setAlertCard({ type: "error", status: true, msg: "Something went wrong..." });
                 });
             }
             else if (submitType === "edit") {
@@ -85,7 +85,7 @@ function AddressEditor(props) {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    setAlertCard({ type: "error", status: true, msg: "Something went wrong..." });
                 });
             }
         }
@@ -116,7 +116,6 @@ function AddressEditor(props) {
                 }
             })
             .catch(err => {
-                console.log(err);
                 setAddresses(0);
             });
         },500);
@@ -159,7 +158,7 @@ function AddressEditor(props) {
             }
         })
         .catch(err => {
-            console.log(err);
+            setAlertCard({ type: "error", status: true, msg: "Something went wrong..." });
         });
     }
     

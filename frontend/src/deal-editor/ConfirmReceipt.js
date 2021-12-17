@@ -23,7 +23,6 @@ function ConfirmReceipt(props) {
             }
         })
         .catch(err => {
-            console.log(err);
             setAlertCard(({ type: "error", status: true, msg: "Something went wrong..." }));
         });
     }

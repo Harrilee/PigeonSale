@@ -11,17 +11,9 @@ The frontend component is created with React, MUI, Sass, and JavaScript Fetch AP
 ## Getting Started
 To install dependencies ```node_modules```, run the following command in ```frontend``` directory
 ```
-yarn install 
-```
-Alternatively,
-```
 npm install
 ```
 To run the frontend in development mode, run the following command
-```
-yarn start
-```
-Alternatively,
 ```
 npm start
 ```
@@ -31,3 +23,4 @@ The frontend file structure is separated by features and routes. [Noted here](ht
 The main design structure of the site is stored in ```App.scss```   
 The theme colors are stored in ```_theme.scss``` and MUI themes are stored in ```theme.js```   
 Original components are stored in ```components``` directory   
+All connections to the backend / API are stored in the ```services``` folder.

@@ -129,7 +129,7 @@ const deleteRating = (id) => {
     });  
 } 
 
-export default {
+const DealService = {
     getMyDeals,
     getBought,
     getSold,
@@ -141,3 +141,5 @@ export default {
     deleteRating,
     getDealRating
 } 
+
+export default DealService;

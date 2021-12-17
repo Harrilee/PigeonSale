@@ -16,7 +16,6 @@ function Signup() {
         bio: ""
     });
     
-    const [usertype,setUserType]=useState("");
     const [scrolling,setScroll]=useState("scroll1");
 
     let resetErrors = {
@@ -25,7 +24,6 @@ function Signup() {
         emailError: { status: false, msg: "" },
         passwordError: { status: false, msg: "" },
         password2Error: { status: false, msg: "" },
-        usertypeError: { status: false, msg: "" },
         birthdayError: { status: false, msg: "" },
         genderError: { status: false, msg: "" }
     }; // to show on form's error message
@@ -67,11 +65,6 @@ function Signup() {
         setValues({ ...values, gender: gender });
     }
 
-    // const handleUserType = (e) => {
-    //     let usertype = e.target.value;
-    //     setUserType(usertype);
-    // }
-
     const handleScroll = () => {
         setErrors(resetErrors);
         let hasError = false;
@@ -96,10 +89,6 @@ function Signup() {
                 setErrors({...errors, password2Error: { status: true, msg: "Passwords don't match"} });
                 hasError=true;
             }
-            else if (usertype.length === 0) {
-                setErrors({...errors, usertypeError: { status: true, msg: "Required field"} });
-                hasError=true;
-            }
             if (!hasError) {
                 setScroll("scroll2");
             }
@@ -116,27 +105,23 @@ function Signup() {
         
         AccountService.signup(values, "user")
         .then(res => {
-            console.log(res)
             return res.json();
         })
         .then(result => {
             if (result.status === 1) {
-                console.log("Sign up success");
                 window.location.href="./login";
             }
             if (result.status === 0) {
-                console.log(result);
                 setErrors({...errors, loginError: { status: true, msg: result.msg } });
             }
         })
         .catch(err => {
-            console.log(err);
+            return
         });
 
     }
 
     if (localStorage.isLoggedIn === "true") {
-        console.log("Already logged in");
         window.location.href="./";
     }
     else {
@@ -185,19 +170,6 @@ function Signup() {
                                 error={errors.password2Error.status}
                                 helperText={errors.password2Error.msg}
                             />
-                            
-                            {/* <FormControl fullWidth>
-                                <InputLabel>Login As</InputLabel>
-                                <Select
-                                value={"User"}
-                                label="Login As"
-                                onChange={handleUserType}
-                                error={errors.usertypeError.status}
-                                disabled={true}
-                                >
-                                <MenuItem value={"user"}>User</MenuItem>
-                                </Select>
-                            </FormControl> */}
                             <Button name="next" variant="contained" onClick={handleScroll}>Next</Button>
                             <p>
                                 <small>Have an account? <a href="./login">Log in</a></small>

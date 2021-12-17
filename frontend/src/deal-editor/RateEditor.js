@@ -40,7 +40,6 @@ function RateEditor(props) {
             setDisabled(false);
         })
         .catch(err => {
-            console.log(err);
             setAlertCard(({ type: "error", status: true, msg: "Something went wrong..." }));
             setDisabled(false);
         });
@@ -62,7 +61,6 @@ function RateEditor(props) {
             setDisabled(false);
         })
         .catch(err => {
-            console.log(err);
             setAlertCard(({ type: "error", status: true, msg: "Something went wrong..." }));
             setDisabled(false);
         });

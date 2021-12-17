@@ -27,7 +27,6 @@ function DeletePost(props) {
             }
         })
         .catch(err => {
-            console.log(err);
             setAlertCard({ type: "error", status: false, msg: "Could not delete" });
         });
     }

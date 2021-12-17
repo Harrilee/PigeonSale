@@ -59,10 +59,12 @@ const getDeals = () => {
     });
 }
 
-export default {
+const AdminService = {
     getDeals,
     getStaff,
     deleteStaff,
     getUsers,
     deleteUser
 }
+
+export default AdminService;

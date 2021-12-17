@@ -66,9 +66,6 @@ function PostEditor(props) {
         setDisabled(true);
         setAlertCard({ type: "info", status: false, msg: "" });
 
-        console.log(images);
-        console.log(images !== -1 ? images : []);
-
         let values = {
             post_title: title,
             post_content: body,
@@ -80,7 +77,7 @@ function PostEditor(props) {
         let condition = price.length === 0;
         let condition2 = title.length === 0 && body.length === 0;
         let condition3 = images === -1 || images.length === 0;
-        let condition4 = parseFloat(price).toString() !== price.toString();
+        let condition4 = isNaN(price);
 
         let msg = "";
 
@@ -104,7 +101,6 @@ function PostEditor(props) {
         
 
         setTimeout(() => {
-            console.log((msg.length > 0));
             if (!(msg.length > 0)) {
                 if (props.variant === "create") {
                     PostService.createPost(values)
@@ -113,7 +109,6 @@ function PostEditor(props) {
                     })
                     .then(result => {
                         if (result.status === 1) {
-                            console.log("Posted");
                             setAlertCard({ type: "success", status: true, msg: "Posted successfully" });
                             handleClose();
                             window.location.reload();
@@ -124,7 +119,6 @@ function PostEditor(props) {
                         }
                     })
                     .catch(err => {
-                        console.log(err);
                         setAlertCard({ type: "error", status: true, msg: "Something went wrong."});
                     });
                 }
@@ -135,7 +129,6 @@ function PostEditor(props) {
                     })
                     .then(result => {
                         if (result.status === 1) {
-                            console.log("Updated");
                             setAlertCard({ type: "success", status: true, msg: "Updated successfully" });
                             handleClose();
                             window.location.reload();
@@ -146,7 +139,6 @@ function PostEditor(props) {
                         }
                     })
                     .catch(err => {
-                        console.log(err);
                         setAlertCard({ type: "error", status: true, msg: "Something went wrong."});
                     });
                 }
@@ -154,8 +146,6 @@ function PostEditor(props) {
             setDisabled(false);
         },3000);
     }
-
-    const msg = "Post retrieved";
 
     const getPost = useCallback((id) => {
         PostService.getOnePost(id)
@@ -186,9 +176,9 @@ function PostEditor(props) {
             props.setLoadDraft(0);
         })
         .catch(err => {
-            console.log(err);
+            return
         });
-    }, [msg]);
+    }, [props]);
 
     useEffect(() => {
         if (props.loadDraft === 1 && props.variant === "update") {

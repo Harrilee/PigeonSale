@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Box, Button, InputBase, Modal, Divider, Rating, Dialog, DialogContent } from "@mui/material";
+import { Box, Button, InputBase, Modal, Dialog, DialogContent } from "@mui/material";
 import "./TinyEditor.scss";
 import DealService from '../services/deal.service';
 import AlertCard from '../components/AlertCard';
@@ -22,7 +22,6 @@ function CancelEditor(props) {
         .then(res => res.json())
         .then(result => {
             if (result.status === 1) {
-                console.log(result);
                 setOpenConfirm(true);
                 setOpenModal(false);
             }
@@ -32,7 +31,6 @@ function CancelEditor(props) {
             setDisabled(false);
         })
         .catch(err => {
-            console.log(err);
             setAlertCard(({ type: "error", status: true, msg: "Something went wrong..." }));
             setDisabled(false);
         });

@@ -39,9 +39,11 @@ const getVerificationCode = (email) => {
     });   
 }
 
-
-export default {
+const AuthService = {
     login,
     logout,
     getVerificationCode
 }
+
+
+export default AuthService;

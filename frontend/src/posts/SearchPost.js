@@ -11,11 +11,9 @@ function SearchPosts({ match }) {
     const getSearchPosts = () => {
         PostService.searchPost(keyword)
         .then(res => {
-            console.log(res);
             return res.json();
         })
         .then(result => {
-            console.log(result);
             if (result.status === 1) {
                 setSearchPosts(result.data);
                 setSearchText(result.data.length + " result(s) found for ");
@@ -26,7 +24,8 @@ function SearchPosts({ match }) {
             }
         })
         .catch(err => {
-            console.log(err);
+            setSearchText(0 + " result(s) found for ");
+            setSearchPosts(0);
         });
     }
 

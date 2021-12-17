@@ -53,24 +53,23 @@ function Dashboard() {
 
     const getProfile = () => {
         if (localStorage.usertype !== "admin") {
-        const email = localStorage.email;
-        const request = {
-            email : email
-        };
-        AccountService.getProfile(request, localStorage.usertype)
-        .then(res => {
-            return res.json();
-        })
-        .then(result => {
-            if (result.status === 1) {
-                setProfile(result.data);
-                console.log(result.data);
-                setLoaded(true);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
+            const email = localStorage.email;
+            const request = {
+                email : email
+            };
+            AccountService.getProfile(request, localStorage.usertype)
+            .then(res => {
+                return res.json();
+            })
+            .then(result => {
+                if (result.status === 1) {
+                    setProfile(result.data);
+                    setLoaded(true);
+                }
+            })
+            .catch(err => {
+                setLoaded(false);
+            });
         }
         else {
             setProfile({});
@@ -80,8 +79,7 @@ function Dashboard() {
 
     const renderDash = () => {
         if (localStorage.usertype === "user") {
-            console.log("yes!!!")
-        return (<Box id="tabs-container">
+            return (<Box id="tabs-container">
             <Tabs
                 orientation="horizontal"
                 value={value}

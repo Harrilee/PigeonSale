@@ -21,7 +21,9 @@ const deleteImage = (url) => {
     });
 }
 
-export default {
+const ImageService = {
     sendImages,
     deleteImage
 }
+
+export default ImageService;

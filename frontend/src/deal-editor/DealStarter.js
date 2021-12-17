@@ -20,11 +20,9 @@ function DealStarter() {
     }
 
     const handleSubmit = () => {
-        console.log(address);
         DealService.createDeal(post_id, address)
         .then(res => res.json())
         .then(result => {
-            console.log(result);
             if (result.status === 1) {
                 setAlertCard({ type: "success", status: false, msg: "Deal created succesfully" });
                 window.location.href="/";
@@ -34,13 +32,12 @@ function DealStarter() {
                     setAlertCard(({ type: "error", status: true, msg: "Deal already in progress or sold out." }));
                     setTimeout(() => {window.location.href="/";}, 5000);
                 }
-                else if (result.code == "000") {
+                else if (result.code === "000") {
                     setAlertCard(({ type: "error", status: true, msg: "Address required" }));
                 }
             }
         })
         .catch(err => {
-            console.log(err);
             setAlertCard(({ type: "error", status: true, msg: "Something went wrong..." }));
         });
     }

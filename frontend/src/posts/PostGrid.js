@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PostCard from './PostCard';
-import { Masonry } from "@mui/lab";
-import { Box,Grid } from "@mui/material"
 
 function PostGrid(props) {
     
@@ -10,7 +8,7 @@ function PostGrid(props) {
     const renderPosts = () => {
          if (postList.length > 0) {
             return postList.map((post,i) => {
-                return <PostCard data={post} />
+                return <PostCard data={post} key={i} />
             });
         }
         else if (postList.length === 0) {

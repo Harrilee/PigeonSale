@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box, Button, Divider } from "@mui/material";
 import PostService from "../services/post.service";
 import "./FullPost.scss";
@@ -14,7 +14,7 @@ function FullPost({ match }) {
     const [post, setPost] = useState(-1);
     const { params: { post_id } } = match;
 
-    const getPost = () => {
+    const getPost = useCallback(() => {
         PostService.getOnePost(post_id)
         .then(res => {
             return res.json();
@@ -33,9 +33,10 @@ function FullPost({ match }) {
             }
         })
         .catch(err => {
-            console.log(err);
+            setPost(0);
+            window.location.href = "/404";
         });
-    }
+    },[post_id]);
     
     useEffect(() => {
         if (post === -1) {

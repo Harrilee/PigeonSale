@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import "./DealCard.scss";
 import { Stack, Box,Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -168,7 +168,7 @@ function DealCard(props) {
                      <RateButton />
 
                      {item.status.includes("Delivering") > 0 && item.seller_id === parseInt(localStorage.user_id)
-                     ? <TrackingNumEditor name={"Reset"} /> : <React.Fragment/>}
+                     ? <TrackingNumEditor name={"Reset"} deal_id={item.deal_id} /> : <React.Fragment/>}
                 </div>
             </Box>                   
     )
@@ -178,9 +178,9 @@ function DealCards(props) {
 
     const [loadedDeals, setLoadedDeals] = useState(false);
     const [items, setItems] = useState(-1);
-    let loadedCards = [];
+    const [loadedCards, setLoadedCards] = useState([]);
 
-    async function loadDealCards(deals,i) {
+    const loadDealCards = useCallback((deals,i) => {
         if (i < deals.length) {
             let item = deals[i];
             let extra_values = {};
@@ -216,7 +216,6 @@ function DealCards(props) {
             })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
                 if (result.status === 1) {
                     extra_values.canrate = false;
                 }
@@ -226,6 +225,7 @@ function DealCards(props) {
             })
             .then(() => {
                 loadedCards.push({ ...item, ...extra_values });
+                setLoadedCards(loadedCards);
                 loadDealCards(deals,i+1);
             })
         }
@@ -235,7 +235,8 @@ function DealCards(props) {
             props.setDisabledParent(false);
             return;
         }
-    }
+    },[props, loadedCards]);
+
 
 
     useEffect(() => {
@@ -245,7 +246,7 @@ function DealCards(props) {
             loadDealCards(props.deals,0);
             setLoadedDeals(true);
         }
-    }, [props.deals, loadedDeals, loadDealCards]);
+    }, [props, loadedDeals, loadDealCards ]);
 
     if (items === -1) {
         return ( 

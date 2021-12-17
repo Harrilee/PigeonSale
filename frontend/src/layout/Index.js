@@ -19,7 +19,6 @@ function Index() {
             }
         })
         .catch(err => {
-            console.log(err);
             setIndexPosts(0);
         })
     }

@@ -20,11 +20,10 @@ function AvatarImageEditor(props) {
                 setUploadedAvatar(result.data.urls);
                 props.handleAvatar(result.data.urls[0]); // for now
             }
-            console.log(result);
             
         })
         .catch(err => {
-            console.log(err);
+            return
         });
     }
 
@@ -35,27 +34,26 @@ function AvatarImageEditor(props) {
                 return res.json();
             })
             .then(result => {
-                console.log("Deleted")
                 setUploadedAvatar([]);
                 props.handleAvatar("");
             })
             .catch(err => {
-                console.log(err);
+                return
             });
         }
     }
 
     useEffect(() => {
-        if (props.avatar !== uploadedAvatar) {
+        if (props.avatar !== uploadedAvatar[0]) {
             document.getElementById("contained-button-file").value="";
             setUploadedAvatar([props.avatar]);
         }
-    }, [props]);
+    }, [props, uploadedAvatar, setUploadedAvatar]);
 
     return (
         <div id="avatar-image-editor">
         {uploadedAvatar.map((item,i) => (
-            <ImageListItem id="avatar-wrapper" key={item.img}>
+            <ImageListItem id="avatar-wrapper" key={i}>
                 <div className="image-options">
                     <DeleteIcon onClick={() => deleteImage(i)} />
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Box, Tabs, Tab  } from "@mui/material";
 import "./Dashboard.scss";
 import DealService from '../services/deal.service';
@@ -39,7 +39,7 @@ function MyDeals(props) {
     const [sold, setSold] = useState(-1);
     const [disabled, setDisabled] = useState(false);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (e, newValue) => {
         if (!disabled) {
             setValue(newValue);
             props.setDisabled(false);
@@ -49,7 +49,7 @@ function MyDeals(props) {
         }
     };
 
-    const getMyDeals = () => {
+    const getMyDeals = useCallback(() => {
         DealService.getMyDeals()
         .then(res => {
             return res.json();
@@ -63,11 +63,11 @@ function MyDeals(props) {
             }
         })
         .catch(err => {
-            console.log(err);
+            setMyDeals([]);
         });
-    }
+    },[]);
 
-    const getBought = () => {
+    const getBought = useCallback(() => {
         DealService.getBought()
         .then(res => {
             return res.json();
@@ -81,11 +81,11 @@ function MyDeals(props) {
             }
         })
         .catch(err => {
-            console.log(err);
+            setBought([]);
         });
-    }
+    },[]);
 
-    const getSold = () => {
+    const getSold = useCallback(() => {
         DealService.getSold()
         .then(res => {
             return res.json();
@@ -99,9 +99,9 @@ function MyDeals(props) {
             }
         })
         .catch(err => {
-            console.log(err);
+            setSold([]);
         });
-    }
+    },[]);
 
     useEffect(() => {
         if (myDeals === -1 && value === 0) {

@@ -1,6 +1,7 @@
+// Referenced https://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site
 import React, { useState, useEffect } from "react";
 
-    // in miliseconds
+// in miliseconds
 const units = {
         year  : 24 * 60 * 60 * 1000 * 365,
         month : 24 * 60 * 60 * 1000 * 365/12,
