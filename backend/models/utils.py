@@ -123,7 +123,7 @@ def get_uid():
         uid = session['uid']
     else:
         uid = -1
-    if session['uid'] is None:
+    if 'uid' == None:
         uid = -1
     return int(uid)
 
