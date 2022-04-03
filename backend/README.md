@@ -1,6 +1,10 @@
 # PigeonSale Backend
 
 ## Start the application
+### Install dependencies
+```
+pip3 install -r requirements.txt
+```
 ### Using Python
 Launch `app.py` directly, or use `python3 app.py` in terminal.
 ### From terminal
